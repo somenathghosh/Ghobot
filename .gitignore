@@ -3,9 +3,7 @@ public/components
 public/css
 public/js
 public/img
-public/dist/css/chatbot.css
-public/dist/css/style.css
-public/dist/js/main.js
+
 
 .nyc_output
 .sass-cache

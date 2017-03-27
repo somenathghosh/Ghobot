@@ -70,7 +70,7 @@ gulp.task('clean', function() {
 
 //run
 gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images');
+    gulp.start('styles', 'scripts', 'images','watch');
 });
 
 // Watch
@@ -90,6 +90,8 @@ gulp.task('watch', function() {
 
   // Watch any files in dist/, reload on change
   gulp.watch(['public/dist/**']).on('change', livereload.changed);
+
+  gulp.watch(['app/**/**']).on('change', livereload.changed);
 
 });
 
