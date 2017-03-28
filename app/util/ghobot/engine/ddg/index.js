@@ -1,11 +1,26 @@
 'use strict';
 
-var ddg = require('ddg');
+var ddg = require('./ddg');
 
 class Engine {
+	
+	static interceptor (query){
+		return undefined;
+	}
+
+	static listen (query,callback){
+		if(callback) {
+			act(query,callback);
+		}
+		else{
+			throw new Error('no callback provided!');
+		}
+	}
+	
+
 	static act (query, callback){
 
-		ddg.prepareURL('tagore').makeRequest(function(err, body){
+		ddg.prepareURL(query).makeRequest(function(err, body){
 			
 			let data = {};
 			data.DefinitionSource = body.DefinitionSource;

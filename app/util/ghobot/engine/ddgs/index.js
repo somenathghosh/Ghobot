@@ -1,8 +1,22 @@
 'use strict';
 
-var ddgs = require('ddgs');
+var ddgs = require('./ddgs');
 
 class Engine {
+	
+	static interceptor (query){
+		return undefined;
+	}
+
+	static listen (query,callback){
+		if(callback) {
+			act(query,callback);
+		}
+		else{
+			throw new Error('no callback provided!');
+		}
+	}
+
 	static act (query, callback){
 
 		let data = {};

@@ -5,9 +5,9 @@ var mongoose = require('mongoose'),
 
 var GhobotSchema = new Schema({
 
-	who: { type: String, required: true, lowercase: false, trim: true},
+	who: { type: String, lowercase: false, trim: true},
 	when: { type: Date, default: Date.now },
-	question: { type: String, required: true, lowercase: false, trim: true},
+	question: { type: String,  lowercase: false, trim: true},
 	is_Answered: Boolean,
 	answer:[{ 
 
