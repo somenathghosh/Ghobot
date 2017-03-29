@@ -1,11 +1,29 @@
-
-'use strict'
+'use strict';
 
 const request = require('request');
 const cheerio = require('cheerio');
+const EventEmitter = require('events').EventEmitter;
+const config = require('../../../../../config/config');
 
-class DDGS {
-  static search (opts, cb) {
+class DDGS extends EventEmitter {
+
+  constructor() {
+      super();
+      this.on('error', this.printStack);
+
+  }
+
+  printStack(error){
+
+    //console.log(error.name + ': ' + error.message);
+    console.log(error.stack);
+  }
+
+  url() {
+    return config.url['ddgs'];
+  }
+
+  search (opts, cb) {
     let urls = []
     let max = opts.max || 0
 
@@ -13,11 +31,13 @@ class DDGS {
 
     // See https://duckduckgo.com/params for more arams
 
+    let self = this;
     request({
-      baseUrl: `https://duckduckgo.com`,
+      baseUrl: self.url(),
       uri: '/html',
       qs: opts
     }, (error, response, body) => {
+      if(error) self.emit('error', error);
       if (!error) {
         let $ = cheerio.load(body)
         let links = $('#links .links_main a.result__a')
@@ -29,7 +49,8 @@ class DDGS {
           }
         })
       }
-      if (cb) cb(error, urls)
+      if (cb)  cb(error, urls);
+      if (!cb) self.emit('error', new Error('DDGS/ddgs/search: =====> No callback provided'));
     })
   }
 }

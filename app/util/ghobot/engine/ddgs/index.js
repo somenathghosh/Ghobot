@@ -1,47 +1,63 @@
 'use strict';
 
-var ddgs = require('./ddgs');
+const DDGS = require('./ddgs');
+const ddgs = new DDGS();
+const EventEmitter = require('events').EventEmitter;
 
-class Engine {
+class Engine extends EventEmitter {
 	
-	static interceptor (query){
+ 	constructor() {
+    	super();
+    	this.on('error', this.printStack);
+    }
+
+    printStack(error){
+
+    	//console.log(error.name + ': ' + error.message);
+    	console.log(error.stack);
+    }
+	
+	interceptor (query) {
 		return undefined;
 	}
 
-	static listen (query,callback){
+	listen (query,callback){
+
 		if(callback) {
-			act(query,callback);
+			this.act(query,callback);
 		}
 		else{
-			throw new Error('no callback provided!');
+			this.emit('error',new Error('DDG/index/listen: =====> no callback provided!'));
 		}
 	}
 
-	static act (query, callback){
+	act (query, callback){
 
 		let data = {};
 		data.DefinitionSource = "";
 		data.AbstractText = "";
 		data.RelatedTopics = [];
-
+		let self = this;
 		ddgs.search({
 		        q: query,
 		        max: 5
-		    }, function(err, urls) {
-		        if (err) console.log(err);
+		    }, (err, urls) => {
+		        if (err) self.emit('error', err);
 		        if (!err) {
-		            console.log(urls);
+		            //console.log(urls);
 		            
 		            for (let i = 0; i < urls.length; ++i) {
 		            	
 		                let url = urls[i];
 		                let topic = {};
-		                topic.Result = '<a href="' + url + '" target="_blank" >' + url + '</a>' + '...';
+		                topic.Result = url;
 		                topic.FirstURL = url;
 		                topic.Text = url;
 		                data.RelatedTopics.push(topic);
 		                
 		            }
+
+		            if(!callback) self.emit('error', new Error('DDGS/index/act: =====> No callback provided!'));
 		            
 		            if(callback) callback(err,data);
 		            

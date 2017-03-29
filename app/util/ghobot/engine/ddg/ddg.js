@@ -1,23 +1,36 @@
-var version = "0.0.2"; 
-var request = require('request'); 
-var url = require('url');
+'use strict';
 
-var DDG = function (argument) {
+const EventEmitter = require('events').EventEmitter;
+const request = require('request'); 
+const url = require('url');
+const config = require('../../../../../config/config');
 
-	// Library of fields that the Duck Duck Go API supports
-	var fields = ["Abstract", "AbstractText", "AbstractSource", "AbstractURL", "Image", "Heading", "Answer", "AnswerType", "Definition", "DefinitionSource", "DefinitionURL", "RelatedTopics", "Results", "Type", "Redirect"];
 
-	// Default options to be sent as a query to the API
-	var default_options = {
-		"useragent": "node-ddg v"+version,
-		"format": "json",
-		"pretty": "1",
-		"no_redirects": "1",
-		"no_html": "0",
-		"skip_disambig": "0"
-	};
+class DDGCore extends EventEmitter {
 
-	this.getFields= function (arg) {
+	constructor() {
+    	super();
+    	this.on('error', this.printStack);
+    	this.on('data', this.success);
+
+    }
+
+    success(data) {
+    	if(data) console.log('DDG/ddg/success: =====> Got the data at DDGCore');
+    	else console.log('DDG/ddg/success: =====> There is some problem in getting the data');
+
+    }
+    printStack(error){
+
+    	//console.log(error.name + ': ' + error.message);
+    	console.log(error.stack);
+    }
+
+
+	getFields (arg) {
+		
+		let fields = new Array("Abstract", "AbstractText", "AbstractSource", "AbstractURL", "Image", "Heading", "Answer", "AnswerType", "Definition", "DefinitionSource", "DefinitionURL", "RelatedTopics", "Results", "Type", "Redirect");
+
 		if(arg){
 			return new Array[fields[arg]];
 		}
@@ -26,7 +39,17 @@ var DDG = function (argument) {
 		}
 			
 	}
-	this.getOptions= function (arg) {
+	getOptions (arg) {
+
+		let default_options = {
+			"useragent": "node-ddg",
+			"format": "json",
+			"pretty": "1",
+			"no_redirects": "1",
+			"no_html": "0",
+			"skip_disambig": "0"
+		};
+
 		if(arg){
 			return default_options[arg];
 		}
@@ -35,98 +58,104 @@ var DDG = function (argument) {
 		}
 	}
 
+	url (){
+		return config.url['ddg'];
+	}
+
+	prepareURL (query, options) {
+		if(options){
+			this.URL = this.url()+'?format='+options.format+'&pretty='+options.pretty+'&q=' + encodeURIComponent(query);
+		}
+		else
+		{
+			this.URL = this.url()+'?format='+this.getOptions("format")+'&pretty='+this.getOptions("pretty")+'&q=' + encodeURIComponent(query);	
+		}
+		
+		return this;
+	}
+
+	makeRequest (callback,field) {
+
+		this.body = undefined;
+		let self = this;
+
+		request(self.URL, function(err, response, body){
+
+			if (err) this.emit('error', err);
+
+			if(!response) {
+
+				console.log('DDG/ddg/makeRequest: =====> No Internet Connection');
+				self.emit('error', new Error('DDG/ddg/makeRequest: =====> No Internet Connection!'));
+			}
+
+			if(response){
+
+				if (response.statusCode === 200) {
+					
+					try {
+						self.body = JSON.parse(body);
+						
+						if (callback) {
+							if (field) {
+								callback(err, self.body[field]);
+								
+							}
+							else {
+								self.emit('data', self.body);
+								callback(err, self.body);
+								
+							}
+						} else {
+							//return self;
+						}
+					}
+					catch(error){
+						this.emit('error', error);
+						if(callback) callback(error,undefined);
+					}
+
+				} else if (response.statusCode === 500) {
+					this.emit('error', new Error('DDG/ddg/makeRequest: =====> node-ddg error: server Internal error' + response.statusCode));
+					
+					if(callback) callback(error,undefined);
+					
+				} else {
+
+					this.emit('error', new Error('DDG/ddg/makeRequest: =====> node-ddg error: problem with request code: '+response.statusCode));
+
+					if(callback) callback(error,undefined);
+
+				}
+			}
+
+		});
+
+		return this;
+		
+	}
+
+	body_parser (callback,arg) {
+
+		try{
+			if(arg){
+				callback(err,this.body[arg]);
+			}
+			else {
+				callback(err, this.body);
+			}
+		}
+		catch(err){
+			callback(err,body);
+		}
+
+		return this;
+		
+		
+	}
 
 }
 
 
-DDG.prototype.prepareURL = function(query, options) {
-	if(options){
-		this.URL = 'http://api.duckduckgo.com/?format='+options.format+'&pretty='+options.pretty+'&q=' + encodeURIComponent(query);
-	}
-	else
-	{
-		this.URL = 'http://api.duckduckgo.com/?format='+this.getOptions("format")+'&pretty='+this.getOptions("pretty")+'&q=' + encodeURIComponent(query);	
-	}
-	
-	return this;
-};
 
-DDG.prototype.makeRequest = function(callback,field) {
-
-	this.body = undefined;
-	var self = this;
-
-	request(self.URL, function(err, response, body){
-
-		if (err) console.log(err);
-
-		if (response.statusCode === 200) {
-			try {
-				self.body = JSON.parse(body);
-				if (callback) {
-					if (field) {
-						callback(err, self.body[field]);
-						//return self;
-					}
-					else {
-						callback(err, self.body);
-						//return self;
-					}
-				} else {
-					return self;
-				}
-			}
-			catch(error){
-				console.log('There is a problem in the response, we are not able to parse!');
-				if(callback) callback(error,undefined);
-				self.error = error;
-				console.log(error);
-			}
-
-		} else if (response.statusCode === 500) {
-			console.log("node-ddg error: server error");
-			if(callback) callback(error,undefined);
-			self.error = response.statusCode;
-			return self;
-		} else {
-			console.log("node-ddg error: problem with request code: "+response.statusCode);
-			if(callback) callback(error,undefined);
-			self.error = response.statusCode
-			return self;
-		}
-
-	});
-
-	return this;
-	
-};
-
-DDG.prototype.body_parser = function(callback,arg) {
-
-	try{
-		if(arg){
-			callback(err,this.body[arg]);
-		}
-		else {
-			callback(err, this.body);
-		}
-	}
-	catch(err){
-		callback(err,body);
-	}
-
-	return this;
-	
-	
-};
-
-
-
-// ddg
-// .prepareURL('tagore')
-// .makeRequest(function(err, body){
-//     return body;
-// });
-
-
-module.exports = new DDG();
+module.exports = DDGCore;

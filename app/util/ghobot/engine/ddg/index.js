@@ -1,35 +1,64 @@
 'use strict';
 
-var ddg = require('./ddg');
+const EventEmitter = require('events').EventEmitter;
+const DDG = require('./ddg');
+const ddg = new DDG();
 
-class Engine {
+class Engine extends EventEmitter {
 	
-	static interceptor (query){
+
+ 	constructor() {
+    	super();
+    	this.on('error', this.printStack);
+
+    }
+
+    printStack(error){
+
+    	//console.log(error.name + ': ' + error.message);
+    	console.log(error.stack);
+    }
+
+	interceptor (query){
 		return undefined;
 	}
 
-	static listen (query,callback){
-		if(callback) {
-			act(query,callback);
+	listen (query,callback){
+
+		if(query) {
+			this.query = query;
 		}
 		else{
-			throw new Error('no callback provided!');
+			this.emit('error',new Error('DDG/index: =====> No query provided!'));
 		}
+
+		if(callback) {
+			this.act(query,callback);
+		}
+		else{
+			this.emit('error',new Error('DDG/index: =====> no callback provided!'));
+		}
+		return this;
 	}
 	
 
-	static act (query, callback){
+	act (query, callback){
 
 		ddg.prepareURL(query).makeRequest(function(err, body){
 			
 			let data = {};
-			data.DefinitionSource = body.DefinitionSource;
-			data.AbstractText = body.AbstractText;
-			data.RelatedTopics = body.RelatedTopics;
-			data.Image = body.Image;
-			data.Heading = body.Heading;
+			if(body){
 
-			if(callback) callback(err,data);
+				data.DefinitionSource = body.DefinitionSource;
+				data.AbstractText = body.AbstractText;
+				data.RelatedTopics = body.RelatedTopics;
+				data.Image = body.Image;
+				data.Heading = body.Heading;
+
+				if(callback) callback(err,data);
+
+			}
+			
 
 		});
 
