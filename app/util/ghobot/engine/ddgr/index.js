@@ -1,64 +1,76 @@
 'use strict';
 
 const events = require('events');
-const Pattern = require('./pattern');
 const EventEmitter = require('events').EventEmitter;
-//const ddgr = require('./ddgr');
 const Pfile = require('./pfile');
-
 const ddgr = Pfile.exec();
-
-
-
-
 
 let Engine = (function () {
 
+	//dummy
+	const findUser = (user) => {
+
+		if(new String().toUpperCase(user) === 'SOMENATH'){
+			return true;
+		}
+		else if (new String().toUpperCase(user) === 'BRANDON') {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	const resetPassword = (user) => {
+		if(findUser(user)) return 'AAAA';
+		else return 'No Password';
+	}
+
+
+	//dummy end
 	const _act = (text, callback) => {
 
-// 		for (var i = 0; i < patterns.length; i++) {
-// 				var pattern = patterns[i];
-// 				var r = new RegExp(pattern.regexp, "i");
-// 				var matches = text.match(r);
-// 				//console.log(matches);
-// 				if (matches) {
-// 						switch (pattern.actionKey) {
-// 								case 'rewrite':
-// 										text = pattern.actionValue;
-// 										for (var j = 1; j < matches.length; j++) {
-// 												text = text.replace("$" + j, matches[j]);
-// 										}
-// 										//console.log("rewritten to " + text);
-// 										if (pattern.callback !== undefined) {
-// 												pattern.callback.call(this, matches);
-// 										}
-// 										break;
-// 								case 'response':
-// //                                var response = text.replace(r, pattern.actionValue);
-// 										var response = pattern.actionValue;
-// 										if (response !== undefined) {
-// 												for (var j = 1; j < matches.length; j++) {
-// 														response = response.replace("$" + j, matches[j]);
-// 												}
-// 												this.addChatEntry(response, "bot");
-// 										}
-// 										if (pattern.callback !== undefined) {
-// 												pattern.callback.call(this, matches);
-// 										}
-// 										return;
-// 						}
-// 						break;
-// 				}
-// 		}
-	 let p = ddgr.getAll();
+		let patterns = ddgr.getAll();
 
-	 callback(undefined,p);
+		for (var i = 0; i < patterns.length; i++) {
+				let pattern = patterns[i];
+				let r = new RegExp(pattern.regexp, "i");
+				let matches = text.match(r);
+				//console.log(matches);
+				if (matches) {
+						switch (pattern.actionKey) {
+								case 'rewrite':
+										text = pattern.actionValue;
+										for (let j = 1; j < matches.length; j++) {
+												text = text.replace("$" + j, matches[j]);
+										}
+										callback(text,null);
+										if (pattern.callback !== undefined) {
+												pattern.callback.call(this, matches);
+										}
+										break;
+								case 'response':
 
+										let response = pattern.actionValue;
+										let suggestion = pattern.suggestion;
+										if (response !== undefined) {
+												for (let j = 1; j < matches.length; j++) {
+														response = response.replace("$" + j, matches[j]);
+												}
+												callback(response,suggestion);
+										}
+										if (pattern.callback !== undefined) {
+												pattern.callback.call(this, matches);
+										}
+						}
+						break;
+				}
+		}
 
 	}
 
 	class Engine extends EventEmitter {
-
 
    constructor() {
     	super();
@@ -87,8 +99,6 @@ let Engine = (function () {
 				throw new Error('no callback provided!');
 			}
 		}
-
-
 
 	}
 	return Engine;

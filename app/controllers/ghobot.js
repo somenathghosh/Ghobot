@@ -4,7 +4,7 @@ var express = require('express'),
   Ghobot = mongoose.model('Ghobot');
 
 module.exports = function (app) {
-  console.log('Ghobot: I am here');
+  //console.log('Ghobot: I am here');
   app.get('/ghobot', router);
 };
 
@@ -17,6 +17,6 @@ router.get('/ghobot', function (req, res, next) {
   Ghobot.find(function (err, questions) {
     console.log(questions);
     if (err) return next(err);
-    
+
   });
 });

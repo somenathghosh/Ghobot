@@ -11,8 +11,8 @@ let DDGR = require('./app/util/ghobot/engine/ddgr');
 
 let engine = new DDGR();
 
-engine.listen('tagore', function (err,data) {
-  //console.log(data);
+engine.listen('I am fine', function (res,sug) {
+  console.log(res,' | ', sug);
 })
 
 //Test n
