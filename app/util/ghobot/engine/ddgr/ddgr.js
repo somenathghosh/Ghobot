@@ -1,51 +1,62 @@
 'use strict';
 
-var events = require('events');
-var Patterns = require('./pattern');
-var DDGR = function(){
-    events.EventEmitter.call(this);
-    this.patterns = new Array();
-}
-require('util').inherits(DDGR, events.EventEmitter);
+const events = require('events');
+//const Pattern = require('./pattern');
+const PatternCollection = require('../../../mdb');
+
+
+const EventEmitter = require('events').EventEmitter;
+
+let DDGR = (function () {
+
+  const _add = (pattern) {
+
+    PatternCollection.insert(pattern);
+
+  }
+
+  class DDGR extends EventEmitter {
+
+     constructor() {
+      	super();
+      	this.on('error', this.printStack);
+      	this.on('data', this.success);
+        this.Patterns = [];
+      }
+
+      success(data) {
+        if(data) console.log('DDG/ddg/success: =====> Got the data at DDGCore');
+        else console.log('DDG/ddg/success: =====> There is some problem in getting the data');
+
+      }
+      printStack(error){
+        console.log(error.stack);
+      }
+
+      add (pattern){
+        if(pattern) _add(pattern);
+        else  this.emit('error', new Error('DDGG/ddgr/add: ======> No Pattern Provided'));
+      }
+      getAll (callback){
+        this.Patterns = PatternCollection.find({});
+        return this;
+      }
+      get(query,callback){
+        //body implement
+      }
+
+
+  }
+
+
+  return DDGR;
+
+
+})();
 
 
 
-DDGR.prototype.addPattern = function(callback) {
-
-	var p = new Patterns();
-
-	p.get(function (err, patterns) {
-
-		if(err) this.emit('error', err);
-		if(!patterns) this.emit('error', new Error('No Patterns'));
-		if(patterns){
-
-			patterns.forEach(function(element,index){
-				try {
-					var ele = JSON.parse(element);
-					this.addPatternObject(ele);
-				}
-				catch (err){
-					this.emit('error', new Error('JSON Parse error for patterns'));
-				}
-			});
-
-		}
-		
-		
-	});
-};
-
-DDGR.prototype.addPatternObject = function(element,callback) {
-	
-	this.patterns.push(element);
-
-	if(callback) callback();
-
-};
 
 
-DDGR.prototype.getCommandDescription = function(callback) {
-	// body...
 
-};
+module.exports = DDGR;

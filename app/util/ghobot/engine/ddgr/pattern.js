@@ -1,23 +1,51 @@
 
-var mongoose = require('mongoose'),
-var Pattern = mongoose.model('Pattern');
+'use strict';
+const EventEmitter = require('events').EventEmitter;
 
+class Pattern extends EventEmitter {
 
-class Patterns {
+	constructor(regexp,actionKey,actionValue,callback,description, cb) {
+    	super();
+    	this.on('error', this.printStack);
+    	this.on('data', this.success);
+			this.regexp = null;
+			this.actionKey = null;
+			this.actionValue = undefined;
+			this.description = null;
+			this.callback = undefined;
+			_add(regexp,actionKey,actionValue,callback,description, cb);
 
-	static get (callback){
+    }
 
-		Pattern.find({valid:true}).exec(callback);
+    success(data) {
+    	if(data) console.log('DDG/ddg/success: =====> Got the data at DDGCore');
+    	else console.log('DDG/ddg/success: =====> There is some problem in getting the data');
 
+    }
+    printStack(error){
+    	console.log(error.stack);
+    }
+
+	_add (regexp,actionKey,actionValue,callback,description, cb) {
+
+		if(regexp && actionKey && description) {
+			this.regexp = regexp;
+			this.actionKey = actionKey;
+			this.description = description;
+		}
+		else {
+			this.emit('error', new Error('Missing value in Pattern'));
+		}
+		if(actionValue) this.actionValue = actionValue;
+		if(callback) this.callback = callback;
+
+		if(!pattern) this.emit('error', new Error('No Pattern is provided'));
+		if(cb) cb();
+
+		return this;
 	}
 
 
 }
 
-module.exports = Patterns
-
-
-
-
-
-    	
+module.exports = Pattern
