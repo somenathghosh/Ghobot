@@ -20,6 +20,7 @@
     "express": "4.13.3",
     "foreman": "2.0.0",
     "glob": "6.0.4",
+    "jsonfile": "2.4.0",
     "lokijs": "1.4.3",
     "method-override": "2.3.0",
     "mongoose": "4.1.2",

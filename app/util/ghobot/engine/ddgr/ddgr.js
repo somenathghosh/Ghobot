@@ -3,17 +3,13 @@
 const events = require('events');
 //const Pattern = require('./pattern');
 const PatternCollection = require('../../../mdb');
+//const Pfile = require('./pfile');
 
 
 const EventEmitter = require('events').EventEmitter;
 
 let DDGR = (function () {
 
-  const _add = (pattern) {
-
-    PatternCollection.insert(pattern);
-
-  }
 
   class DDGR extends EventEmitter {
 
@@ -34,14 +30,15 @@ let DDGR = (function () {
       }
 
       add (pattern){
-        if(pattern) _add(pattern);
+        if(pattern) PatternCollection.insert(pattern);
         else  this.emit('error', new Error('DDGG/ddgr/add: ======> No Pattern Provided'));
       }
-      getAll (callback){
-        this.Patterns = PatternCollection.find({});
-        return this;
+      getAll (){
+
+        let p = PatternCollection.find({});
+        return p;
       }
-      get(query,callback){
+      get(callback){
         //body implement
       }
 

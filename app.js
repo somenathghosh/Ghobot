@@ -4,14 +4,15 @@ const express 	= require('express');
 const  config 	= require('./config/config');
 const  glob 	= require('glob');
 const  mongoose = require('mongoose');
+const process = require('process');
 
 //Test
-let DDG = require('./app/util/ghobot/engine/ddg');
+let DDGR = require('./app/util/ghobot/engine/ddgr');
 
-let engine = new DDG();
+let engine = new DDGR();
 
 engine.listen('tagore', function (err,data) {
-  console.log(data);
+  //console.log(data);
 })
 
 //Test n
@@ -38,6 +39,9 @@ const app = express();
 
 module.exports = require('./config/express')(app, config);
 
+process.on('uncaughtException', function (err) {
+  console.log(err);
+})
 
 
 app.listen(config.port, function () {

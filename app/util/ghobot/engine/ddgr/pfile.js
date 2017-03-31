@@ -1,15 +1,53 @@
 const DDGR = require('./ddgr');
 const Pattern = require('./pattern');
+const lineReader = require('readline').createInterface({
+  input: require('fs').createReadStream(require('path').resolve(__dirname, 'pattern'))
+});
 
-const ddgr = new DDGR();
 
-ddgr.add(new Pattern("^(?:(?:hi)|(?:(?:hello))|(?:(?:howdy))|(?:(?:howdy my friend))|(?:(?:howdy friend))|(?:(?:hey|hey friend|hey buddy)))", "response", "howdy , friend, how are you doing?", undefined, "Say 'Good morning' to be greeted back."));
 
-ddgr.add(new Pattern("(?:(?:I am fine)|(?:(?:fine))|(?:(?:am fine))|(?:(?:I am just doing fine))|(?:(?:doing ok))|(?:(?:okay)))", "response", "okay, what can I help you with? I do answer all of your query, just ask what you are looking for", undefined, "Say 'I am fine' to be greeted back."));
+let Pfile = (function(){
 
-ddgr.add(new Pattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function(matches) {
-    return (matches[1] + ' >');
-}, "Say 'My name is [your name]' or 'I am [name]' to be called that by the bot"));
+  const ddgr = new DDGR();
+
+  class Pfile {
+
+    constructor() {
+
+     }
+     static exec (){
+
+       lineReader.on('line', function (line) {
+         console.log('Line from file:', line);
+         ddgr.add(new Pattern(new String(line)));
+       });
+
+      //  ddgr.add(new Pattern("^(?:(?:hi)|(?:(?:hello))|(?:(?:howdy))|(?:(?:howdy my friend))|(?:(?:howdy friend))|(?:(?:hey|hey friend|hey buddy)))", "response", "howdy , friend, how are you doing?", undefined, "Say 'Good morning' to be greeted back."));
+       //S
+      //  ddgr.add(new Pattern("(?:(?:I am fine)|(?:(?:fine))|(?:(?:am fine))|(?:(?:I am just doing fine))|(?:(?:doing ok))|(?:(?:okay)))", "response", "okay, what can I help you with? I do answer all of your query, just ask what you are looking for", undefined, "Say 'I am fine' to be greeted back."));
+       //
+      //  ddgr.add(new Pattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function(matches) {
+      //      return (matches[1] + ' >');
+      //  }, "Say 'My name is [your name]' or 'I am [name]' to be called that by the bot"));
+
+       return ddgr;
+
+     }
+
+
+  }
+  return Pfile;
+
+})();
+
+module.exports = Pfile
+// ddgr.add(new Pattern("^(?:(?:hi)|(?:(?:hello))|(?:(?:howdy))|(?:(?:howdy my friend))|(?:(?:howdy friend))|(?:(?:hey|hey friend|hey buddy)))", "response", "howdy , friend, how are you doing?", undefined, "Say 'Good morning' to be greeted back."));
+//
+// ddgr.add(new Pattern("(?:(?:I am fine)|(?:(?:fine))|(?:(?:am fine))|(?:(?:I am just doing fine))|(?:(?:doing ok))|(?:(?:okay)))", "response", "okay, what can I help you with? I do answer all of your query, just ask what you are looking for", undefined, "Say 'I am fine' to be greeted back."));
+//
+// ddgr.add(new Pattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function(matches) {
+//     return (matches[1] + ' >');
+// }, "Say 'My name is [your name]' or 'I am [name]' to be called that by the bot"));
 
 //
 // ddgr.add("^(?:(?:what's your name)|(?:(?:your name))|(?:(?:what is your name))|(?:(?:your name please))|(?:(?:how should I call you)))$", "response", "My name is Ghobot, a Bot made by Ghosh, Somenath", undefined, "Say 'What's your name' to know the name");

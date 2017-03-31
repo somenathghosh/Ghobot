@@ -13,7 +13,7 @@ class Pattern extends EventEmitter {
 			this.actionValue = undefined;
 			this.description = null;
 			this.callback = undefined;
-			_add(regexp,actionKey,actionValue,callback,description, cb);
+			this.add(regexp,actionKey,actionValue,callback,description, cb);
 
     }
 
@@ -26,24 +26,23 @@ class Pattern extends EventEmitter {
     	console.log(error.stack);
     }
 
-	_add (regexp,actionKey,actionValue,callback,description, cb) {
+		add (regexp,actionKey,actionValue,callback,description, cb) {
 
-		if(regexp && actionKey && description) {
-			this.regexp = regexp;
-			this.actionKey = actionKey;
-			this.description = description;
+			if(regexp && actionKey && description) {
+				this.regexp = regexp;
+				this.actionKey = actionKey;
+				this.description = description;
+			}
+			else {
+				this.emit('error', new Error('Missing value in Pattern'));
+			}
+			if(actionValue) this.actionValue = actionValue;
+			if(callback) this.callback = callback;
+
+			if(cb) cb();
+
+			return this;
 		}
-		else {
-			this.emit('error', new Error('Missing value in Pattern'));
-		}
-		if(actionValue) this.actionValue = actionValue;
-		if(callback) this.callback = callback;
-
-		if(!pattern) this.emit('error', new Error('No Pattern is provided'));
-		if(cb) cb();
-
-		return this;
-	}
 
 
 }
