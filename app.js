@@ -7,13 +7,13 @@ const  mongoose = require('mongoose');
 
 //Test
 
-let DDGS = require('./app/util/ghobot/engine/ddgs');
+// let DDGS = require('./app/util/ghobot/engine/ddgs');
 
-let engine = new DDGS();
+// let engine = new DDGS();
 
-engine.listen('tagore',function (err,data) {
-	console.log(data);
-})
+// engine.listen('tagore',function (err,data) {
+// 	console.log(data);
+// })
 
 //Test n
 

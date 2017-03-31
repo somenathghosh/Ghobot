@@ -10,8 +10,8 @@ module.exports = function (app) {
 router.get('/', function (req, res, next) {
   Article.find(function (err, articles) {
     if (err) return next(err);
-    res.render('index', {
-      title: 'MD - Bot',
+    res.render('ghobot', {
+      title: 'Bot',
       articles: articles
     });
   });

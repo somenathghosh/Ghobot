@@ -56,7 +56,7 @@ var ChatBot = (function ($) {
         }
 
         examplePhrases = [];
-        for (i = 0; i < descriptions.length; i++) {
+        for (i = 0; i < descriptions.length; i++) { 
             var pdesc = descriptions[i].replace(/(['"][^'"]+['"])/gi, '<span class="phraseHighlight">$1</span>');
             pdesc = pdesc.replace(/(\[[^\[\]]+\])/gi, '<span class="placeholderHighlight">$1</span>');
             //console.log(pdesc);
@@ -489,3 +489,63 @@ var ChatBot = (function ($) {
 
     }
 })($);
+var sampleConversation = [
+    "Hi",
+    "My name is Fry",
+    "Where is China?",
+    "What is the population of China?",
+    "Bye"
+];
+var config = {
+    botName: 'Ghobot',
+    inputs: '#humanInput',
+    inputCapabilityListing: true,
+    engines: [ChatBot.Engines.duckduckgo(), ChatBot.Engines.google()],
+    addChatEntryCallback: function(entryDiv, text, origin) {
+        entryDiv.delay(200).slideDown();
+    }
+};
+ChatBot.init(config);
+ChatBot.setBotName("Ghobot > ");
+//ChatBot.addPattern("^hi$", "response", "Howdy, friend", undefined, "Say 'Hi' to be greeted back.");
+//ChatBot.addPattern("^hello$", "response", "Howdy, friend", undefined, "Say 'Hello' to be greeted back.");
+
+/*************************************************************************************************************
+*
+* Training Data - ChatBot.addPattern(regEx, action, actionValue, callback, descriptionToBeListed);
+*
+**************************************************************************************************************/
+
+ChatBot.addPattern("^(?:(?:hi)|(?:(?:hello))|(?:(?:howdy))|(?:(?:howdy my friend))|(?:(?:howdy friend))|(?:(?:hey|hey friend|hey buddy)))", "response", "howdy , friend, how are you doing?", undefined, "Say 'Good morning' to be greeted back.");
+
+ChatBot.addPattern("(?:(?:I am fine)|(?:(?:fine))|(?:(?:am fine))|(?:(?:I am just doing fine))|(?:(?:doing ok))|(?:(?:okay)))", "response", "okay, what can I help you with? I do answer all of your query, just ask what you are looking for", undefined, "Say 'I am fine' to be greeted back.");
+
+ChatBot.addPattern("^(?:(?:what's your name)|(?:(?:your name))|(?:(?:what is your name))|(?:(?:your name please))|(?:(?:how should I call you)))$", "response", "My name is Ghobot, a Bot made by Ghosh, Somenath", undefined, "Say 'What's your name' to know the name");
+
+ChatBot.addPattern("^(?:(?:good morning)|(?:(?:goodmorning))|(?:(?:morning)))$", "response", "good morning, friend", undefined, "Say 'Good morning' to be greeted back.");
+
+ChatBot.addPattern("^(?:(?:good afternoon)|(?:(?:good afternoon))|(?:(?:afternoon)))$", "response", "good afternoon, friend", undefined, "Say 'Good afternoon' to be greeted back.");
+
+ChatBot.addPattern("^(?:(?:are you ok)|(?:(?:are you okay))|(?:(?:r u okay))|(?:(?:r u ok)))$", "response", "yes, I am absolutely Okay, buddy", undefined, "Ask 'how are you' to be greeted back.");
+
+ChatBot.addPattern("^(?:(?:how are you)|(?:(?:how are you doing))|(?:(?:how is everything))|(?:(?:how is it going)))", "response", "yes, I am absolutely Okay, buddy, how are you doing?", undefined, "Say 'how are you doing' to be greeted back.");
+
+ChatBot.addPattern("^(?:(?:are you joking)|(?:(?:are you a jerk))|(?:(?:are you kidding))|(?:(?:are you kidding me)))", "response", "yes, I don't joke buddy, I am just a bot!", undefined, "Say 'are you joking or kidding' when answer is too funny.");
+
+ChatBot.addPattern("(?:(?:asshole)|(?:(?:fuck))|(?:(?:fucker))|(?:(?:idiot))|(?:(?:fcuk)))", "response", "I am sorry to hear that from you, you might get reported by the way!", undefined, "Say 'NO abusive words' ");
+
+ChatBot.addPattern("^(?:(?:what can you do for me)|(?:(?:what do you do))|(?:(?:how can you help me)))", "response", "I do answer all of your query, just ask what you are looking for", undefined, "Say 'What can you do for me' to know what Ghobot can do.");
+
+ChatBot.addPattern("^(?:(?:bye)|(?:(?:bye bye))|(?:(?:byebye))|(?:(?:see you))|(?:(?:talk to you later))|(?:(?:ttly)))", "response", "See you later buddy", undefined, "Say 'Bye' to end the conversation.");
+
+//ChatBot.addPattern("^bye$", "response", "See you later buddy", undefined, "Say 'Bye' to end the conversation.");
+
+ChatBot.addPattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function(matches) {
+    ChatBot.setHumanName(matches[1] + ' >');
+}, "Say 'My name is [your name]' or 'I am [name]' to be called that by the bot");
+
+ChatBot.addPattern("(what is the )?meaning of life", "response", "42", undefined, "Say 'What is the meaning of life' to get the answer.");
+
+ChatBot.addPattern("Compute ([0-9]+) plus ([0-9]+)", "response", undefined, function(matches) {
+    ChatBot.addChatEntry("That would be " + (1 * matches[1] + 1 * matches[2]) + ".", "bot");
+}, "Say 'compute [number] plus [number]' to make the bot your math monkey");

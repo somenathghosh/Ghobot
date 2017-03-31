@@ -28,7 +28,9 @@ module.exports = function(app, config) {
   app.use(methodOverride());
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
+
   controllers.forEach(function (controller) {
+    //console.log(controller)
     require(controller)(app);
   });
 
