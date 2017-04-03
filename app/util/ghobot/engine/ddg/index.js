@@ -5,6 +5,7 @@ const DDG = require('./ddg');
 const ddg = new DDG();
 
 let Engine = (function () {
+
 	const _act = (query, callback) => {
 
 		ddg.prepareURL(query).makeRequest(function(err, body){
@@ -26,6 +27,20 @@ let Engine = (function () {
 		});
 
 	}
+	const _capability = () => {
+
+		let cap = [
+				"Ask what something is like 'What is DNA'?",
+				"Ask where something is like 'Where is China'?",
+				"Ask about a person like 'Who is Bill Gates'?",
+				"Say a movie/person/location name like 'Braveheart' to get information about that entity",
+				"Say a something like 'simpsons characters' to get information about that phrase",
+		];
+
+		return cap;
+
+	}
+
 
 	class Engine extends EventEmitter {
 
@@ -60,6 +75,9 @@ let Engine = (function () {
 				this.emit('error',new Error('DDG/index: =====> no callback provided!'));
 			}
 			return this;
+		}
+		capabilities(){
+			return _capability();
 		}
 
 

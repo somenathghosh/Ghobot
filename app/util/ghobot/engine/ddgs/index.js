@@ -41,6 +41,16 @@ let Engine = (function(){
 		});
 
 	}
+	const _capability = () => {
+
+		let cap = [
+				"Ask anything, 'like you do search', I will try to find best result for you!"
+		];
+
+		return cap;
+
+	}
+
 
 	class Engine extends EventEmitter {
 
@@ -67,6 +77,9 @@ let Engine = (function(){
 			else{
 				this.emit('error',new Error('DDG/index/listen: =====> no callback provided!'));
 			}
+		}
+		capabilities(){
+			return _capability();
 		}
 
 	}

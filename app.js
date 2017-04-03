@@ -7,13 +7,15 @@ const  mongoose = require('mongoose');
 const process = require('process');
 
 //Test
-let DDGR = require('./app/util/ghobot/engine/ddgr');
+let DDGR = require('./app/util/ghobot/engine');
 
-let engine = new DDGR();
+let engine = new DDGR().require(['DDGR','DDG','DDGS']).start();
 
-engine.listen('I am fine', function (res,sug) {
-  console.log(res,' | ', sug);
-})
+// engine.listen('my name is Khan', function (err, data) {
+//   console.log(err, data);
+// })
+
+console.log(engine.capabilities());
 
 //Test n
 

@@ -7,66 +7,72 @@ const ddgr = Pfile.exec();
 
 let Engine = (function () {
 
-	//dummy
-	const findUser = (user) => {
-
-		if(new String().toUpperCase(user) === 'SOMENATH'){
-			return true;
-		}
-		else if (new String().toUpperCase(user) === 'BRANDON') {
-			return true;
-		}
-		else {
-			return false;
-		}
-
-	}
-
-	const resetPassword = (user) => {
-		if(findUser(user)) return 'AAAA';
-		else return 'No Password';
-	}
-
-
-	//dummy end
+	let patterns = ddgr.getAll();
 	const _act = (text, callback) => {
 
-		let patterns = ddgr.getAll();
+		//console.log(patterns);
+		let response = null; //if no match, response will be null
+		let suggestion = null;
+		let err = null; //needs to implement error handling
+		let data = {};
+		data.DefinitionSource = null;
+		data.AbstractText = null;
+		data.RelatedTopics = new Array();
+		let topic = {};
+		topic.Result = null;
+		topic.FirstURL = null;
+		topic.Text = null;
 
-		for (var i = 0; i < patterns.length; i++) {
+		for (let i = 0; i < patterns.length; i++) {
 				let pattern = patterns[i];
 				let r = new RegExp(pattern.regexp, "i");
 				let matches = text.match(r);
-				//console.log(matches);
+				console.log(matches);
 				if (matches) {
 						switch (pattern.actionKey) {
-								case 'rewrite':
-										text = pattern.actionValue;
+								case 'rewrite': //need to revisit and change the logic
+										response = pattern.actionValue;
 										for (let j = 1; j < matches.length; j++) {
-												text = text.replace("$" + j, matches[j]);
+												response = response.replace("$" + j, matches[j]);
 										}
-										callback(text,null);
-										if (pattern.callback !== undefined) {
+										callback(err,response,null);
+										if (pattern.callback instanceof Function) {
 												pattern.callback.call(this, matches);
 										}
 										break;
 								case 'response':
 
-										let response = pattern.actionValue;
-										let suggestion = pattern.suggestion;
+										data.DefinitionSource = 'Dic';
+										data.AbstractText = matches[0];
+										response = pattern.actionValue;
+										suggestion = pattern.suggestion;
 										if (response !== undefined) {
 												for (let j = 1; j < matches.length; j++) {
 														response = response.replace("$" + j, matches[j]);
 												}
-												callback(response,suggestion);
+												topic.Result = response;
+												topic.Text = suggestion;
+												data.RelatedTopics.push(topic);
+												callback(err,data);
 										}
-										if (pattern.callback !== undefined) {
+										if (pattern.callback instanceof Function) {
 												pattern.callback.call(this, matches);
 										}
 						}
 						break;
 				}
 		}
+
+	}
+
+	const _capability = () => {
+
+		let cap = new Array();
+
+		for(let i=0; i< patterns.length; i++){
+			cap.push(patterns[i].description);
+		}
+		return cap;
 
 	}
 
@@ -99,6 +105,10 @@ let Engine = (function () {
 				throw new Error('no callback provided!');
 			}
 		}
+		capabilities(){
+			let cap = _capability();
+			return cap;
+		}
 
 	}
 	return Engine;
@@ -107,3 +117,29 @@ let Engine = (function () {
 
 
 module.exports = Engine;
+
+
+//dummy
+// let patterns = ddgr.getAll();
+//
+// const findUser = (user) => {
+//
+// 	if(new String().toUpperCase(user) === 'SOMENATH'){
+// 		return true;
+// 	}
+// 	else if (new String().toUpperCase(user) === 'BRANDON') {
+// 		return true;
+// 	}
+// 	else {
+// 		return false;
+// 	}
+//
+// }
+//
+// const resetPassword = (user) => {
+// 	if(findUser(user)) return 'AAAA';
+// 	else return 'No Password';
+// }
+//
+//
+// //dummy end
