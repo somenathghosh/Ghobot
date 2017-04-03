@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 const Engine = require('./engine');
 const engine = new Engine();

@@ -8,11 +8,7 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  // Article.find(function (err, articles) {
-  //   if (err) return next(err);
     res.render('ghobot', {
-      title: 'Bot',
-      articles: articles
+      title: 'HL Bot Services',
     });
-  // });
 });

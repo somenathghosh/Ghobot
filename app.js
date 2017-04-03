@@ -7,13 +7,13 @@ const  glob 	= require('glob');
 const process = require('process');
 
 //Test
-let BOT = require('./app/util/ghobot');
-
-let ghobot = new BOT('Ghobot');
-
-ghobot.talk('I would like to reset Password', function (err, data) {
-  console.log(err, data);
-})
+// let BOT = require('./app/util/ghobot');
+//
+// let ghobot = new BOT('Ghobot');
+//
+// ghobot.talk('I would like to reset Password', function (err, data) {
+//   console.log(err, data);
+// })
 
 //console.log(engine.capabilities());
 

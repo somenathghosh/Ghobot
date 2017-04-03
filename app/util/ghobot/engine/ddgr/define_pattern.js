@@ -25,7 +25,7 @@ This make a neural network of scripts.
 module.exports = [
 
   {
-    "regexp":"^(?:my name is|I'm|I am) (.*)",
+    "regexp":"^(?:my name is|name is) (.*)",
     "actionKey": "response",
     "actionValue":"hi $1, thanks for talking to me today, what can I help you with?",
     "callback":function(matches) {return (matches[1]);},
@@ -51,7 +51,7 @@ module.exports = [
     "actionKey": "response",
     "actionValue":"Okay, what can I help you with? I can reset your password, retrive your userid if you forgot or register your email address",
     "callback":undefined,
-    "description":["Say 'I would like to reset my password' to reset your password.","Say 'I would like to retrieve my user id' to retrieve your userid.","Say 'I would like register my email address' to register your email address  ."],
+    "description":"Say 'I would like to reset my password/retrieve userid/register email address' to reset your password.",
     "context": 0,
     "dsl": 010,
     "suggestion":["I would like to reset my password","I would like to retrieve my user id","I would like to register my email address"]
@@ -78,12 +78,12 @@ module.exports = [
     "description":"Provide your user id",
     "context": 0,
     "dsl": 10000,
-    "suggestion":[null]
+    "suggestion":['']
 
   },
 
   {
-    "regexp":"^(?:Sure, my user id is|userid|userid is) (.*)",
+    "regexp":"^(?:my user id is|my userid is |the userid is) (.*)",
     "actionKey": "response",
     "actionValue":"I can not find your user id. Do you want to try again or want to retrieve your user id?",
     "callback":function(matches) {return findUser(matches[1]);},
@@ -103,7 +103,7 @@ module.exports = [
     "description":"Say 'Bye' to end the conversation.",
     "context": 0,
     "dsl": 1000010,
-    "suggestion":[null]
+    "suggestion":['']
   }
 
 ];

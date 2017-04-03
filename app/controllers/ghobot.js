@@ -11,12 +11,7 @@ module.exports = function (app) {
 router.get('/ghobot', function (req, res, next) {
 
   res.render('ghobot', {
-      title: 'MD - Bot'
+      title: 'HL Bot Services'
   });
 
-  // Ghobot.find(function (err, questions) {
-  //   console.log(questions);
-  //   if (err) return next(err);
-  //
-  // });
 });

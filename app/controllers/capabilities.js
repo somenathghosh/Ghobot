@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express'),
   router = express.Router();
 
@@ -14,6 +16,8 @@ router.post('/gCap', function (req, res, next) {
 
   //let query = req.body.query;
   let cap = ghobot.capabilities();
-  res.send({cap});
+  let capabilities = new Array().concat.apply([],cap);
+
+  res.send({capabilities});
 
 });
