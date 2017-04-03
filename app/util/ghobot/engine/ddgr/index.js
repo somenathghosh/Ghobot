@@ -20,7 +20,7 @@ let Engine = (function () {
 		let err = null; //needs to implement error handling
 		let data = {};
 		data.DefinitionSource = null;
-		data.AbstractText = null;
+		data.AbstractText = '';
 		data.RelatedTopics = new Array();
 		let topic = {};
 		topic.Result = null;
@@ -47,7 +47,7 @@ let Engine = (function () {
 								case 'response':
 
 										data.DefinitionSource = 'Dic';
-										data.AbstractText = matches[0];
+										data.AbstractText = '';
 										response = pattern.actionValue;
 										suggestion = pattern.suggestion;
 										if (response !== undefined) {

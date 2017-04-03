@@ -11,7 +11,7 @@ let BOT = require('./app/util/ghobot');
 
 let ghobot = new BOT('Ghobot');
 
-ghobot.talk('I\'m Tagore', function (err, data) {
+ghobot.talk('I would like to reset Password', function (err, data) {
   console.log(err, data);
 })
 
