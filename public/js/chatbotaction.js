@@ -1,8 +1,7 @@
 var sampleConversation = [
-    "Hi",
-    "My name is Fry",
-    "Where is China?",
-    "What is the population of China?",
+    "My name is Somenath",
+    "I would like to reset my password.",
+    "My user id is somenath.ghosh",
     "Bye"
 ];
 var config = {

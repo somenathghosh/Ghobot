@@ -47,7 +47,7 @@ module.exports = [
   },
 
   {
-    "regexp":"^(?:(?:I am fine)|(?:(?:fine))|(?:(?:am fine))|(?:(?:I am just doing fine))|(?:(?:doing ok))|(?:(?:okay)))",
+    "regexp":"(?:(?:I am fine)|(?:(?:fine))|(?:(?:am fine))|(?:(?:I am just doing fine))|(?:(?:doing ok))|(?:(?:okay)))",
     "actionKey": "response",
     "actionValue":"Okay, what can I help you with? I can reset your password, retrive your userid if you forgot or register your email address",
     "callback":undefined,
@@ -55,18 +55,6 @@ module.exports = [
     "context": 0,
     "dsl": 010,
     "suggestion":["I would like to reset my password","I would like to retrieve my user id","I would like to register my email address"]
-
-  },
-
-  {
-    "regexp":"(?:(?:I would like to reset my password)|(?:(?:reset password))|(?:(?:forgot password)))",
-    "actionKey": "response",
-    "actionValue":"Okay, I can help you with that.Before that, for verification, what is your user id?",
-    "callback":undefined,
-    "description":"Say 'my user id is' to get your user id verified",
-    "context": 0,
-    "dsl": 001,
-    "suggestion":["Sure, my user id is "]
 
   },
 

@@ -15,6 +15,7 @@ module.exports = function (app) {
 router.post('/gQuery', function (req, res, next) {
 
   let query = req.body.query;
+  console.log(query);
   ghobot.talk(req.body.query, function(err, data){
     if(err) console.log(err);
     res.send(data);

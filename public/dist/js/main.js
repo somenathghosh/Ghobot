@@ -104,7 +104,7 @@ var ChatBot = (function ($) {
             } else {
 
                 // press enter and wait for some time and then write the next entry
-                ChatBot.addChatEntry(state.currentInput, "human");
+                ChatBot.addChatEntry(state.currentInput, [],"human");
                 ChatBot.react(state.currentInput);
                 $(inputs).val(state.currentInput);
 
@@ -299,7 +299,7 @@ var ChatBot = (function ($) {
             }
 
             //Welcome message
-            ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. whom am I talking to today?',[],'bot');
+            ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. How can I help you today?',['I forgot username','I Forgot password', 'I need to talk to a person' ],'bot');
 
             // listen to inputs on the defined fields
             $(inputs).keyup(function (e) {
@@ -388,10 +388,9 @@ var ChatBot = (function ($) {
 })($);
 
 var sampleConversation = [
-    "Hi",
-    "My name is Fry",
-    "Where is China?",
-    "What is the population of China?",
+    "My name is Somenath",
+    "I would like to reset my password.",
+    "My user id is somenath.ghosh",
     "Bye"
 ];
 var config = {

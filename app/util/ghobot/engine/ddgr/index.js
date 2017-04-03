@@ -33,37 +33,27 @@ let Engine = (function () {
 				matches = text.match(r);
 				//console.log(matches);
 				if (matches) {
-						switch (pattern.actionKey) {
-								case 'rewrite': //need to revisit and change the logic
-										response = pattern.actionValue;
-										for (let j = 1; j < matches.length; j++) {
-												response = response.replace("$" + j, matches[j]);
-										}
-										callback(err,response,null);
-										if (pattern.callback instanceof Function) {
-												pattern.callback.call(this, matches);
-										}
-										break;
-								case 'response':
 
-										data.DefinitionSource = 'Dic';
-										data.AbstractText = '';
-										response = pattern.actionValue;
-										suggestion = pattern.suggestion;
-										if (response !== undefined) {
-												for (let j = 1; j < matches.length; j++) {
-														response = response.replace("$" + j, matches[j]);
-												}
-												topic.Result = response;
-												topic.Text = suggestion;
-												data.RelatedTopics.push(topic);
-												callback(err,data);
-										}
-										if (pattern.callback instanceof Function) {
-												pattern.callback.call(this, matches);
-										}
-						}
-						break;
+
+					data.DefinitionSource = 'Dic';
+					data.AbstractText = '';
+					response = pattern.actionValue;
+					suggestion = pattern.suggestion;
+					if (response !== undefined) {
+							for (let j = 1; j < matches.length; j++) {
+									response = response.replace("$" + j, matches[j]);
+							}
+							topic.Result = response;
+							topic.Text = suggestion;
+							data.RelatedTopics.push(topic);
+							callback(err,data);
+					}
+					if (pattern.callback instanceof Function) {
+							pattern.callback.call(this, matches);
+					}
+					break;
+
+
 				}
 				else{
 
