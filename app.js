@@ -3,28 +3,28 @@
 const express 	= require('express');
 const  config 	= require('./config/config');
 const  glob 	= require('glob');
-const  mongoose = require('mongoose');
+//const  mongoose = require('mongoose');
 const process = require('process');
 
 //Test
-let DDGR = require('./app/util/ghobot/engine');
+let BOT = require('./app/util/ghobot');
 
-let engine = new DDGR().require(['DDGR','DDG','DDGS']).start();
+let ghobot = new BOT('Ghobot');
 
-// engine.listen('my name is Khan', function (err, data) {
-//   console.log(err, data);
-// })
+ghobot.talk('I\'m Tagore', function (err, data) {
+  console.log(err, data);
+})
 
-console.log(engine.capabilities());
+//console.log(engine.capabilities());
 
 //Test n
 
 try {
-  mongoose.connect(config.db);
-  const db = mongoose.connection;
-  db.on('error', function () {
-    throw new Error('unable to connect to database at ' + config.db);
-  });
+  // mongoose.connect(config.db);
+  // const db = mongoose.connection;
+  // db.on('error', function () {
+  //   throw new Error('unable to connect to database at ' + config.db);
+  // });
   const models = glob.sync(config.root + '/app/models/*.js');
 
   models.forEach(function (model) {

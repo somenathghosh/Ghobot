@@ -4,6 +4,9 @@ const events = require('events');
 const EventEmitter = require('events').EventEmitter;
 const Pfile = require('./pfile');
 const ddgr = Pfile.exec();
+const winston = require('winston');
+const console = {};
+console.log = winston.info;
 
 let Engine = (function () {
 
@@ -13,6 +16,7 @@ let Engine = (function () {
 		//console.log(patterns);
 		let response = null; //if no match, response will be null
 		let suggestion = null;
+		let matches = null;
 		let err = null; //needs to implement error handling
 		let data = {};
 		data.DefinitionSource = null;
@@ -26,8 +30,8 @@ let Engine = (function () {
 		for (let i = 0; i < patterns.length; i++) {
 				let pattern = patterns[i];
 				let r = new RegExp(pattern.regexp, "i");
-				let matches = text.match(r);
-				console.log(matches);
+				matches = text.match(r);
+				//console.log(matches);
 				if (matches) {
 						switch (pattern.actionKey) {
 								case 'rewrite': //need to revisit and change the logic
@@ -61,6 +65,14 @@ let Engine = (function () {
 						}
 						break;
 				}
+				else{
+
+				}
+		}
+
+		if(!matches) {
+			console.log('No Match found');
+			callback(err, data);
 		}
 
 	}
