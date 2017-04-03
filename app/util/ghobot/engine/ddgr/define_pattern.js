@@ -38,8 +38,8 @@ module.exports = [
   {
     "regexp":"(?:I would like to reset my password|reset my password|password)$",
     "actionKey": "response",
-    "actionValue":"I can not find your user id. Do you want to try again or want to retrieve your user id?",
-    "callback":function(matches) {return findUser(matches[1]);},
+    "actionValue":"Sure, I can help with that. Before that, for verification purpose, can you please provide your user id?",
+    "callback":undefined,
     "description":"Provide your user id",
     "context": 0,
     "dsl": 100001,
