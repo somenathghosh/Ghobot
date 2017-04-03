@@ -36,6 +36,18 @@ module.exports = [
   },
 
   {
+    "regexp":"(?:I would like to reset my password|reset my password|password)$",
+    "actionKey": "response",
+    "actionValue":"I can not find your user id. Do you want to try again or want to retrieve your user id?",
+    "callback":function(matches) {return findUser(matches[1]);},
+    "description":"Provide your user id",
+    "context": 0,
+    "dsl": 100001,
+    "suggestion":["I would like to try again, my user id is","I wan help on retrieving my userid" ]
+
+  },
+
+  {
     "regexp":"^(?:hi|hello|howdy|howdy my friend|howdy friend|hey|hey friend|hey buddy)(.*)",
     "actionKey": "response",
     "actionValue":"hello, how are you doing?",
@@ -58,17 +70,6 @@ module.exports = [
 
   },
 
-  {
-    "regexp":"(?:Sure, my user id is|userid|userid is) (.*)",
-    "actionKey": "response",
-    "actionValue":"$1, let me verify your identify",
-    "callback":function(matches) {return findUser(matches[1]);},
-    "description":"Provide your user id",
-    "context": 0,
-    "dsl": 10000,
-    "suggestion":['']
-
-  },
 
   {
     "regexp":"^(?:my user id is|my userid is |the userid is) (.*)",
