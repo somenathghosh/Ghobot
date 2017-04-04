@@ -157,7 +157,6 @@ var ChatBot = (function ($) {
 
             return {
                 react: function (query,callback) {
-
                       var q= {};
                       q.query=query;
                       $.ajax({
@@ -166,14 +165,15 @@ var ChatBot = (function ($) {
                           contentType: 'application/json',
                           url: '/gQuery',
                           success: function(data) {
-                              //console.log('Engine/react ===>', data);
-                              //console.log(data);
+
+
                               var content = data.AbstractText;
                               var suggestion = [];
                               if (content === '' ) {
 
                                 if(data.RelatedTopics.length > 0){
 
+                                  console.log('Engine/react ===>', data);
                                   content = '';
 
                                   var media = [];
@@ -188,7 +188,7 @@ var ChatBot = (function ($) {
                                         }
                                       }
                                       content += ob.Result.replace("</a>", "</a> ") ;
-                                      //console.log(content);
+                                      console.log(content);
                                       var txt = ob.Text;
                                       for (var t=0; t < txt.length; t++){
                                         suggestion.push( txt[t].replace("</a>", "</a> "));

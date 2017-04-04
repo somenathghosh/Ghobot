@@ -4,7 +4,9 @@ const events = require('events');
 //const Pattern = require('./pattern');
 const PatternCollection = require('../../../mdb');
 //const Pfile = require('./pfile');
-
+const winston = require('winston');
+const console = {};
+console.log = winston.info;
 
 const EventEmitter = require('events').EventEmitter;
 

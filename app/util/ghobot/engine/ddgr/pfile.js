@@ -3,6 +3,9 @@
 const DDGR = require('./ddgr');
 const Pattern = require('./pattern');
 const patterns = require('./define_pattern');
+const winston = require('winston');
+const console = {};
+console.log = winston.info;
 
 let Pfile = (function(){
   const ddgr = new DDGR();
@@ -17,7 +20,7 @@ let Pfile = (function(){
       for (let i = 0; i < patterns.length; i++) {
         ddgr.add(new Pattern(patterns[i]));
       }
-      
+
        return ddgr;
 
      }

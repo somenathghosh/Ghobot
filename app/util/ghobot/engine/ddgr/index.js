@@ -11,6 +11,8 @@ console.log = winston.info;
 let Engine = (function () {
 
 	let patterns = ddgr.getAll();
+
+
 	const _act = (text, callback) => {
 
 		//console.log(patterns);
@@ -33,8 +35,6 @@ let Engine = (function () {
 				matches = text.match(r);
 				//console.log(matches);
 				if (matches) {
-
-
 					data.DefinitionSource = 'Dic';
 					data.AbstractText = '';
 					response = pattern.actionValue;
@@ -43,13 +43,34 @@ let Engine = (function () {
 							for (let j = 1; j < matches.length; j++) {
 									response = response.replace("$" + j, matches[j]);
 							}
-							topic.Result = response;
-							topic.Text = suggestion;
-							data.RelatedTopics.push(topic);
-							callback(err,data);
+							// topic.Result = response;
+							// topic.Text = suggestion;
+							// data.RelatedTopics.push(topic);
+							//callback(err,data);
 					}
 					if (pattern.callback instanceof Function) {
-							pattern.callback.call(this, matches);
+
+							console.log('Calling callback function');
+							pattern.callback.call(this,matches, function(pass, text, sugg){
+								console.log('calling internal callback()');
+								if(pass) {
+									topic.Result = text;
+									topic.Text = sugg;
+									data.RelatedTopics.push(topic);
+									console.log(data);
+									callback(undefined, data)
+								}
+								else{
+									topic.Result = response;
+									topic.Text = suggestion;
+									data.RelatedTopics.push(topic);
+									console.log(data);
+									callback(undefined,data);
+								}
+							});
+					}
+					else{
+						callback(err,data);
 					}
 					break;
 

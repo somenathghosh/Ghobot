@@ -1,7 +1,7 @@
 'use strict';
 
 const EventEmitter = require('events').EventEmitter;
-const request = require('request'); 
+const request = require('request');
 const url = require('url');
 const config = require('../../../../../config/config');
 
@@ -16,6 +16,7 @@ class DDGCore extends EventEmitter {
     }
 
     success(data) {
+			//console.log(data);
     	if(data) console.log('DDG/ddg/success: =====> Got the data at DDGCore');
     	else console.log('DDG/ddg/success: =====> There is some problem in getting the data');
 
@@ -28,7 +29,7 @@ class DDGCore extends EventEmitter {
 
 
 	getFields (arg) {
-		
+
 		let fields = new Array("Abstract", "AbstractText", "AbstractSource", "AbstractURL", "Image", "Heading", "Answer", "AnswerType", "Definition", "DefinitionSource", "DefinitionURL", "RelatedTopics", "Results", "Type", "Redirect");
 
 		if(arg){
@@ -37,7 +38,7 @@ class DDGCore extends EventEmitter {
 		else{
 			return fields;
 		}
-			
+
 	}
 	getOptions (arg) {
 
@@ -68,9 +69,9 @@ class DDGCore extends EventEmitter {
 		}
 		else
 		{
-			this.URL = this.url()+'?format='+this.getOptions("format")+'&pretty='+this.getOptions("pretty")+'&q=' + encodeURIComponent(query);	
+			this.URL = this.url()+'?format='+this.getOptions("format")+'&pretty='+this.getOptions("pretty")+'&q=' + encodeURIComponent(query);
 		}
-		
+
 		return this;
 	}
 
@@ -92,19 +93,19 @@ class DDGCore extends EventEmitter {
 			if(response){
 
 				if (response.statusCode === 200) {
-					
+
 					try {
 						self.body = JSON.parse(body);
-						
+
 						if (callback) {
 							if (field) {
 								callback(err, self.body[field]);
-								
+
 							}
 							else {
 								self.emit('data', self.body);
 								callback(err, self.body);
-								
+
 							}
 						} else {
 							//return self;
@@ -117,9 +118,9 @@ class DDGCore extends EventEmitter {
 
 				} else if (response.statusCode === 500) {
 					this.emit('error', new Error('DDG/ddg/makeRequest: =====> node-ddg error: server Internal error' + response.statusCode));
-					
+
 					if(callback) callback(error,undefined);
-					
+
 				} else {
 
 					this.emit('error', new Error('DDG/ddg/makeRequest: =====> node-ddg error: problem with request code: '+response.statusCode));
@@ -132,7 +133,7 @@ class DDGCore extends EventEmitter {
 		});
 
 		return this;
-		
+
 	}
 
 	body_parser (callback,arg) {
@@ -150,8 +151,8 @@ class DDGCore extends EventEmitter {
 		}
 
 		return this;
-		
-		
+
+
 	}
 
 }

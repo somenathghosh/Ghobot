@@ -45,7 +45,11 @@ let Engine = (function () {
         _engines[0].listen(query,function(err,data){
           if(err) callback(err);
           if(data.RelatedTopics.length === 0) callback(err,data);
-          if(data.RelatedTopics.length > 0) callback(new Error('DataFound'), data);
+
+          if(data.RelatedTopics.length > 0) {
+            console.log('1st Engine found data ===>',data);
+            callback(new Error('DataFound'), data);
+          }
         });
       },
       function(arg, callback){
@@ -56,7 +60,7 @@ let Engine = (function () {
             //console.log(data);
             if(data.RelatedTopics.length === 0) callback(err,data);
             if(data.RelatedTopics.length > 0) {
-              //console.log(data);
+              console.log('2nd Engine found data ===>',data);
               callback(new Error('DataFound'), data);
             }
           });
@@ -74,7 +78,11 @@ let Engine = (function () {
           _engines[2].listen(query,function(err,data){
             if(err) callback(err);
             if(data.RelatedTopics.length === 0) callback(err,data);
-            if(data.RelatedTopics.length > 0) callback(new Error('DataFound'), data);
+            //console.log(data);
+            if(data.RelatedTopics.length > 0) {
+              console.log('3rd Engine found data ===>',data);
+              callback(new Error('DataFound'), data);
+            }
           });
         }
         else {
@@ -85,7 +93,7 @@ let Engine = (function () {
       // function(arg, callback){
       //   console.log('4th engine');
       //   if(_engines.length > 3) {
-      // 
+      //
       //     _engines[3].listen(query,function(err,data){
       //       if(err) callback(err);
       //       if(data.RelatedTopics.length === 0) callback(err,data);
@@ -99,7 +107,10 @@ let Engine = (function () {
 
     ],function (err, data){
         //console.log('callback', err, data);
-        if(err.message === 'DataFound') cb(null,data);
+        if(err.message === 'DataFound') {
+          console.log('Data found from all engines====>', data);
+          cb(null,data);
+        }
         else if(err.message === 'NoMoreEngine') cb(null,{RelatedTopics:[]});
         else cb(err, null);
     });
