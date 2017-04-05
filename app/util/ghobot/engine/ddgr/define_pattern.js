@@ -76,6 +76,19 @@ let DP = (function(){
     },
 
     {
+      "regexp":"(?:I would like to retrieve my userid|retrieve my userid|I forgot my userid|forgot username)(.*)$",
+      "actionKey": "response",
+      "actionValue":"Sure, I can help with that. Before that, for verification purpose, can you please provide your email address?",
+      "callback":function(matches,cb) { 'use strict'; console.log(matches); cb(false,'',[])},
+      "description":"'Provide your email address' to get your identity verified",
+      "context": 0,
+      "dsl": 100001,
+      "suggestion":["my email address is","I forgot my email address" ]
+
+    },
+
+
+    {
       "regexp":"^(?:hi|hello|howdy|howdy my friend|howdy friend|hey|hey friend|hey buddy)(.*)",
       "actionKey": "response",
       "actionValue":"hello, how are you doing?",
@@ -108,6 +121,18 @@ let DP = (function(){
       "context": 0,
       "dsl": 100001,
       "suggestion":["Thanks!","I do not have my email address registered"]
+
+    },
+
+    {
+      "regexp":"^(?:my email address is|my email is |the email is|the email address is) (.*)",
+      "actionKey": "response",
+      "actionValue":"I have verified your email address. I would send the user id via the registered email address.",
+      "callback":function(matches,cb) { 'use strict'; console.log(matches);cb(false,'',[]);},
+      "description":"Provide your user id",
+      "context": 0,
+      "dsl": 100001,
+      "suggestion":["Thanks","I do not have my email address registered"]
 
     },
 

@@ -1,7 +1,7 @@
 var sampleConversation = [
     "My name is Somenath",
     "I would like to reset my password.",
-    "My user id is somenath.ghosh",
+    "My user id is SOMENATH",
     "Bye"
 ];
 var config = {

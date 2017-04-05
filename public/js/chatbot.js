@@ -333,8 +333,12 @@ var ChatBot = (function ($) {
               suggestion.forEach(function(ele, idx){
                 console.log(ele);
                 $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + ele + '\')">' + ele + '</div>'));
-
               });
+
+              // $("input").autocomplete({
+              //   source:[states]
+              // });
+
 
             }
             var entryDiv = $('<div class="chatBotChatEntry ' + origin + '"></div>');
@@ -404,6 +408,7 @@ var ChatBot = (function ($) {
 // fill the input with the selected tag
 function useSuggestedTag(text) {
   $('#humanInput').val(text);
+  $('#humanInput').focus();
 
   // TODO: Automatically play tag?
 }
