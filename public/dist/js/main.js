@@ -329,14 +329,19 @@ var ChatBot = (function ($) {
             }
             if(suggestion && suggestion instanceof Array){
               //console.log(suggestion);
+              var words = [];
               $('#suggestionsContainer').html('');
               suggestion.forEach(function(ele, idx){
                 console.log(ele);
                 $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + ele + '\')">' + ele + '</div>'));
-              });
+                //console.log(ele.split("\\s+"));
 
-              // $("input").autocomplete({
-              //   source:[states]
+              });
+              // console.log(words);
+              // $('#humanInput').suggest(words, {
+              //   suggestionColor   : '#cccccc',
+              //   moreIndicatorClass: 'suggest-more',
+              //   moreIndicatorText : '&hellip;'
               // });
 
 
