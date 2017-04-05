@@ -45,10 +45,11 @@ gulp.task('styles', function() {
 //scripts
 gulp.task('scripts', function() {
   return gulp.src('public/js/*.js')
+    .pipe(gulp.dest('public/dist/js'))
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'))
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('public/dist/js'))
+    // .pipe(concat('main.js'))
+    // .pipe(gulp.dest('public/dist/js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
     .pipe(gulp.dest('public/dist/js'))

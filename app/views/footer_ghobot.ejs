@@ -1,19 +1,27 @@
-
 <!-- SCRIPTS -->
-
 <!-- JQuery -->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
-<!-- <script type="text/javascript" src="/dist/js/jquery-suggest.js"></script> -->
+<% if (ENV_DEVELOPMENT) { %>
+  <script type="text/javascript" src="/dist/js/jquery.suggest.js"></script>
+  <script src="/dist/js/typed.js"></script>
+<% } %>
+
+<% if (ENV_PRODUCTION) { %>
+  <script type="text/javascript" src="/dist/js/jquery.suggest.min.js"></script>
+  <script src="typed.min.js"></script>
+<% } %>
 
 <!-- Chatbot Core lib -->
-<script type="text/javascript" src="/dist/js/main.js"></script>
-
-
+<% if (ENV_DEVELOPMENT) { %>
+  <script type="text/javascript" src="/dist/js/chatbot.js"></script>
+  <script type="text/javascript" src="/dist/js/chatbotaction.js"></script>
+<% } %>
+<% if (ENV_PRODUCTION) { %>
+  <script type="text/javascript" src="/dist/js/chatbot.min.js"></script>
+  <script type="text/javascript" src="/dist/js/chatbotaction.min.js"></script>
+<% } %>
 <!-- Animations init-->
-<script>
-</script>
-
-
+<script></script>
 </body>
 </html>

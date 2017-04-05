@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 const express = require('express');
 const glob = require('glob');
@@ -16,7 +16,8 @@ const LokiStore = require('connect-loki')(session);
 module.exports = function(app, config) {
   let env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
-  app.locals.ENV_DEVELOPMENT = env == 'development';
+  app.locals.ENV_DEVELOPMENT = env === 'development';
+  app.locals.ENV_PRODUCTION = env === 'production';
 
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'ejs');
@@ -41,7 +42,7 @@ module.exports = function(app, config) {
   // }));
   //For Production use session storage, Heroku might not support local file storage session.
   //Better to use mongoDB/Radis for session.
-  
+
   let sess = {
     secret: 'sbdjkfslh89345r3jfsdfn82313bnsd09fsdf0913412bngsdbf871231e9r283yfbwe',
     resave: false,
