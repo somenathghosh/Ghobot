@@ -47,3 +47,14 @@ input:focus {
 .chatBotChatEntry {
     display: none;
 }
+
+.suggestion-tag {
+    float: left;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 5px;
+    color: #fff;
+    background-color: #181F58;
+    cursor: pointer;
+}

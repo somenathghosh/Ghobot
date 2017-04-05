@@ -78,8 +78,11 @@ var ChatBot = (function ($) {
               datalist.html('');
           }
 
+          $('#suggestionsContainer').html('');
+
           for (i = 0; i < examplePhrases.length; i++) {
               datalist.append($('<option value="'+examplePhrases[i]+'"></option>'));
+              $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + examplePhrases[i] + '\')">' + examplePhrases[i] + '</div>'));
           }
           $('#chatBotCommandDescription').html(description);
 
@@ -386,3 +389,10 @@ var ChatBot = (function ($) {
 
     }
 })($);
+
+// fill the input with the selected tag
+function useSuggestedTag(text) {
+  $('#humanInput').val(text);
+
+  // TODO: Automatically play tag?
+}
