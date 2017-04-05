@@ -15,7 +15,11 @@ let Engine = (function () {
 
 				data.DefinitionSource = body.DefinitionSource;
 				data.AbstractText = body.AbstractText;
+				for(let i=0; i<body.RelatedTopics.length; i++){
+					body.RelatedTopics[i].Text = '';
+				}
 				data.RelatedTopics = body.RelatedTopics;
+
 				data.Image = body.Image;
 				data.Heading = body.Heading;
 

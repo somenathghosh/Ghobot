@@ -7,7 +7,7 @@ const EventEmitter = require('events').EventEmitter;
 
 let BOT = (function () {
 
-  const _engine = engine.require(new Array('DDGR','DDG','DDGS')).start();
+  const _engine = engine.require(new Array('DDGR','DDG')).start();
   const _talk = (q,cb) => {
     engine.listen(q, cb);
   }

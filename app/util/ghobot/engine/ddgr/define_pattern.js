@@ -64,7 +64,7 @@ let DP = (function(){
     },
 
     {
-      "regexp":"(?:I would like to reset my password|reset my password|I forgot my password|forgot password)$",
+      "regexp":"(?:I would like to reset my password|reset my password|I forgot my password|forgot password)(.*)$",
       "actionKey": "response",
       "actionValue":"Sure, I can help with that. Before that, for verification purpose, can you please provide your user id?",
       "callback":function(matches,cb) { 'use strict'; console.log(matches); cb(false,'',[])},
@@ -91,7 +91,7 @@ let DP = (function(){
       "actionKey": "response",
       "actionValue":"Okay, what can I help you with? I can reset your password, retrive your userid if you forgot or register your email address",
       "callback":function(matches,cb) { 'use strict'; console.log(matches);cb(false,'',[]);},
-      "description":"Say 'I would like to reset my password/retrieve userid/register email address' to reset your password.",
+      "description":"Say 'I would like to reset my password' to reset your password.",
       "context": 0,
       "dsl": 10,
       "suggestion":["I would like to reset my password","I would like to retrieve my user id","I would like to register my email address"]
@@ -107,7 +107,7 @@ let DP = (function(){
       "description":"Provide your user id",
       "context": 0,
       "dsl": 100001,
-      "suggestion":["Thanks!","I don't have my email address registered"]
+      "suggestion":["Thanks!","I do not have my email address registered"]
 
     },
 

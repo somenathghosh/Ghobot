@@ -78,11 +78,11 @@ var ChatBot = (function ($) {
               datalist.html('');
           }
 
-          $('#suggestionsContainer').html('');
+          //$('#suggestionsContainer').html('');
 
           for (i = 0; i < examplePhrases.length; i++) {
               datalist.append($('<option value="'+examplePhrases[i]+'"></option>'));
-              $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + examplePhrases[i] + '\')">' + examplePhrases[i] + '</div>'));
+              //$('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + examplePhrases[i] + '\')">' + examplePhrases[i] + '</div>'));
           }
           $('#chatBotCommandDescription').html(description);
 
@@ -302,7 +302,7 @@ var ChatBot = (function ($) {
             }
 
             //Welcome message
-            ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. How can I help you today?',['I forgot username','I Forgot password', 'I need to talk to a person' ],'bot');
+            ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. How can I help you today?',['I forgot username','I forgot password', 'I need to talk to a person' ],'bot');
 
             // listen to inputs on the defined fields
             $(inputs).keyup(function (e) {
@@ -324,7 +324,18 @@ var ChatBot = (function ($) {
         addChatEntry: function addChatEntry(text,suggestion,origin) {
             //console.log( text, suggestion, origin);
             if (text === undefined || text === '') {
-                text = 'I couldn\'t find answer for you';
+                text = 'I am sorry, I couldn\'t find answer for you! Is there anything, I can help you with?';
+                suggestion = ['I forgot username','I forgot password', 'I need to talk to a person'];
+            }
+            if(suggestion && suggestion instanceof Array){
+              //console.log(suggestion);
+              $('#suggestionsContainer').html('');
+              suggestion.forEach(function(ele, idx){
+                console.log(ele);
+                $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + ele + '\')">' + ele + '</div>'));
+
+              });
+
             }
             var entryDiv = $('<div class="chatBotChatEntry ' + origin + '"></div>');
             entryDiv.html('<span class="origin">' + (origin === 'bot' ? botName : humanName) + '</span>' + text);

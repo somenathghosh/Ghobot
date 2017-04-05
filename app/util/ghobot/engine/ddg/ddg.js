@@ -4,6 +4,7 @@ const EventEmitter = require('events').EventEmitter;
 const request = require('request');
 const url = require('url');
 const config = require('../../../../../config/config');
+const lda = require('lda');
 
 
 class DDGCore extends EventEmitter {
@@ -64,6 +65,20 @@ class DDGCore extends EventEmitter {
 	}
 
 	prepareURL (query, options) {
+
+		let q = query + ' . ';
+		console.log('DDG===> query got',q);
+		q = q.match( /[^\.!\?]+[\.!\?]+/g );
+		console.log('DDG===> modified query got',q);
+
+		q = lda(q, 2, 3);
+		if(q.length >0 && q[0].term){
+			q = q[0];
+			query = q[0].term;
+		}
+		console.log('DDG===> LDA modified query got',q);
+
+		console.log(query);
 		if(options){
 			this.URL = this.url()+'?format='+options.format+'&pretty='+options.pretty+'&q=' + encodeURIComponent(query);
 		}

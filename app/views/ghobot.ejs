@@ -1,6 +1,6 @@
 <% include header %>
 
-    
+
 <link rel="stylesheet" type="text/css" href="dist/css/chatbot_custom.min.css" />
 <link rel="stylesheet" type="text/css" href="dist/css/chatbot.min.css" />
 
@@ -10,7 +10,7 @@
 <div id="demo">
 <div id="chatBotCommandDescription"></div>
 
-<input id="humanInput" type="text" placeholder="Say something" />
+<input id="humanInput" type="text" placeholder="Say something" spellcheck="true"/>
 
 <div class="button" onclick="if (!ChatBot.playConversation(sampleConversation,2000)) {alert('conversation already running');};">Play sample conversation!</div>
 <div class="button" onclick="$('#chatBotCommandDescription').slideToggle();" style="margin-right:10px">How to talk to me</div>
@@ -30,6 +30,6 @@
 </div>
 
 
-   
+
 
 <% include footer_ghobot %>
