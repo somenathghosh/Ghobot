@@ -16,7 +16,11 @@ module.exports = function (app) {
 router.post('/gQuery', function (req, res, next) {
 
   //console.log(req.session.view);
-  let query = req.body.query;
+  let query = req.body.query.trim();
+  if(query === undefined || query === null || query === ''){
+    res.send(dummy());
+  }
+  //query= query.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").trim().toLowerCase();
 
   console.log(query);
   let value = cache.get(query);
@@ -44,3 +48,14 @@ router.post('/gQuery', function (req, res, next) {
   // });
 
 });
+
+let dummy = () =>{
+  data.DefinitionSource = null;
+  data.AbstractText = '';
+  data.RelatedTopics = new Array();
+  let topic = {};
+  topic.Result = null;
+  topic.FirstURL = null;
+  topic.Text = null;
+  return data;
+}

@@ -4,9 +4,9 @@ const events = require('events');
 const EventEmitter = require('events').EventEmitter;
 const Pfile = require('./pfile');
 const ddgr = Pfile.exec();
-const winston = require('winston');
-const console = {};
-console.log = winston.info;
+// const winston = require('winston');
+// const console = {};
+// console.log = winston.info;
 
 let Engine = (function () {
 
@@ -29,12 +29,15 @@ let Engine = (function () {
 		topic.FirstURL = null;
 		topic.Text = null;
 
+		//console.log(text);
+		//console.log(patterns);
 		for (let i = 0; i < patterns.length; i++) {
 				let pattern = patterns[i];
 				let r = new RegExp(pattern.regexp, "i");
 				matches = text.match(r);
-				//console.log(matches);
+				//console.log('matches ===>', matches);
 				if (matches) {
+					//console.log('inside matches ===>', matches, pattern, i);
 					data.DefinitionSource = 'Dic';
 					data.AbstractText = '';
 					response = pattern.actionValue;
@@ -43,6 +46,7 @@ let Engine = (function () {
 							for (let j = 1; j < matches.length; j++) {
 									response = response.replace("$" + j, matches[j]);
 							}
+							//console.log(response);
 							// topic.Result = response;
 							// topic.Text = suggestion;
 							// data.RelatedTopics.push(topic);
@@ -61,10 +65,11 @@ let Engine = (function () {
 									callback(undefined, data)
 								}
 								else{
+									//console.log('I should be here', text, sugg);
 									topic.Result = response;
 									topic.Text = suggestion;
 									data.RelatedTopics.push(topic);
-									console.log(data);
+									//console.log(data);
 									callback(undefined,data);
 								}
 							});

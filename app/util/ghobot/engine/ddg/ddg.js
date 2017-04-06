@@ -72,8 +72,9 @@ class DDGCore extends EventEmitter {
 		console.log('DDG===> modified query got',q);
 
 		q = lda(q, 2, 3);
+		q = [].concat.apply([],q);
+		console.log(q);
 		if(q.length >0 && q[0].term){
-			q = q[0];
 			query = q[0].term;
 		}
 		console.log('DDG===> LDA modified query got',q);

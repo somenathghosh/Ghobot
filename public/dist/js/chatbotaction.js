@@ -1,7 +1,10 @@
+'use strict';
+
 var sampleConversation = [
+    "This is Somenath Ghosh",
     "I forgot my password",
-    "My user id is SOMENATH",
-    "Thanks",
+    "My user id is somenath.ghosh",
+    "Thanks!",
     "where is India",
     "who is Steve Jobs?",
     "do you like Iphone?",

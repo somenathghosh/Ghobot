@@ -3,8 +3,8 @@ var ChatBot = (function ($) {
     "use strict";
     //// common vars
     // custom patterns and rewrites
-    if ($ === undefined){
-        console.log('Jquery is NOT loaded!');
+    if ($ === undefined || $ === null ){
+        console.log('Chatbot: ===> Jquery is NOT loaded!');
     }
     var patterns;
 
@@ -131,7 +131,7 @@ var ChatBot = (function ($) {
                 var chclb = $('#chatBotConversationLoadingBar');
                 if (chclb.size() === 0) {
                     chclb = $('<div id="chatBotConversationLoadingBar"></div>');
-                    chclb.css('position','absolute');
+                    chclb.css('position','relative');
                     $('body').append(chclb);
                 }
 
@@ -302,7 +302,9 @@ var ChatBot = (function ($) {
             }
 
             //Welcome message
-            ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. How can I help you today?',['I forgot username','I forgot password', 'I need to talk to a person' ],'bot');
+            //ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. How can I help you today?',['I forgot username','I forgot password', 'I need to talk to a person' ],'bot');
+
+            ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today? (Request you to provide your full name on file.)',['This is ','I need to talk to an agent' ],'bot');
 
             // listen to inputs on the defined fields
             $(inputs).keyup(function (e) {
@@ -325,34 +327,34 @@ var ChatBot = (function ($) {
             //console.log( text, suggestion, origin);
             if (text === undefined || text === '') {
                 text = 'I am sorry, I couldn\'t find answer for you! Is there anything, I can help you with?';
-                suggestion = ['I forgot username','I forgot password', 'I need to talk to a person'];
+                suggestion = ['I forgot username','I forgot password', 'I need to talk to an agent'];
             }
             if(suggestion && suggestion instanceof Array){
-              //console.log(suggestion);
-              var words = [];
-              $('#suggestionsContainer').html('');
-              suggestion.forEach(function(ele, idx){
-                console.log(ele);
-                $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + ele + '\')">' + ele + '</div>'));
-                //console.log(ele.split("\\s+"));
 
-              });
-              // console.log(words);
+              $('#suggestionsContainer').html('');
+
+              for(var e=0; e<suggestion.length;e++){
+                $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + suggestion[e] + '\')">' + suggestion[e] + '</div>'));
+
+              }
+
               // $('#humanInput').suggest(suggestion, {
               //   suggestionColor   : '#cccccc',
               //   moreIndicatorClass: 'suggest-more',
               //   moreIndicatorText : '&hellip;'
               // });
-
-
             }
             var entryDiv = $('<div class="chatBotChatEntry ' + origin + '"></div>');
             entryDiv.html('<span class="origin">' + (origin === 'bot' ? botName : humanName) + '</span>' + text);
             console.log(entryDiv.html());
-            $('#chatBotHistory').prepend(entryDiv);
+            //$('#chatBotHistory').prepend(entryDiv);
+            $('#chatBotHistory').append(entryDiv);
             if (addChatEntryCallback !== undefined) {
                 addChatEntryCallback.call(this, entryDiv, text, suggestion,origin);
             }
+            $('#chatBot').animate({
+                scrollTop: $('#chatBot').get(0).scrollHeight
+            }, 1500);
         },
         thinking: function (on) {
             var ti = $('#chatBotThinkingIndicator');
@@ -415,9 +417,13 @@ function useSuggestedTag(text) {
   //$('#humanInput').val(text);
   $("#humanInput").typed({
     strings:[text],
-    typeSpeed: 10
+    typeSpeed: 0
   });
   $('#humanInput').focus();
 
   // TODO: Automatically play tag?
 }
+
+$('#chatBot').animate({
+    scrollTop: $('#chatBot').get(0).scrollHeight
+}, 1500);

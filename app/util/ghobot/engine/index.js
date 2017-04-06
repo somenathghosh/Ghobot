@@ -47,7 +47,7 @@ let Engine = (function () {
           if(data.RelatedTopics.length === 0) callback(err,data);
 
           if(data.RelatedTopics.length > 0) {
-            console.log('1st Engine found data ===>',data);
+            //console.log('1st Engine found data ===>',data);
             callback(new Error('DataFound'), data);
           }
         });
@@ -108,7 +108,7 @@ let Engine = (function () {
     ],function (err, data){
         //console.log('callback', err, data);
         if(err.message === 'DataFound') {
-          console.log('Data found from all engines====>', data);
+          //console.log('Data found from all engines====>', data);
           cb(null,data);
         }
         else if(err.message === 'NoMoreEngine') cb(null,{RelatedTopics:[]});

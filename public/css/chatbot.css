@@ -61,11 +61,11 @@
 
 .bot {
     /*border: 4px solid rgba(0, 132, 60, 0.2);*/
-    background-color: rgba(0, 132, 60, 0.2);
+    background-color: rgba(0, 32, 92, 0.2);
 }
 .human {
     /*border: 4px solid rgba(38, 159, 202, 0.2);*/
-    background-color: rgba(38, 159, 202, 0.2);
+    background-color: rgba(0, 82, 194, 0.2);
 }
 
 #chatBotCommandDescription {
