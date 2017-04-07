@@ -132,13 +132,13 @@ var ChatBot = (function ($) {
                 if (chclb.size() === 0) {
                     chclb = $('<div id="chatBotConversationLoadingBar"></div>');
                     chclb.css('position','relative');
-                    $('body').append(chclb);
+                    $('#demo').append(chclb);
                 }
 
                 var left =  $(inputs).offset().left;
                 var top = $(inputs).offset().top + $(inputs).outerHeight() - 3;
-                chclb.css('left',left+'px');
-                chclb.css('top',top+'px');
+                //chclb.css('left',left+'px');
+                //chclb.css('top',top+'px');
 
                 chclb.animate({
                     width: $(inputs).outerWidth()+'px',
@@ -334,7 +334,9 @@ var ChatBot = (function ($) {
               $('#suggestionsContainer').html('');
 
               for(var e=0; e<suggestion.length;e++){
-                $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + suggestion[e] + '\')">' + suggestion[e] + '</div>'));
+                if(suggestion[e].length > 0) {
+                  $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + suggestion[e] + '\')">' + suggestion[e] + '</div>'));
+                }
 
               }
 
@@ -423,6 +425,10 @@ function useSuggestedTag(text) {
 
   // TODO: Automatically play tag?
 }
+
+$(window).change(function() {
+  $('#demo').css('heigt', 'calc(100%-40px)')
+}).trigger('change');
 
 $('#chatBot').animate({
     scrollTop: $('#chatBot').get(0).scrollHeight
