@@ -54,14 +54,14 @@ let Engine = (function () {
 					}
 					if (pattern.callback instanceof Function) {
 
-							console.log('Calling callback function');
+							//console.log('Calling callback function');
 							pattern.callback.call(this,matches, function(pass, text, sugg){
-								console.log('calling internal callback()');
+								//console.log('calling internal callback()');
 								if(pass) {
 									topic.Result = text;
 									topic.Text = sugg;
 									data.RelatedTopics.push(topic);
-									console.log(data);
+									//console.log(data);
 									callback(undefined, data)
 								}
 								else{
@@ -87,7 +87,7 @@ let Engine = (function () {
 		}
 
 		if(!matches) {
-			console.log('No Match found');
+			console.error('No Match found');
 			callback(err, data);
 		}
 

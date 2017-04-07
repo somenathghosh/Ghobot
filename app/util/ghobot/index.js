@@ -9,7 +9,18 @@ let BOT = (function () {
 
   const _engine = engine.require(new Array('DDGR','DDG')).start();
   const _talk = (q,cb) => {
-    engine.listen(q, cb);
+    if(!q){
+      cb(new Error('Query Value is Invalid'));
+    }
+    else {
+      if(typeof cb === 'function' ){
+        engine.listen(q,cb);
+      }
+      else{
+        cb(new Error('Callback is NOT a function'));
+      }
+
+    }
   }
 
   class BOT extends EventEmitter {

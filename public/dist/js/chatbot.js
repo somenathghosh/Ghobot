@@ -163,13 +163,11 @@ var ChatBot = (function ($) {
                       var q= {};
                       q.query=query;
                       $.ajax({
-                          type: 'POST',
-                          data: JSON.stringify(q),
+                          type: 'GET',
+                          data: {format:'json'},
                           contentType: 'application/json',
-                          url: '/gQuery',
+                          url: '/message?m='+query,
                           success: function(data) {
-
-
                               var content = data.AbstractText;
                               var suggestion = [];
                               if (content === '' ) {
@@ -304,7 +302,7 @@ var ChatBot = (function ($) {
             //Welcome message
             //ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. How can I help you today?',['I forgot username','I forgot password', 'I need to talk to a person' ],'bot');
 
-            ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today? (Request you to provide your full name on file.)',['This is ','I need to talk to an agent' ],'bot');
+            ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?',['This is ','I need to talk to an agent' ],'bot');
 
             // listen to inputs on the defined fields
             $(inputs).keyup(function (e) {
@@ -416,11 +414,11 @@ var ChatBot = (function ($) {
 
 // fill the input with the selected tag
 function useSuggestedTag(text) {
-  //$('#humanInput').val(text);
-  $("#humanInput").typed({
-    strings:[text],
-    typeSpeed: 0
-  });
+  $('#humanInput').val(text).fadeIn();
+  // $("#humanInput").typed({
+  //   strings:[text],
+  //   typeSpeed: 0
+  // });
   $('#humanInput').focus();
 
   // TODO: Automatically play tag?

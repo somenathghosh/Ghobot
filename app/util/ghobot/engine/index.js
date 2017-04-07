@@ -14,38 +14,12 @@ let Engine = (function () {
 
   let _act = (query,cb) =>{
 
-
-    // for(let idx=0; idx < _engine.length; idx++){
-    //   _engines[idx].listen(query)
-    // }
-    //
-    // //Don't run engines in parallel, this has to be in series.
-    // let tasks = new Array();
-    // //console.log(_engines);
-    // _engines.forEach(function(_e){
-    //   tasks.push(function(callback){
-    //       _e.listen(query,function(err,data){
-    //         if(err) callback(err);
-    //         callback(err,data);
-    //       });
-    //   });
-    // });
-    //
-    // async.parallel(tasks,function(err, data){
-    //   if(err) console.log(err);
-    //
-    //   cb(err,data);
-    // });
-    //implement series
-
     async.waterfall([
-
       function(callback){
         console.log('1st engine');
         _engines[0].listen(query,function(err,data){
           if(err) callback(err);
           if(data.RelatedTopics.length === 0) callback(err,data);
-
           if(data.RelatedTopics.length > 0) {
             //console.log('1st Engine found data ===>',data);
             callback(new Error('DataFound'), data);
@@ -60,7 +34,7 @@ let Engine = (function () {
             //console.log(data);
             if(data.RelatedTopics.length === 0) callback(err,data);
             if(data.RelatedTopics.length > 0) {
-              console.log('2nd Engine found data ===>',data);
+              //console.log('2nd Engine found data ===>',data);
               callback(new Error('DataFound'), data);
             }
           });
@@ -68,8 +42,6 @@ let Engine = (function () {
         else {
           callback(new Error('NoMoreEngine'));
         }
-
-
       },
       function(arg, callback){
 
@@ -80,7 +52,7 @@ let Engine = (function () {
             if(data.RelatedTopics.length === 0) callback(err,data);
             //console.log(data);
             if(data.RelatedTopics.length > 0) {
-              console.log('3rd Engine found data ===>',data);
+              //console.log('3rd Engine found data ===>',data);
               callback(new Error('DataFound'), data);
             }
           });
