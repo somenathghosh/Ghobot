@@ -2,8 +2,11 @@
 
 var sampleConversation = [
     "This is Somenath Ghosh",
+    "Yes",
     "I forgot my password",
+    "Yep",
     "My user id is somenath.ghosh",
+    "Yeh",
     "Thanks!",
     "where is India",
     "who is Steve Jobs?",

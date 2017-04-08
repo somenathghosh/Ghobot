@@ -33,7 +33,8 @@ router.get('/message', function (req, res, next) {
   }
 
   //console.log(query);
-
+  query = query.replace(/[\/#!$%\^&\*;?{}=\-_`~()]/g,"").replace(/[,.?!]?\s*$/, "").replace(/\s+/g, ' ').trim();
+  console.log('Controller/query recieved: ===>',query);
   let value = cache.get(query);
   //console.log(value);
   if(value){

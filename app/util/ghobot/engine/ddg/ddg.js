@@ -66,7 +66,11 @@ class DDGCore extends EventEmitter {
 
 	prepareURL (query, options) {
 
-		let q = query + ' . ';
+		let r = RegExp("(?:Received):\\s(.+)\\s(?:Entry):\\s(.+)", "i");
+		//console.log(r);
+		let matches = query.match(r);
+		console.log(matches);
+		let q = matches[1] + ' . ';
 		console.log('DDG===> query got',q);
 		q = q.match( /[^\.!\?]+[\.!\?]+/g );
 		console.log('DDG===> modified query got',q);

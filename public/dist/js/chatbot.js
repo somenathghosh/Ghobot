@@ -1,9 +1,8 @@
-
-var ChatBot = (function ($) {
+var ChatBot = (function($) {
     "use strict";
     //// common vars
     // custom patterns and rewrites
-    if ($ === undefined || $ === null ){
+    if ($ === undefined || $ === null) {
         console.log('Chatbot: ===> Jquery is NOT loaded!');
     }
     var patterns;
@@ -35,6 +34,8 @@ var ChatBot = (function ($) {
     // a callback for after a chat entry has been added
     var addChatEntryCallback;
 
+    var lastBotspeak;
+
     // list all the predefined commands and the commands of each engine
     function updateCommandDescription() {
         var description = '';
@@ -45,46 +46,46 @@ var ChatBot = (function ($) {
 
         //console.log(engines);
 
-        ChatBot.getCapabilities(function(data){
+        ChatBot.getCapabilities(function(data) {
 
-          //console.log('from updateCommandDescription', data);
+            //console.log('from updateCommandDescription', data);
 
-          for (j = 0; j < data.capabilities.length; j++) {
-              descriptions.push(data.capabilities[j]);
-          }
+            for (j = 0; j < data.capabilities.length; j++) {
+                descriptions.push(data.capabilities[j]);
+            }
 
-          examplePhrases = [];
-          for (i = 0; i < descriptions.length; i++) {
-              var pdesc = descriptions[i].replace(/(['"][^'"]+['"])/gi, '<span class="phraseHighlight">$1</span>');
-              pdesc = pdesc.replace(/(\[[^\[\]]+\])/gi, '<span class="placeholderHighlight">$1</span>');
-              //console.log(pdesc);
-              var matches = pdesc.match(/<span class=['"]phraseHighlight["']>['"](.+?)['"]<\/span>/gi);
-              //console.log(matches);
-              if (matches !== null) {
-                  //console.log(matches);
-                  for (j = 0; j < matches.length; j++) {
-                      var cleanMatch = matches[j].replace(/<\/?span[^>]*>/gi,'');
-                      examplePhrases.push(cleanMatch.replace(/['"]/gi,''));
-                  }
-              }
-              description += '<div class="commandDescription">' + pdesc + '</div>';
-          }
+            examplePhrases = [];
+            for (i = 0; i < descriptions.length; i++) {
+                var pdesc = descriptions[i].replace(/(['"][^'"]+['"])/gi, '<span class="phraseHighlight">$1</span>');
+                pdesc = pdesc.replace(/(\[[^\[\]]+\])/gi, '<span class="placeholderHighlight">$1</span>');
+                //console.log(pdesc);
+                var matches = pdesc.match(/<span class=['"]phraseHighlight["']>['"](.+?)['"]<\/span>/gi);
+                //console.log(matches);
+                if (matches !== null) {
+                    //console.log(matches);
+                    for (j = 0; j < matches.length; j++) {
+                        var cleanMatch = matches[j].replace(/<\/?span[^>]*>/gi, '');
+                        examplePhrases.push(cleanMatch.replace(/['"]/gi, ''));
+                    }
+                }
+                description += '<div class="commandDescription">' + pdesc + '</div>';
+            }
 
-          var datalist = $('#chatBotCommands');
-          if (datalist.size() === 0) {
-              datalist = $('<datalist id="chatBotCommands">');
-              $('body').append(datalist);
-          } else {
-              datalist.html('');
-          }
+            var datalist = $('#chatBotCommands');
+            if (datalist.size() === 0) {
+                datalist = $('<datalist id="chatBotCommands">');
+                $('body').append(datalist);
+            } else {
+                datalist.html('');
+            }
 
-          //$('#suggestionsContainer').html('');
+            //$('#suggestionsContainer').html('');
 
-          for (i = 0; i < examplePhrases.length; i++) {
-              datalist.append($('<option value="'+examplePhrases[i]+'"></option>'));
-              //$('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + examplePhrases[i] + '\')">' + examplePhrases[i] + '</div>'));
-          }
-          $('#chatBotCommandDescription').html(description);
+            for (i = 0; i < examplePhrases.length; i++) {
+                datalist.append($('<option value="' + examplePhrases[i] + '"></option>'));
+                //$('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + examplePhrases[i] + '\')">' + examplePhrases[i] + '</div>'));
+            }
+            $('#chatBotCommandDescription').html(description);
 
         });
     }
@@ -97,7 +98,7 @@ var ChatBot = (function ($) {
             if ($(inputs).val() !== '|') {
                 newValue += $(inputs).val();
             }
-            newValue += state.currentInput.slice(state.start,state.start+1);
+            newValue += state.currentInput.slice(state.start, state.start + 1);
             $(inputs).val(newValue);
             state.start++;
 
@@ -107,8 +108,11 @@ var ChatBot = (function ($) {
             } else {
 
                 // press enter and wait for some time and then write the next entry
-                ChatBot.addChatEntry(state.currentInput, [],"human");
-                ChatBot.react(state.currentInput);
+                var _message = state.currentInput
+                _message = _message.replace(/\s+/g, ' ').trim();
+                _message = 'Received: '+_message + '  Entry: ' + lastBotspeak
+                ChatBot.addChatEntry(state.currentInput, [], "human");
+                ChatBot.react(_message);
                 $(inputs).val(state.currentInput);
 
                 setTimeout(function() {
@@ -131,143 +135,144 @@ var ChatBot = (function ($) {
                 var chclb = $('#chatBotConversationLoadingBar');
                 if (chclb.size() === 0) {
                     chclb = $('<div id="chatBotConversationLoadingBar"></div>');
-                    chclb.css('position','relative');
+                    chclb.css('position', 'relative');
                     $('#demo').append(chclb);
                 }
 
-                var left =  $(inputs).offset().left;
+                var left = $(inputs).offset().left;
                 var top = $(inputs).offset().top + $(inputs).outerHeight() - 3;
                 //chclb.css('left',left+'px');
                 //chclb.css('top',top+'px');
 
                 chclb.animate({
-                    width: $(inputs).outerWidth()+'px',
+                    width: $(inputs).outerWidth() + 'px',
                 }, pauseLength, function() {
-                    chclb.css('width','0');
+                    chclb.css('width', '0');
                 });
 
             }
-        }, Math.random()*120+10);
+        }, Math.random() * 120 + 10);
     }
 
     return {
         Engines: {
 
-        ghobot: function () {
+            ghobot: function() {
 
-            // patterns that the engine can resolve
-            var capabilities = [];
+                // patterns that the engine can resolve
+                var capabilities = [];
 
-            return {
-                react: function (query,callback) {
-                      var q= {};
-                      q.query=query;
-                      $.ajax({
-                          type: 'GET',
-                          data: {format:'json'},
-                          contentType: 'application/json',
-                          url: '/message?m='+query,
-                          success: function(data) {
-                              var content = data.AbstractText;
-                              var suggestion = [];
-                              if (content === '' ) {
+                return {
+                    react: function(query, callback) {
+                        var q = {};
+                        q.query = query;
+                        $.ajax({
+                            type: 'GET',
+                            data: {
+                                format: 'json'
+                            },
+                            contentType: 'application/json',
+                            url: '/message?m=' + query,
+                            success: function(data) {
+                                var content = data.AbstractText;
+                                var suggestion = [];
+                                if (content === '') {
 
-                                if(data.RelatedTopics.length > 0){
+                                    if (data.RelatedTopics.length > 0) {
 
-                                  console.log('Engine/react ===>', data);
-                                  content = '';
+                                        console.log('Engine/react ===>', data);
+                                        content = '';
 
-                                  var media = [];
-                                  for (var i = 0; i < data.RelatedTopics.length; i++) {
-                                      var ob = data.RelatedTopics[i];
-                                      if (ob.Result === undefined) {
-                                          continue;
-                                      }
-                                      if(ob.Icon && ob.Icon.URL ){
-                                        if (ob.Icon.URL !== '' && ob.Icon.URL.indexOf(".ico") < 0) {
-                                            media.push(ob.Icon.URL);
+                                        var media = [];
+                                        for (var i = 0; i < data.RelatedTopics.length; i++) {
+                                            var ob = data.RelatedTopics[i];
+                                            if (ob.Result === undefined) {
+                                                continue;
+                                            }
+                                            if (ob.Icon && ob.Icon.URL) {
+                                                if (ob.Icon.URL !== '' && ob.Icon.URL.indexOf(".ico") < 0) {
+                                                    media.push(ob.Icon.URL);
+                                                }
+                                            }
+                                            content += ob.Result.replace("</a>", "</a> ");
+                                            console.log(content);
+                                            var txt = ob.Text;
+                                            for (var t = 0; t < txt.length; t++) {
+                                                suggestion.push(txt[t].replace("</a>", "</a> "));
+                                            }
+
+
                                         }
-                                      }
-                                      content += ob.Result.replace("</a>", "</a> ") ;
-                                      console.log(content);
-                                      var txt = ob.Text;
-                                      for (var t=0; t < txt.length; t++){
-                                        suggestion.push( txt[t].replace("</a>", "</a> "));
-                                      }
 
+                                        for (i = 0; i < media.length; i++) {
+                                            var m = media[i];
+                                            content += '<img src="' + m + '" style="margin-right:5px"/>';
+                                        }
+                                    } else {
+                                        content = '';
+                                    }
 
-                                  }
+                                } else {
 
-                                  for (i = 0; i < media.length; i++) {
-                                      var m = media[i];
-                                      content += '<img src="' + m + '" style="margin-right:5px"/>';
-                                  }
+                                    if (data.Image !== undefined && data.Image !== '') {
+
+                                        content += '<br>';
+
+                                        content += '<div class="imgBox">' +
+                                            '<img src="' + data.Image + '" />' +
+                                            '<div class="title">' + data.Heading + '</div>' +
+                                            '</div>';
+
+                                    }
+
                                 }
-                                else{
-                                  content = '';
-                                }
 
-                              } else {
-
-                                  if (data.Image !== undefined && data.Image !== '') {
-
-                                      content += '<br>';
-
-                                      content += '<div class="imgBox">' +
-                                          '<img src="' + data.Image + '" />' +
-                                          '<div class="title">' + data.Heading + '</div>' +
-                                          '</div>';
-
-                                  }
-
-                              }
-
-                              suggestion = new Array().concat.apply([],suggestion);
-                              //console.log(suggestion);
-                              callback(null,content,suggestion,'bot');
-                              //ChatBot.addChatEntry(content, "bot");
-                              ChatBot.thinking(false);
+                                suggestion = new Array().concat.apply([], suggestion);
+                                //console.log(suggestion);
+                                callback(null, content, suggestion, 'bot');
+                                //ChatBot.addChatEntry(content, "bot");
+                                ChatBot.thinking(false);
 
 
-                          },
-                          error: function (error) {
-                              console.log(error);
-                              callback(error,'',[],'bot');
-                              //ChatBot.addChatEntry('', "bot");
-                              ChatBot.thinking(false);
-                          }
+                            },
+                            error: function(error) {
+                                console.log(error);
+                                callback(error, '', [], 'bot');
+                                //ChatBot.addChatEntry('', "bot");
+                                ChatBot.thinking(false);
+                            }
 
-                      });
+                        });
 
-                  },
-                  getCapabilities: function (callback) {
-                    var q= {};
-                    q.query='cap';
-                    $.ajax({
-                        type: 'POST',
-                        data: JSON.stringify(q),
-                        contentType: 'application/json',
-                        url: '/gCap',
-                        success: function(data) {
-                          capabilities = data;
-                          //console.log('Engine/getCapabilities ===>' , data);
-                          callback(data);
-                        },
-                        error: function (error) {
-                            console.log(error);
-                            callback('',[]);
+                    },
+                    getCapabilities: function(callback) {
+                        var q = {};
+                        q.query = 'cap';
+                        $.ajax({
+                            type: 'POST',
+                            data: JSON.stringify(q),
+                            contentType: 'application/json',
+                            url: '/gCap',
+                            success: function(data) {
+                                capabilities = data;
+                                //console.log('Engine/getCapabilities ===>' , data);
+                                callback(data);
+                            },
+                            error: function(error) {
+                                console.log(error);
+                                callback('', []);
 
-                        }
-                      });
+                            }
+                        });
 
 
 
-                  },
+                    },
 
-              };
-          }
+                };
+            }
         },
-        init: function (options) {
+        init: function(options) {
             var settings = jQuery.extend({
                 // these are the defaults.
                 botName: 'Bot',
@@ -283,7 +288,7 @@ var ChatBot = (function ($) {
             }, options);
 
             botName = settings.botName;
-            humanName = settings.humanName ;
+            humanName = settings.humanName;
             thinkingHtml = settings.thinkingHtml;
             inputs = settings.inputs;
             inputCapabilityListing = settings.inputCapabilityListing;
@@ -301,62 +306,69 @@ var ChatBot = (function ($) {
 
             //Welcome message
             //ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. How can I help you today?',['I forgot username','I forgot password', 'I need to talk to a person' ],'bot');
-
-            ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?',['This is ','I need to talk to an agent' ],'bot');
+            lastBotspeak = 'Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?'
+            ChatBot.addChatEntry(lastBotspeak, ['This is ', 'I need to talk to an agent'], 'bot');
 
             // listen to inputs on the defined fields
-            $(inputs).keyup(function (e) {
+            $(inputs).keyup(function(e) {
                 if (e.keyCode === 13) {
-                    ChatBot.addChatEntry($(this).val(),[], "human");
-                    ChatBot.react($(this).val());
+                    var message = $(this).val()
+                    message = message.replace(/\s+/g, ' ').trim();
+                    if (message !== '') {
+                        var _message = 'Received: '+message + '  Entry: ' + lastBotspeak
+                        ChatBot.addChatEntry(message, [], "human");
+                        console.log('Message sent ===>', _message)
+                        ChatBot.react(_message);
+                    }
                 }
 
             });
 
         },
-        setBotName: function (name) {
+        setBotName: function(name) {
             botName = name;
         },
-        setHumanName: function (name) {
+        setHumanName: function(name) {
             humanName = name + ' >';
             $('.chatBotChatEntry.human .origin').html(name);
         },
-        addChatEntry: function addChatEntry(text,suggestion,origin) {
+        addChatEntry: function addChatEntry(text, suggestion, origin) {
             //console.log( text, suggestion, origin);
             if (text === undefined || text === '') {
-                text = 'I am sorry, I couldn\'t find answer for you! Is there anything, I can help you with?';
-                suggestion = ['I forgot username','I forgot password', 'I need to talk to an agent'];
+                text = 'I am sorry, I couldn\'t understand you! Is there anything, I can help you with?';
+                suggestion = ['I forgot username', 'I forgot password', 'I need to talk to an agent'];
             }
-            if(suggestion && suggestion instanceof Array){
+            if (suggestion && suggestion instanceof Array) {
 
-              $('#suggestionsContainer').html('');
+                $('#suggestionsContainer').html('');
 
-              for(var e=0; e<suggestion.length;e++){
-                if(suggestion[e].length > 0) {
-                  $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + suggestion[e] + '\')">' + suggestion[e] + '</div>'));
+                for (var e = 0; e < suggestion.length; e++) {
+                    if (suggestion[e].length > 0) {
+                        $('#suggestionsContainer').append($('<div class="suggestion-tag" onclick="useSuggestedTag(\'' + suggestion[e] + '\')">' + suggestion[e] + '</div>'));
+                    }
+
                 }
 
-              }
-
-              // $('#humanInput').suggest(suggestion, {
-              //   suggestionColor   : '#cccccc',
-              //   moreIndicatorClass: 'suggest-more',
-              //   moreIndicatorText : '&hellip;'
-              // });
+                // $('#humanInput').suggest(suggestion, {
+                //   suggestionColor   : '#cccccc',
+                //   moreIndicatorClass: 'suggest-more',
+                //   moreIndicatorText : '&hellip;'
+                // });
             }
             var entryDiv = $('<div class="chatBotChatEntry ' + origin + '"></div>');
             entryDiv.html('<span class="origin">' + (origin === 'bot' ? botName : humanName) + '</span>' + text);
             console.log(entryDiv.html());
+            lastBotspeak = text;
             //$('#chatBotHistory').prepend(entryDiv);
             $('#chatBotHistory').append(entryDiv);
             if (addChatEntryCallback !== undefined) {
-                addChatEntryCallback.call(this, entryDiv, text, suggestion,origin);
+                addChatEntryCallback.call(this, entryDiv, text, suggestion, origin);
             }
             $('#chatBot').animate({
                 scrollTop: $('#chatBot').get(0).scrollHeight
             }, 1500);
         },
-        thinking: function (on) {
+        thinking: function(on) {
             var ti = $('#chatBotThinkingIndicator');
             if (on) {
                 if (!sampleConversationRunning) {
@@ -375,15 +387,15 @@ var ChatBot = (function ($) {
         react: function react(text) {
             this.thinking(true);
             var _this = this;
-            engines.react(text,function(err,res,sug){
-              console.log(res, sug);
-              _this.addChatEntry(res,sug,'bot');
+            engines.react(text, function(err, res, sug) {
+                console.log(res, sug);
+                _this.addChatEntry(res, sug, 'bot');
             });
         },
-        getCapabilities: function capabilities(callback){
-          engines.getCapabilities(callback);
+        getCapabilities: function capabilities(callback) {
+            engines.getCapabilities(callback);
         },
-        playConversation: function (conversation, pauseLength) {
+        playConversation: function(conversation, pauseLength) {
 
             if (pauseLength === undefined) {
                 pauseLength = 3000;
@@ -414,20 +426,22 @@ var ChatBot = (function ($) {
 
 // fill the input with the selected tag
 function useSuggestedTag(text) {
-  $('#humanInput').val(text).fadeIn();
-  // $("#humanInput").typed({
-  //   strings:[text],
-  //   typeSpeed: 0
-  // });
-  $('#humanInput').focus();
+    $('#humanInput').val(text).fadeIn();
+    // $("#humanInput").typed({
+    //   strings:[text],
+    //   typeSpeed: 0
+    // });
+    $('#humanInput').focus();
 
-  // TODO: Automatically play tag?
+    // TODO: Automatically play tag?
 }
 
 $(window).change(function() {
-  $('#demo').css('heigt', 'calc(100%-40px)')
+    $('#demo').css('heigt', 'calc(100%-40px)')
 }).trigger('change');
 
 $('#chatBot').animate({
     scrollTop: $('#chatBot').get(0).scrollHeight
 }, 1500);
+
+$("#humanInput").autocorrect();

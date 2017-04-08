@@ -2,7 +2,7 @@
 
 const DDGR = require('./ddgr');
 const Pattern = require('./pattern');
-const patterns = require('./define_pattern');
+const patterns = require('./define_pattern_1');
 const winston = require('winston');
 const console = {};
 console.log = winston.info;

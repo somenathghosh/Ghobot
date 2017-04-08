@@ -12,6 +12,17 @@ let Engine = (function () {
 
   let _engines = new Array();
 
+  const _dummy = () =>{
+	  data.DefinitionSource = null;
+	  data.AbstractText = '';
+	  data.RelatedTopics = new Array();
+	  let topic = {};
+	  topic.Result = null;
+	  topic.FirstURL = null;
+	  topic.Text = null;
+	  return data;
+	}
+
   let _act = (query,cb) =>{
 
     async.waterfall([
@@ -84,7 +95,7 @@ let Engine = (function () {
           cb(null,data);
         }
         else if(err.message === 'NoMoreEngine') cb(null,{RelatedTopics:[]});
-        else cb(err, null);
+        else cb(err, _dummy());
     });
 
   }
@@ -95,7 +106,7 @@ let Engine = (function () {
     for (let i=0; i<_engines.length; i++){
       cap.push(_engines[i].capabilities());
     }
-    return cap;
+    return new Set(cap);
   }
 
 

@@ -19,7 +19,6 @@ let Pattern = (function(){
 				this.description = null;
 				this.callback = undefined;
 				this.dsl = 0;
-				this.context = 0;
 				this.suggestion = null;
 				this.left = null;
 				this.right = null;

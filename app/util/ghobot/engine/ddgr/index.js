@@ -12,6 +12,7 @@ let Engine = (function () {
 
 	let patterns = ddgr.getAll();
 
+	
 
 	const _act = (text, callback) => {
 
