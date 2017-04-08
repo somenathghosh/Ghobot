@@ -1,3 +1,4 @@
 'use strict';
 
-module.exports = require('./cache');
+const cache = require('./cache');
+module.exports = cache.new();

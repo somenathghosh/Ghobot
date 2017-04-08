@@ -55,6 +55,7 @@ router.get('/message', function (req, res, next) {
       if(!success) console.log('not able to insert');
       res.send(data);
       console.log('Controller/query: ===>', query, ' | ', data.RelatedTopics[0].Result);
+      console.log(cache.getStats());
     });
   }
 
