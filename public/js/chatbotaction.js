@@ -24,4 +24,4 @@ var config = {
     }
 };
 ChatBot.init(config);
-ChatBot.setBotName("Ghobot >");
+ChatBot.setBotName("Ghobot");
