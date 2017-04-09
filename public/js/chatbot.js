@@ -108,7 +108,8 @@ var ChatBot = (function($) {
 				if (chclb.size() === 0) {
 					chclb = $('<div id="chatBotConversationLoadingBar"></div>');
 					chclb.css('position', 'relative');
-					$('#demo').append(chclb);
+					//$('#demo').append(chclb);
+					$('#humanInput').before(chclb);
 				}
 				var left = $(inputs).offset().left;
 				var top = $(inputs).offset().top + $(inputs).outerHeight() - 3;
@@ -365,7 +366,7 @@ function useSuggestedTag(text) {
 $(window).resize(function() {
 	//$('#demo').css('heigt', 'calc(100%-40px)');
 	$('#demo').height($(window).height() - 120);
-	$('#chatBot').height($('#demo').height() - 200)
+	$('#chatBot').height($('#demo').height() -  $('#suggestionsContainer').height() - 230)
 }).trigger('resize');
 
 $('#chatBot').animate({

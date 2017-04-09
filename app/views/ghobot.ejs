@@ -19,6 +19,9 @@
 		<div class="button" onclick="$('.commandModal').fadeIn();" style="margin-right:10px">How to talk to me</div>-->
 		<div class="button submit" onclick="triggerSubmit();">Send</div>
 		<div style="clear: both;">&nbsp;</div>
+		<a href="#" class="help-text" onclick="if (!ChatBot.playConversation(sampleConversation,2000)) {alert('conversation already running');};">Sample Conversation</a>
+		<a href="#" class="help-text" onclick="$('.commandModal').fadeIn();" style="margin-right:10px">How to talk</a>
+		<div style="clear: both;">&nbsp;</div>
 	</div>
 	<div class="commandModal" onclick="$('.commandModal').fadeOut();">
 		<div id="chatBotCommandDescription"></div>
