@@ -28,14 +28,21 @@ jQuery.fn.autocorrect = function(options)
                 gr8: "great",
                 taht: "that",
                 ur : "you are",
-                arent: "are not",
+                'aren\'t': "are not",
                 userid: "user id",
                 passcode: "password",
                 yeap:"Yep",
                 yeep:"Yep",
+                yeepy:"Yep",
+                yepy:"Yep",
                 nop: "Nope",
                 ney:"No",
-                code: "password"
+                code: "password",
+                username:"user name",
+                'I\'m':"I am",
+                i: 'I',
+                r: 'are',
+                u: "You"  
         }
     };
 

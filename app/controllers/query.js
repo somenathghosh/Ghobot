@@ -49,13 +49,15 @@ router.get('/message', function (req, res, next) {
       if(err) {
         console.error(err);
         res.send(dummy());
+        return;
       }
       //console.log('Found data at Controller ===>', data);
       let success = cache.set(query, data, 10000);
       if(!success) console.log('not able to insert');
       res.send(data);
-      console.log('Controller/query: ===>', query, ' | ', data.RelatedTopics[0].Result);
+      console.log('Controller/query: ===>', query, ' | ', data.RelatedTopics[0] ? data.RelatedTopics[0].Result : '' );
       console.log(cache.getStats());
+      return;
     });
   }
 
@@ -72,12 +74,13 @@ router.get('/message', function (req, res, next) {
 // }
 
 let dummy = () =>{
+  let data = {};
   data.DefinitionSource = null;
   data.AbstractText = '';
   data.RelatedTopics = new Array();
-  let topic = {};
-  topic.Result = null;
-  topic.FirstURL = null;
-  topic.Text = null;
+  // let topic = {};
+  // topic.Result = null;
+  // topic.FirstURL = null;
+  // topic.Text = null;
   return data;
 }

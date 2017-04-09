@@ -13,13 +13,14 @@ let Engine = (function () {
   let _engines = new Array();
 
   const _dummy = () =>{
+    let data = {};
 	  data.DefinitionSource = null;
 	  data.AbstractText = '';
 	  data.RelatedTopics = new Array();
-	  let topic = {};
-	  topic.Result = null;
-	  topic.FirstURL = null;
-	  topic.Text = null;
+	  // let topic = {};
+	  // topic.Result = null;
+	  // topic.FirstURL = null;
+	  // topic.Text = null;
 	  return data;
 	}
 
@@ -93,8 +94,13 @@ let Engine = (function () {
         if(err.message === 'DataFound') {
           //console.log('Data found from all engines====>', data);
           cb(null,data);
+          return;
         }
-        else if(err.message === 'NoMoreEngine') cb(null,{RelatedTopics:[]});
+        else if(err.message === 'NoMoreEngine') {
+          console.log('No More Engine');
+          cb(null,_dummy());
+          return;
+        }
         else cb(err, _dummy());
     });
 
@@ -106,7 +112,7 @@ let Engine = (function () {
     for (let i=0; i<_engines.length; i++){
       cap.push(_engines[i].capabilities());
     }
-    return new Set(cap);
+    return cap;
   }
 
 

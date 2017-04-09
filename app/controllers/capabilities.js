@@ -9,14 +9,18 @@ const ghobot = new BOT('Ghobot');
 
 module.exports = function (app) {
   //console.log('Ghobot: I am here');
-  app.post('/gCap', router);
+  app.get('/capabilities', router);
 };
 
-router.post('/gCap', function (req, res, next) {
+router.get('/capabilities', function (req, res, next) {
 
   //let query = req.body.query;
-  let cap = ghobot.capabilities();
-  let capabilities = new Array().concat.apply([],cap);
+  let capabilities = ghobot.capabilities();
+  capabilities = new Array().concat.apply([],capabilities);
+  capabilities = new Set(capabilities);
+  //capabilities = Array.from(capabilities);
+  capabilities = [...capabilities];
+  //console.log(capabilities);
 
   res.send({capabilities});
 
