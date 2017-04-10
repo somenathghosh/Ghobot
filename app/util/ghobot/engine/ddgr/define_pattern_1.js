@@ -43,7 +43,7 @@ let DP = (function(){
 
   let validateEmail = (email) => {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+    return re.test(email.toLowerCase().trim());
   }
 
 
@@ -386,9 +386,9 @@ let DP = (function(){
     //bye
 
     {
-      "regexp":"(?:Received):\\s(?:bye|bye bye|byebye|talk to your later|ttyl|see you)\\s(?:Entry):\\s(?:You are welcome! You can close the chat window now)",
+      "regexp":"(?:Received):\\s(?:bye|bye bye|byebye|talk to your later|ttyl|see you)\\s(?:Entry):\\s(?:(.+?))",
       "actionKey": "response",
-      "actionValue":"bye.",
+      "actionValue":"bye. Thanks for talking to me today!",
       "callback":
       function(matches,cb) {
         'use strict';

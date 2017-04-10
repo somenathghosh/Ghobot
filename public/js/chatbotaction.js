@@ -7,14 +7,13 @@ var sampleConversation = [
     "Yep",
     "My user id is somenath.ghosh",
     "Yeh",
-    "My email addess is somenath.ghosh@tcs.com",
+    "somenath.ghosh@tcs.com",
     "Yep",
     "Thanks!",
     "where is India",
     "who is Steve Jobs?",
     "do you like Iphone?",
     "bye"
-
 ];
 var config = {
     botName: 'Ghobot',

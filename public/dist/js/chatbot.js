@@ -144,7 +144,7 @@ var ChatBot = (function($) {
 								var suggestion = [];
 								if (content === '') {
 									if (data.RelatedTopics.length > 0) {
-										console.log('Engine/react ===>', data);
+										//console.log('Engine/react ===>', data);
 										content = '';
 										var media = [];
 										for (var i = 0; i < data.RelatedTopics.length; i++) {
@@ -158,7 +158,7 @@ var ChatBot = (function($) {
 												}
 											}
 											content += ob.Result.replace("</a>", "</a> ");
-											console.log(content);
+											//console.log(content);
 											var txt = ob.Text;
 											for (var t = 0; t < txt.length; t++) {
 												suggestion.push(txt[t].replace("</a>", "</a> "));
@@ -253,7 +253,7 @@ var ChatBot = (function($) {
 					if (message !== '') {
 						var _message = 'Received: ' + message + '  Entry: ' + lastBotspeak
 						ChatBot.addChatEntry(message, [], "human");
-						console.log('Message sent ===>', _message)
+						//console.log('Message sent ===>', _message)
 						ChatBot.react(_message);
 					}
 				}
@@ -294,7 +294,7 @@ var ChatBot = (function($) {
 			var chatText = '<div class="chatText">' + text + '</div>';
 			//entryDiv.html('<span class="origin">' + (origin === 'bot' ? botName : humanName) + '</span>' + text);
 			entryDiv.html(chatText + '<span class="origin">' + (origin === 'bot' ? botName : humanName) + '</span>');
-			console.log(entryDiv.html());
+			//console.log(entryDiv.html());
 			lastBotspeak = text;
 			//$('#chatBotHistory').prepend(entryDiv);
 			$('#chatBotHistory').append(entryDiv, '<div style="clear:both"></div>');
@@ -325,7 +325,7 @@ var ChatBot = (function($) {
 			this.thinking(true);
 			var _this = this;
 			engines.react(text, function(err, res, sug) {
-				console.log(res, sug);
+				//console.log(res, sug);
 				_this.addChatEntry(res, sug, 'bot');
 			});
 		},
