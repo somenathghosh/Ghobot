@@ -7,6 +7,8 @@ var sampleConversation = [
     "Yep",
     "My user id is somenath.ghosh",
     "Yeh",
+    "My email addess is somenath.ghosh@tcs.com",
+    "Yep",
     "Thanks!",
     "where is India",
     "who is Steve Jobs?",

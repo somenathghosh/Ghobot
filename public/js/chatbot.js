@@ -244,7 +244,7 @@ var ChatBot = (function($) {
 			//Welcome message
 			//ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. How can I help you today?',['I forgot username','I forgot password', 'I need to talk to a person' ],'bot');
 			lastBotspeak = 'Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?'
-			ChatBot.addChatEntry(lastBotspeak, ['This is ', 'I need to talk to an agent'], 'bot');
+			ChatBot.addChatEntry(lastBotspeak, ['This is '], 'bot');
 			// listen to inputs on the defined fields
 			$(inputs).keyup(function(e) {
 				if (e.keyCode === 13) {

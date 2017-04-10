@@ -48,7 +48,7 @@ let DP = (function(){
     //You> Somenath
 
     {
-      "regexp":"(?:Received):\\s(?:my name is|I am|I'm|This is)?(.+?)\\s(?:Entry):\\s(?:(?:Welcome to HL bot services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name)))",
+      "regexp":"(?:Received):\\s(?:(?:hi|hello|hey|howdy)?\\s(?:bot|ghobot)?,\\s)?(?:my name is|I am|I'm|This is|This side|here is)?(?:\\s?)(.+?)(?:\\s(?:.+?))?\\s(?:Entry):\\s(?:(?:Welcome to HL bot services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name)))",
       "actionKey": "response",
       "actionValue":"",
       "callback":
@@ -269,7 +269,7 @@ let DP = (function(){
     //somenath.ghosh@tcs.com
 
     {
-      "regexp":"(?:Received):\\s(?:My email address is|my email is |the email is|the email address is)?(.+)\\s(?:Entry):\\s(?:I have verified your id. You will recieve the temporary password in your registered email address. For verification, what is your email address)",
+      "regexp":"(?:Received):\\s(?:My email address is|my email id is |the email is|the email address is)?(.+)\\s(?:Entry):\\s(?:I have verified your id. You will recieve the temporary password in your registered email address. For verification, what is your email address)",
       "actionKey": "response",
       "actionValue":"Just for confirmation, your email address is $1.",
       "callback":
@@ -425,18 +425,18 @@ let DP = (function(){
 
 
     {
-      "regexp":"(?:Received):\\s(?:bye|bye bye|byebye|talk to your later|ttyl|see you)\\s(?:Entry):\\s(?:I can not find your user id. Do you want to try again or want to recover your user id)",
+      "regexp":"(?:Received):\\s(?:bye|byebye|talk to you later|ttyl|see you soon)\\s(?:Entry):\\s(?:.+)",
       "actionKey": "response",
-      "actionValue":"What is your user id?",
+      "actionValue":"Bye!",
       "callback":
       function(matches,cb) {
         'use strict';
         console.log(matches);
-        cb(true,"What is your user id?",["My user id is ","I forgot my userid "]);
+        cb(false,"bye!",["My user id is ","I forgot my userid "]);
       },
-      "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
+      "description":"Say 'bye' to end conversation.",
       "dsl": 2,
-      "suggestion":["Yes", "No"],
+      "suggestion":[],
       "classifier": "password_reset"
     }
 
