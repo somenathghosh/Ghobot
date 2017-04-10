@@ -292,9 +292,9 @@ let DP = (function(){
     //somenath.ghosh@tcs.com
 
     {
-      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|adress)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?(.+?)\\s(?:Entry):\\s(?:You will recieve the temporary password in your registered email address. Can you please tell your email address|what is the correct email id|Sure, I can help with that. Before that, for verification purpose, can you please provide your registered email address)",
+      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|adress)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?(.+?)\\s(?:Entry):\\s(?:You will recieve the temporary password in your registered email address. Can you please tell your email address|what is the correct email address|Sure, I can help with that. Before that, for verification purpose, can you please provide your registered email address|For verification, what is the email address registered with us)",
       "actionKey": "response",
-      "actionValue":"Just for confirmation, you said $1, corrrect? ",
+      "actionValue":"Just for confirmation, you said $1, correct? ",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -305,7 +305,7 @@ let DP = (function(){
         cb(false, '',[]);
         }
         else{
-           cb(true,'That is not a valid email address. Do you want to try again?',["Sure","No, I do not remember it"]);
+           cb(true,'That is not a valid email address. Do you want to try again?',["Sure","No, I do not remember the email address"]);
         }
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
@@ -314,34 +314,56 @@ let DP = (function(){
       "classifier": "positive_redirect"
     },
 
+
+
+
+    //Just for confirmation, you said somenath.ghosh@tcs.com, correct?
+    //Correct
+
+    {
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you said )(.+?)(?:, correct)",
+      "actionKey": "response",
+      "actionValue":"You will recieve your temporary password at the provided email address. Thanks for availing bot services!",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        console.log(matches);
+        let u=findEmail(matches[1]);
+        console.log(u);
+        if(u){
+          cb(false, '',[]) //overrider for already passed actionValue and suggestion
+        }
+        else{
+          cb(true,'I can not find your email address. We need your registered email address to reset your password.',["Thank you!","I want to talk to an agent"])
+        }
+      },
+      "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
+      "dsl": 2,
+      "suggestion":["Thanks for your help!"],
+      "classifier": "positive_redirect"
+    },
+
+    //Just for confirmation, you said somenath.ghosh@tcs.com, correct?
+    //Nope
+
+    {
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you said )(.+)\\s(?:,correct)",
+      "actionKey": "response",
+      "actionValue":"what is the correct email address?",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        console.log(matches);
+        cb(false, '',[]) //overrider for already passed actionValue and suggestion
+      },
+      "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
+      "dsl": 2,
+      "suggestion":["My email address is ", "I do not remember the email address."],
+      "classifier": "negetive_redirect"
+    },
+
     // done up to this, ^
     //                  |
-
-    // {
-    //   "regexp":"(?:Received):\\s(?:My email address is|my email is |the email is|the email address is)?(.+)\\s(?:Entry):\\s(?:I have verified your id. You will recieve the temporary password in your registered email address. For verification, what is your email address)",
-    //   "actionKey": "response",
-    //   "actionValue":"I have verified your email address. You will recieve your temporary password in your registered email address.",
-    //   "callback":
-    //   function(matches,cb) {
-    //     'use strict';
-    //     console.log(matches);
-    //     let u=validateEmail(matches[1]);
-    //     console.log(u);
-    //     if(u){
-    //       cb(false, '',[]) //overrider for already passed actionValue and suggestion
-    //     }
-    //     else{
-    //       cb(true,'I can not find this email address. You need to register your email address to get your temporary password. As of now, do you want to try answering security questions?',["Sure","Nope, I do not remember them."])
-    //     }
-    //   },
-    //   "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
-    //   "dsl": 2,
-    //   "suggestion":["Thanks for your help! ", "I do not have access to that email."],
-    //   "classifier": "positive_redirect"
-    // },
-
-    //I have verified your email address. You will recieve your temporary password in your registered email address.
-    //Thanks for your help!
 
     {
       "regexp":"(?:Received):\\s(?:Thanks for your help|Thanks|Thx|Thank you|awesome|wonderful)\\s(?:Entry):\\s(.+)",
@@ -378,92 +400,29 @@ let DP = (function(){
       "dsl": 2,
       "suggestion":[],
       "classifier": "end_conversation"
-    },
-
-    //bye!
-    //-----do not expect anything, need to handle it properly
-
-    {
-      "regexp":"(?:Received):\\s(?:bye|bye bye|byebye|talk to your later|ttyl|see you)\\s(?:Entry):\\s(?:You are welcome! You can close the chat window now)",
-      "actionKey": "response",
-      "actionValue":"bye!",
-      "callback":
-      function(matches,cb) {
-        'use strict';
-        console.log(matches);
-        cb(false, '',[]);
-        //cb(true,"What is your user id?",["My user id is ","I forgot my userid "]);
-      },
-      "description":"Say 'bye' to end conversation",
-      "dsl": 2,
-      "suggestion":[],
-      "classifier": "end_conversation"
-    },
-
+    }
 
 
     //I can not find your user id. Do you want to recover your user id?
     //yes
 
-    {
-      "regexp":"(?:Received):\\s(?:Yes|Yes please|yeah|Yep|Yah|Yeah please)\\s(?:Entry):\\s(?:I can not find your user id. Do you want to recover your user id)",
-      "actionKey": "response",
-      "actionValue":"Sure, I can help with recovering user id. Before that, for verification purpose, can you please provide your registered email address?",
-      "callback":
-      function(matches,cb) {
-        'use strict';
-        console.log(matches);
-        cb(true,"Sure, I can help with that. Before that, for verification purpose, can you please provide your registered email address?",["My email address is ","I do not remember the email address. "]);
-      },
-      "description":"Say 'I want help on recovering my user id' to recover your user id.",
-      "dsl": 2,
-      "suggestion":["Yes", "No"],
-      "classifier": "positive_redirect"
-    },
-
-    //Sure, I can help with recovering user id. Before that, for verification purpose, can you please provide your registered email address?
-    //somenath.ghosh@tcs
-
-    {
-      "regexp":"(?:Received):\\s(?:My email address is|my email is |the email is|the email address is)?(.+)\\s(?:Entry):\\s(?:Sure, I can help with recovering user id. Before that, for verification purpose, can you please provide your registered email address)",
-      "actionKey": "response",
-      "actionValue":"Just for confirmation, your email address is $1",
-      "callback":
-      function(matches,cb) {
-        'use strict';
-        console.log(matches);
-        let u=validateEmail(matches[1]);
-        console.log(u);
-        if(u){
-          cb(false, '',[]) //overrider for already passed actionValue and suggestion
-        }
-        else{
-          cb(true,'I can not find this email address. You need to register your email address to get your user id.',["Sure","Nope, I do not remember them."])
-        }
-      },
-      "description":"Say 'I want help on recovering my user id' to recover your user id.",
-      "dsl": 2,
-      "suggestion":["Yes", "No"],
-      "classifier": "positive_redirect"
-    },
+    // {
+    //   "regexp":"(?:Received):\\s(?:Yes|Yes please|yeah|Yep|Yah|Yeah please)\\s(?:Entry):\\s(?:I can not find your user id. Do you want to recover your user id)",
+    //   "actionKey": "response",
+    //   "actionValue":"Sure, I can help with recovering user id. Before that, for verification purpose, can you please provide your registered email address?",
+    //   "callback":
+    //   function(matches,cb) {
+    //     'use strict';
+    //     console.log(matches);
+    //     cb(true,"Sure, I can help with that. Before that, for verification purpose, can you please provide your registered email address?",["My email address is ","I do not remember the email address. "]);
+    //   },
+    //   "description":"Say 'I want help on recovering my user id' to recover your user id.",
+    //   "dsl": 2,
+    //   "suggestion":["Yes", "No"],
+    //   "classifier": "positive_redirect"
+    // }
 
 
-
-    {
-      "regexp":"(?:Received):\\s(?:bye|byebye|talk to you later|ttyl|see you soon)\\s(?:Entry):\\s(?:.+)",
-      "actionKey": "response",
-      "actionValue":"Bye!",
-      "callback":
-      function(matches,cb) {
-        'use strict';
-        console.log(matches);
-        cb(false,"bye!",["My user id is ","I forgot my userid "]);
-      },
-      "description":"Say 'bye' to end conversation.",
-      "dsl": 2,
-      "suggestion":[],
-      "classifier": "password_reset"
-    }
 
 //olds
 
