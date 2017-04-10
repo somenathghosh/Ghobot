@@ -1,5 +1,5 @@
 'use strict';
-//This var is referred inside chatbot.js for play. Utilize this for testing.
+//This var is referred inside chatbot.js for play. Utilize this for testing. 
 var sampleConversation;
 
 var sampleConversation_passoword_reset_positive_test = [
