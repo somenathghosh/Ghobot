@@ -42,7 +42,21 @@ jQuery.fn.autocorrect = function(options)
                 'I\'m':"I am",
                 i: 'I',
                 r: 'are',
-                u: "You"  
+                u: "You",
+                ths: "this",
+                thsi:"this",
+                s: "Yes",
+                S: "Yes",
+                emailid:"email id",
+                emailaddress: "email address",
+                mail: "email",
+                mailid:"email id",
+                mailaddress: "email address",
+                'that\'s': "that is",
+                rg8:'right',
+                r8:"right"
+
+
         }
     };
 

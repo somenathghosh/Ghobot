@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   plumber = require('gulp-plumber'),
+  gutil = require('gulp-util'),
   livereload = require('gulp-livereload');
   autoprefixer = require('gulp-autoprefixer'),
   cssnano = require('gulp-cssnano'),
@@ -45,6 +46,10 @@ gulp.task('styles', function() {
 //scripts
 gulp.task('scripts', function() {
   return gulp.src('public/js/*.js')
+    .pipe(plumber(function (error) {
+                gutil.log(error.message);
+                this.emit('end');
+    }))
     .pipe(gulp.dest('public/dist/js'))
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'))

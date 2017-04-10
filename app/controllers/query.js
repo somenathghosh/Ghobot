@@ -52,7 +52,7 @@ router.get('/message', function (req, res, next) {
         return;
       }
       //console.log('Found data at Controller ===>', data);
-      let success = cache.set(query, data, 10000);
+      let success = cache.set(query, data, 1000);
       if(!success) console.log('not able to insert');
       res.send(data);
       console.log('Controller/query: ===>', query, ' | ', data.RelatedTopics[0] ? data.RelatedTopics[0].Result : '' );
