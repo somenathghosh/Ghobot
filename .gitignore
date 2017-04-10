@@ -1,7 +1,9 @@
 node_modules/
 public/components
-public/dist 
+public/dist
 .nyc_output
 .sass-cache
 .env
+Conversation sample.xlsx
+session-store.db
 resources
