@@ -3,11 +3,9 @@
 var sampleConversation = [
     "This is Somenath Ghosh",
     "Yes",
-    "I forgot my password",
+    "I forgot my user id",
     "Yep",
-    "My user id is somenath.ghosh",
-    "Yeh",
-    "somenath.ghosh@tcs.com",
+    "My email address is somenath.ghosh@tcs.com",
     "Yep",
     "Thanks!",
     "where is India",

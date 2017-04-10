@@ -292,7 +292,7 @@ let DP = (function(){
     //somenath.ghosh@tcs.com
 
     {
-      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|adress)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?(.+?)\\s(?:Entry):\\s(?:You will recieve the temporary password in your registered email address. Can you please tell your email address|what is the correct email address|Sure, I can help with that. Before that, for verification purpose, can you please provide your registered email address|For verification, what is the email address registered with us)",
+      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?(.+?)\\s(?:Entry):\\s(?:You will recieve the temporary password in your registered email address. Can you please tell your email address|what is the correct email address|Sure, I can help with that. Before that, for verification purpose, can you please provide your registered email address|For verification, what is the email address registered with us)",
       "actionKey": "response",
       "actionValue":"Just for confirmation, you said $1, correct? ",
       "callback":
