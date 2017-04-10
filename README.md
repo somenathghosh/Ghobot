@@ -1,4 +1,4 @@
-# Ghobot
+# Ghobot - A Chatbot for your small talk machines built using node.js!
 
 <a href="http://hl-bot.herokuapp.com/"><img src="http://hl-bot.herokuapp.com/dist/img/apple-icon-57x57.png" alt="Ghobot" /></a>
 
