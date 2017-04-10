@@ -1,4 +1,4 @@
-<a href="http://hl-bot.herokuapp.com/"><img src="http://hl-bot.herokuapp.com/dist/img/apple-icon-57x57.png" alt="Ghobot" /></a>
+<a href="http://hl-bot.herokuapp.com/"><img src="http://hl-bot.herokuapp.com/dist/img/apple-icon-57x57.png" alt="Ghobot" />Ghobot</a>
 
 <a href="https://dev.ghost.org/lts"><img src="https://cloud.githubusercontent.com/assets/120485/18661856/0930282e-7f18-11e6-948a-00546393fd93.png" alt="Warning: Major release in progress. Expect things to be broken in master." /></a>
 
@@ -11,12 +11,12 @@ The project is maintained by **Somenath Ghosh**, along with an amazing colleague
 
 Install and run Ghobot.
 <pre>
-<b>git clone git@github.com:TryGhost/Ghost.git ghost</b>
-    Download the Ghost code base
+<b>git clone https://github.com/somenathghosh/Ghobot.git</b>
+    Download the Ghobot code base
 <b>npm install</b>
-    Short command for: yarn global add knex-migrator ember-cli grunt-cli && yarn install && grunt init
+    To install all dependecies
 <b>gulp</b>
-    Creates and initialises your database
+    Running all tasks and watch tasks
 <b>clear && PORT=3000 npm start</b>
     Starts the express server
 </pre>
