@@ -1,4 +1,6 @@
-<a href="http://hl-bot.herokuapp.com/"><img src="http://hl-bot.herokuapp.com/dist/img/apple-icon-57x57.png" alt="Ghobot" />Ghobot</a>
+# Ghobot
+
+<a href="http://hl-bot.herokuapp.com/"><img src="http://hl-bot.herokuapp.com/dist/img/apple-icon-57x57.png" alt="Ghobot" /></a>
 
 <a href="https://dev.ghost.org/lts"><img src="https://cloud.githubusercontent.com/assets/120485/18661856/0930282e-7f18-11e6-948a-00546393fd93.png" alt="Warning: Major release in progress. Expect things to be broken in master." /></a>
 
