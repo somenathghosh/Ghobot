@@ -1,6 +1,9 @@
 
 'use strict';
 
+Array.prototype.pick = function () {
+  return this[Math.floor(Math.random()*this.length)];
+};
 
 let DP = (function(){
 
@@ -47,6 +50,22 @@ let DP = (function(){
     return re.test(email.toLowerCase().trim());
   }
 
+  let pickY = () => {
+    return new Array('Yes','Yep','Yeah','Correct','Right').pick();
+  }
+
+  let pickN = () => {
+    return new Array('No','Nope').pick();
+  }
+
+  let pickForgotPassword = () => {
+    return new Array('I forgot my passsword','I lost my password','Forgot Password','I would like to reset my password','I would like to recover my password','Recover password').pick();
+  }
+
+  let pickForgotUserid = () => {
+    return new Array('I forgot my user id','I forgot my user name','Forgot user id','I would like to recover my user id','Recover user name').pick();
+  }
+
 
   return [
 
@@ -62,7 +81,7 @@ let DP = (function(){
         'use strict';
         //console.log(matches);
         //logger.info('info', "Running logs ");
-        cb(true,"Just for confirmation, am I speaking with "+matches[1]+" ?",["Yep", "Nope"]);
+        cb(true,"Just for confirmation, am I speaking with "+matches[1]+" ?",[pickY(), pickN()]);
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
       "dsl": 2,
@@ -81,7 +100,7 @@ let DP = (function(){
       function(matches,cb) {
         'use strict';
         //console.log(matches);
-        cb(true,"Okay "+matches[1]+", how can I help you?",["I forgot my password","I forgot my user id","I would like to talk to an agent"]);
+        cb(true,"Okay "+matches[1]+", how can I help you?",[pickForgotPassword(),pickForgotUserid(),"I would like to talk to an agent"]);
       },
       "description":" ",
       "dsl": 2,
@@ -307,7 +326,7 @@ let DP = (function(){
         cb(false, '',[]);
         }
         else{
-           cb(true,'That is not a valid email address. Do you want to try again?',["Sure","No, I do not remember the email address"]);
+           cb(true,'This is not a valid email address. Do you want to try again?',["Sure","No, I do not remember the email address"]);
         }
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
@@ -340,6 +359,53 @@ let DP = (function(){
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
       "dsl": 2,
       "suggestion":["Yes ", "Nope"],
+      "classifier": "positive_redirect"
+    },
+
+    {
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|Sure|why not)\\s(?:Entry):\\s(?:This is not a valid email address. Do you want to try again)",
+      "actionKey": "response",
+      "actionValue":"what is the correct email address? ",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        //console.log(matches);
+        // let u=validateEmail(matches[1]);
+        // //console.log(u);
+        // if(u){
+        cb(false, '',[]);
+        // }
+        // else{
+        //    cb(true,'This is not a valid email address. Do you want to try again?',["Sure","No, I do not remember the email address"]);
+        // }
+      },
+      "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
+      "dsl": 2,
+      "suggestion":["My email address is ", "I do not remember the email address."],
+      "classifier": "positive_redirect"
+    },
+
+
+    {
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|Sure|why not)\\s(?:Entry):\\s(?:That is not a valid email address. Do you want to try again)",
+      "actionKey": "response",
+      "actionValue":"what is your correct email address? ",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        //console.log(matches);
+        // let u=validateEmail(matches[1]);
+        // //console.log(u);
+        // if(u){
+        cb(false, '',[]);
+        // }
+        // else{
+        //    cb(true,'This is not a valid email address. Do you want to try again?',["Sure","No, I do not remember the email address"]);
+        // }
+      },
+      "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
+      "dsl": 2,
+      "suggestion":["My email address is ", "I do not remember the email address."],
       "classifier": "positive_redirect"
     },
 
@@ -405,7 +471,7 @@ let DP = (function(){
     //Nope
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you said )(.+)\\s(?:,correct)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:(?:that|this) is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you said )(.+)(?:, correct)",
       "actionKey": "response",
       "actionValue":"what is the correct email address?",
       "callback":

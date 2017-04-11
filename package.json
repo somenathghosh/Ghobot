@@ -18,6 +18,7 @@
     "compression": "1.5.2",
     "connect-loki": "1.0.9",
     "cookie-parser": "1.3.3",
+    "dclassify": "1.1.2",
     "ejs": "2.3.1",
     "events": "1.1.1",
     "express": "4.13.3",
