@@ -35,8 +35,14 @@ let Engine = (function () {
 		//console.log(patterns);
 		for (let i = 0; i < patterns.length; i++) {
 				let pattern = patterns[i];
-				let r = new RegExp(pattern.regexp, "i");
-				matches = text.match(r);
+				try{
+					let r = new RegExp(pattern.regexp, "i");
+					matches = text.match(r);
+				}
+				catch(e){
+					console.log(e);
+				}
+
 				//console.log('matches ===>', matches);
 				if (matches) {
 					//console.log('inside matches ===>', matches, pattern, i);
@@ -63,7 +69,7 @@ let Engine = (function () {
 									topic.Result = text;
 									topic.Text = sugg;
 									data.RelatedTopics.push(topic);
-									//console.log(data);
+									console.log(data);
 									callback(undefined, data)
 								}
 								else{
@@ -71,7 +77,7 @@ let Engine = (function () {
 									topic.Result = response;
 									topic.Text = suggestion;
 									data.RelatedTopics.push(topic);
-									//console.log(data);
+									console.log(data);
 									callback(undefined,data);
 								}
 							});
@@ -128,6 +134,7 @@ let Engine = (function () {
 		}
 
 		listen (query,callback){
+
 			if(callback) {
 				_act(query,callback);
 			}

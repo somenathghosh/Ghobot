@@ -30,6 +30,7 @@ let Engine = (function () {
       function(callback){
         console.log('1st engine');
         _engines[0].listen(query,function(err,data){
+          //console.log(query);
           if(err) callback(err);
           if(data.RelatedTopics.length === 0) callback(err,data);
           if(data.RelatedTopics.length > 0) {
