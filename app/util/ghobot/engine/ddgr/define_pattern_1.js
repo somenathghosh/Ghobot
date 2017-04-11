@@ -5,8 +5,9 @@
 let DP = (function(){
 
 
+
   let findUser = (user) => {
-    console.log(user);
+    //console.log(user);
     if(user.toLowerCase().trim() === 'somenath.ghosh'){
       return true;
     }
@@ -49,7 +50,6 @@ let DP = (function(){
 
   return [
 
-    //1-1
     //Gb> Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today? | Okay, please state your name.
     //You> Somenath
 
@@ -60,7 +60,8 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
+        //logger.info('info', "Running logs ");
         cb(true,"Just for confirmation, am I speaking with "+matches[1]+" ?",["Yep", "Nope"]);
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
@@ -71,6 +72,7 @@ let DP = (function(){
 
     //Gb> Just for confirmation, am I speaking with Somenath?
     //You> Yep
+
     {
       "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is|you are|exactly)?(?:\\s)?(?:right|correct))|(?:.+?)?exactly(?:.+?)?)\\s(?:Entry):\\s(?:Just for confirmation, am I speaking with)\\s(.+)",
       "actionKey": "response",
@@ -78,7 +80,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(true,"Okay "+matches[1]+", how can I help you?",["I forgot my password","I forgot my user id","I would like to talk to an agent"]);
       },
       "description":" ",
@@ -100,7 +102,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(true,"Okay, please state your name?",["My name is ","I am "]);
       },
       "description":" ",
@@ -119,7 +121,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(true,"Okay, as I understand that you want to reset your password, right?",["You are right", "Nope"]);
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
@@ -138,7 +140,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(true,"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",["Thank you!"]);
       },
       "description":"Say 'I would like to talk to an agent' to be get customer care information",
@@ -157,7 +159,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(true,"As I understood, you want help recovering your user id, right?",["Right", "Nope"]);
       },
       "description":"Say 'I forgot my user id' to recover your user id.",
@@ -172,11 +174,11 @@ let DP = (function(){
     {
       "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yah|Yeh|right|that is correct|You are right)\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, right)",
       "actionKey": "response",
-      "actionValue":"To receive your user id in your registered email address, can you please verify your email address?",
+      "actionValue":"To receive your user id at your registered email address, can you please provide the email address for verification?",
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(false,"",[]);
       },
       "description":"Say 'My email address is' to get your identity verified",
@@ -197,7 +199,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(true,"Okay, I can help with that. Before that, for verification purpose, can you please provide your user id?" ,["My user id is ","I forgot my userid "]);
       },
       "description":"Say 'My user id is [user id]' to provide your user id.",
@@ -213,7 +215,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(false,"" ,[]);
       },
       "description":"Say 'No' to disagree.",
@@ -232,7 +234,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(true,"Just for confirmation, your user id is "+matches[1]+" ,right?",["Yep", "Nope"]);
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
@@ -252,9 +254,9 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         let u=findUser(matches[1]);
-        console.log(u);
+        //console.log(u);
         if(u){
           cb(false, '',[]) //overrider for already passed actionValue and suggestion
         }
@@ -278,7 +280,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(false, '',[]) //overrider for already passed actionValue and suggestion
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
@@ -298,9 +300,9 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         let u=validateEmail(matches[1]);
-        console.log(u);
+        //console.log(u);
         if(u){
         cb(false, '',[]);
         }
@@ -319,15 +321,15 @@ let DP = (function(){
     //somenath.ghosh@tcs.com
 
     {
-      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?(.+?)\\s(?:Entry):\\s(?:To receive your user id in your registered email address, can you please verify your email address|what is your correct email address)",
+      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?(.+?)\\s(?:Entry):\\s(?:To receive your user id at your registered email address, can you please provide the email address for verification|what is your correct email address)",
       "actionKey": "response",
       "actionValue":"Just for confirmation, you mentioned $1, correct? ",
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         let u=validateEmail(matches[1]);
-        console.log(u);
+        //console.log(u);
         if(u){
         cb(false, '',[]);
         }
@@ -354,9 +356,9 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         let u=findEmail(matches[1]);
-        console.log(u);
+        //console.log(u);
         if(u){
           cb(false, '',[]) //overrider for already passed actionValue and suggestion
         }
@@ -380,9 +382,9 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         let u=findEmail(matches[1]);
-        console.log(u);
+        //console.log(u);
         if(u){
           cb(false, '',[]) //overrider for already passed actionValue and suggestion
         }
@@ -409,7 +411,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(false, '',[]) //overrider for already passed actionValue and suggestion
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
@@ -429,7 +431,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(false, '',[]) //overrider for already passed actionValue and suggestion
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
@@ -442,13 +444,13 @@ let DP = (function(){
     //                  |
 
     {
-      "regexp":"(?:Received):\\s(?:Thanks for your help|Thanks|Thx|Thank you|awesome|wonderful)\\s(?:Entry):\\s(.+)",
+      "regexp":"^(?:Received):\\s^(?:Thanks for your help|Thanks|Thx|Thank you|okay, thanks|awesome|wonderful)$\\s(?:Entry):\\s(.+)",
       "actionKey": "response",
       "actionValue":"You are welcome! You can close the chat window now.",
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(false, '',[]);
         //cb(true,"What is your user id?",["My user id is ","I forgot my userid "]);
       },
@@ -468,7 +470,7 @@ let DP = (function(){
       "callback":
       function(matches,cb) {
         'use strict';
-        console.log(matches);
+        //console.log(matches);
         cb(false, '',[]);
         //cb(true,"What is your user id?",["My user id is ","I forgot my userid "]);
       },
@@ -477,31 +479,6 @@ let DP = (function(){
       "suggestion":[],
       "classifier": "end_conversation"
     }
-
-
-    //I can not find your user id. Do you want to recover your user id?
-    //yes
-
-    // {
-    //   "regexp":"(?:Received):\\s(?:Yes|Yes please|yeah|Yep|Yah|Yeah please)\\s(?:Entry):\\s(?:I can not find your user id. Do you want to recover your user id)",
-    //   "actionKey": "response",
-    //   "actionValue":"Sure, I can help with recovering user id. Before that, for verification purpose, can you please provide your registered email address?",
-    //   "callback":
-    //   function(matches,cb) {
-    //     'use strict';
-    //     console.log(matches);
-    //     cb(true,"Sure, I can help with that. Before that, for verification purpose, can you please provide your registered email address?",["My email address is ","I do not remember the email address. "]);
-    //   },
-    //   "description":"Say 'I want help on recovering my user id' to recover your user id.",
-    //   "dsl": 2,
-    //   "suggestion":["Yes", "No"],
-    //   "classifier": "positive_redirect"
-    // }
-
-
-
-//olds
-
 
 
   ];

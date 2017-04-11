@@ -16,7 +16,7 @@
 jQuery.fn.autocorrect = function(options)
 {
     // If plugin attached to text/textarea field then don't need to proceed further
-    if ("text" != jQuery(this).attr("type") && !jQuery(this).is("textarea"))
+    if ("text" !== jQuery(this).attr("type") && !jQuery(this).is("textarea"))
     {
         return;
     }
@@ -54,7 +54,9 @@ jQuery.fn.autocorrect = function(options)
                 mailaddress: "email address",
                 'that\'s': "that is",
                 rg8:'right',
-                r8:"right"
+                r8:"right",
+                thx:"Thanks",
+                yap:"Yep"
 
 
         }
@@ -88,7 +90,7 @@ jQuery.fn.autocorrect = function(options)
             iCaretPos = oSel.text.length;
         }
         // Firefox support
-        else if (oField.selectionStart || oField.selectionStart == "0")
+        else if (oField.selectionStart || oField.selectionStart === "0")
         {
             iCaretPos = oField.selectionStart;
         }
@@ -114,7 +116,7 @@ jQuery.fn.autocorrect = function(options)
             oSel.moveEnd("character", 0);
         }
         // Firefox support
-        else if (oField.selectionStart || oField.selectionStart == "0")
+        else if (oField.selectionStart || oField.selectionStart === "0")
         {
             oField.selectionStart = iCaretPos;
             oField.selectionEnd = iCaretPos;
@@ -125,7 +127,7 @@ jQuery.fn.autocorrect = function(options)
     this.keyup(function(e)
     {
         // If currently entered key is not 'space' then don't need to proceed further
-        if (32 != e.keyCode)
+        if (32 !== e.keyCode)
         {
             return;
         }
@@ -146,7 +148,7 @@ jQuery.fn.autocorrect = function(options)
         var stringUptoCaretPosition = (valueOfField).substr(0, caretPosition);
 
         // If more than one 'space' continuously then don't need to proceed further
-        if (" " == stringUptoCaretPosition.charAt(caretPosition - 1))
+        if (" " === stringUptoCaretPosition.charAt(caretPosition - 1))
         {
             return;
         }

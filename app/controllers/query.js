@@ -6,7 +6,7 @@ const express = require('express'),
 const url   = require('url');
 const BOT   = require('../util/ghobot');
 const cache = require('../util/cache');
-
+const logger = require('../util/ghobot/lib/logger.mongo');
 // Think of writing query and data into file for analysis.
 //const fs = require('graceful-fs');
 // const logStream = fs.createWriteStream('log.txt', {'flags': 'a'});
@@ -40,8 +40,8 @@ router.get('/message', function (req, res, next) {
   if(value){
     console.log('Controller/query: ===> getting from cache');
     res.send(value);
-    console.log('Controller/query: ===>', query, ' | ', value.RelatedTopics[0].Result);
-
+    //console.log('Controller/query: ===>', query, ' | ', value.RelatedTopics[0].Result);
+    logger.log('info', query + ' | ' +  value.RelatedTopics[0].Result );
   }
   else{
     //console.log('value not found');
@@ -55,8 +55,9 @@ router.get('/message', function (req, res, next) {
       let success = cache.set(query, data, 1000);
       if(!success) console.log('not able to insert');
       res.send(data);
-      console.log('Controller/query: ===>', query, ' | ', data.RelatedTopics[0] ? data.RelatedTopics[0].Result : '' );
-      console.log(cache.getStats());
+      //console.log('Controller/query: ===>', query, ' | ', data.RelatedTopics[0] ? data.RelatedTopics[0].Result : '' );
+      logger.log('info', query + ' | ' +  (data.RelatedTopics[0] ? data.RelatedTopics[0].Result : '') );
+      //console.log(cache.getStats());
       return;
     });
   }

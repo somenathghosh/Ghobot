@@ -4,6 +4,7 @@ const events = require('events');
 const EventEmitter = require('events').EventEmitter;
 const Pfile = require('./pfile');
 const ddgr = Pfile.exec();
+
 // const winston = require('winston');
 // const console = {};
 // console.log = winston.info;
@@ -12,7 +13,7 @@ let Engine = (function () {
 
 	let patterns = ddgr.getAll();
 
-	
+
 
 	const _act = (text, callback) => {
 
