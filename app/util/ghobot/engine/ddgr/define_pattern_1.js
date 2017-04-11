@@ -444,7 +444,7 @@ let DP = (function(){
     //                  |
 
     {
-      "regexp":"^(?:Received):\\s(?:Thanks for your help|Thanks|Thx|Thank you|okay, thanks|awesome|wonderful)$\\s(?:Entry):\\s(.+)",
+      "regexp":"(?:Received):\\s(?:Thanks for your help|Thanks|Thx|Thank you|okay, thanks|awesome|wonderful)\\s(?:Entry):\\s(.+?)",
       "actionKey": "response",
       "actionValue":"You are welcome! You can close the chat window now.",
       "callback":
