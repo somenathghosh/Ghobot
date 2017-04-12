@@ -11,6 +11,7 @@ const compress = require('compression');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const LokiStore = require('connect-loki')(session);
+const randomstring = require("randomstring");
 
 
 module.exports = function(app, config) {
@@ -44,7 +45,7 @@ module.exports = function(app, config) {
   //Better to use mongoDB/Radis for session.
 
   let sess = {
-    secret: 'sbdjkfslh89345r3jfsdfn82313bnsd09fsdf0913412bngsdbf871231e9r283yfbwe',
+    secret: randomstring.generate(),
     resave: false,
     saveUninitialized: true,
     cookie: {}
