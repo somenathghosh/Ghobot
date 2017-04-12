@@ -18,7 +18,16 @@ let Pfile = (function(){
      static exec (){
 
       for (let i = 0; i < patterns.length; i++) {
-        ddgr.add(new Pattern(patterns[i]));
+        try{
+          let r = new RegExp(patterns[i].regexp,"i");
+          if(!r.test('dummy')) console.log('Checked -' + i);
+          ddgr.add(new Pattern(patterns[i]));
+        }
+        catch(e){
+          console.log(e);
+          throw new Error('RegEx Error at pattern number: '+i +' Server can not be started');
+        }
+
       }
 
        return ddgr;

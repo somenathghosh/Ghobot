@@ -89,7 +89,24 @@ let DP = (function(){
     },
 
     {
-      "regexp":"(?:Received):\\s(?:(?:hi|hello|hey|howdy)?\\s(?:bot|ghobot)?,\\s)?(?:my name is|I am|I'm|This is|This side|here is)?(?:\\s?)(.+?)(?:\\s(?:.+?))?\\s(?:Entry):\\s(?:(?:Welcome to HL bot services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name))|I am fine, Thanks. Please state your name)",
+      "regexp":"(?:Received):\\s(?:(.+?\\s)?(nuts|fuck|fucking|fcuk|asshole|idiot|fcuking)(?:(\\s.+?)?))\\s(?:Entry):\\s(.+?)",
+      "actionKey": "response",
+      "actionValue":"I am bot for your services. I understand what you are saying. All conversaions are tracked and monitoring. Thank you.",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        //console.log(matches);
+        cb(false, '',[]);
+        //cb(true,"What is your user id?",["My user id is ","I forgot my user id "]);
+      },
+      "description":"Say 'Thanks' to end conversation",
+      "dsl": 2,
+      "suggestion":['bye','I would like to talk to an agent '],
+      "classifier": "convey_thanks"
+    },
+
+    {
+      "regexp":"(?:Received):\\s(?:(?:hi|hello|hey|howdy)?\\s(?:bot|ghobot)?,\\s)?(?:my name is|I am|I'm|This is|This side|here is)?(?:\\s?)(.+?)(?:\\s(?:.+?))?\\s(?:Entry):\\s(?:(?:Welcome to HL bot services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name))|I am fine, Thanks. Please state your name|Hello, please state your name)",
       "actionKey": "response",
       "actionValue":"",
       "callback":
@@ -98,12 +115,17 @@ let DP = (function(){
         console.log(matches);
         try{
           let r = /(?:[^.\w]|^|^\W+)+(who|what|where|how|when|which|whose|why|\[your|you|yours)+(?:[^.\w]|\W(?=\W+|$)|$)/gi;
-          let r1 = /(.+?)?(how are you|how do you do|how is everything at your end|how is it going)(\s)(.+)/gi;
+          let r1 = /(.+?)?(how are you|how do you do|how is everything at your end|how is it going)(,)?(\s)?(.+)/gi;
+          let r2 = /(.+?)?(hey|hi|hello|howdy)(,)?(\s)?(.+)/gi;
           let q = matches[0]
           let m = r.test(q);
           if(m){
             if(r1.test(q)){
               cb(true,'I am fine, Thanks. Please state your name.',['my name is ']);
+              return;
+            }
+            if(r2.test(q)){
+              cb(true,'Hello, please state your name.',['my name is ']);
               return;
             }
             cb(true,'Please state your name.',['my name is ']);
@@ -145,6 +167,7 @@ let DP = (function(){
       "suggestion":["I forgot my password","I forgot my user id","I would like to talk to an agent"],
       "classifier": "positive_redirect"
     },
+
 
     {
       "regexp":"(?:Received):\\s(?:Thanks for your help|Thanks|Thx|Thank you|okay, thanks|awesome|wonderful)(:?.+?)?\\s(?:Entry):\\s(.+?)",
@@ -305,6 +328,22 @@ let DP = (function(){
 
     {
       "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Okay, as I understand that you want to reset your password, right)",
+      "actionKey": "response",
+      "actionValue":"Okay, how can I help you?",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        //console.log(matches);
+        cb(false,"" ,[]);
+      },
+      "description":"Say 'No' to disagree.",
+      "dsl": 2,
+      "suggestion":["I forgot my password","I forgot my user id","I would like to talk to an agent"],
+      "classifier": "negetive_redirect"
+    },
+
+    {
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, right)",
       "actionKey": "response",
       "actionValue":"Okay, how can I help you?",
       "callback":
