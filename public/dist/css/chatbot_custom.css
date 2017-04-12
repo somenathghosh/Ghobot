@@ -20,6 +20,7 @@ body {
 #demo {
 	width: 80%;
 	max-width: 1000px;
+	min-width: 300px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 40px;
@@ -104,11 +105,34 @@ input:focus {
 	outline: none;
 }
 
+.icon-bot {
+	width: 60px;
+	height: 60px;
+	margin: 5px;
+	float: left;
+	background-image: url('../img/robot.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.icon-user {
+	width: 60px;
+	height: 60px;
+	margin: 5px;
+	float: right;
+	background-image: url('../img/woman.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
 .chatBotChatEntry {
 	display: none;
 	max-width: 100%;
 	border-radius: 15px;
 	position: relative;
+	max-width: calc(100% - 70px);
 }
 
 .chatBotChatEntry .origin {

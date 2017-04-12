@@ -294,6 +294,8 @@ var ChatBot = (function($) {
 			//var date = new Date();
 			//var currentTime = '<span>' + date.getHours() + ':' + date.getMinutes() + '</span>';
 
+			var containerDiv = $('<div/>');
+			var speakingDiv = $('<div/>').addClass((origin === 'bot' ? "icon-bot" : "icon-user"));
 			var entryDiv = $('<div class="chatBotChatEntry ' + origin + (origin === 'bot' ? " left-arrow" : " right-arrow") + '" style="' + (origin === 'bot' ? "float:left" : "float:right") +'"></div>');
 			var chatText = '<div class="chatText">' + text + '</div>';
 			//entryDiv.html('<span class="origin">' + (origin === 'bot' ? botName : humanName) + '</span>' + text);
@@ -301,7 +303,8 @@ var ChatBot = (function($) {
 			//console.log(entryDiv.html());
 			lastBotspeak = text;
 			//$('#chatBotHistory').prepend(entryDiv);
-			$('#chatBotHistory').append(entryDiv, '<div style="clear:both"></div>');
+			$(containerDiv).append(speakingDiv, entryDiv, '<div style="clear:both"></div>');
+			$('#chatBotHistory').append(containerDiv);
 			if (addChatEntryCallback !== undefined) {
 				addChatEntryCallback.call(this, entryDiv, text, suggestion, origin);
 			}

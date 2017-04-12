@@ -63,7 +63,7 @@ gulp.task('scripts', function() {
 
 //images
 gulp.task('images', function() {
-  return gulp.src('public/img/*.{jpeg,jpg,png}')
+  return gulp.src('public/img/*.{jpeg,jpg,png,svg}')
     .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
     .pipe(gulp.dest('public/dist/img'))
     .pipe(notify({ message: 'Images task complete' }));
