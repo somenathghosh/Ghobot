@@ -63,12 +63,14 @@ let Engine = (function () {
 					if (pattern.callback instanceof Function) {
 
 							//console.log('Calling callback function');
-							pattern.callback.call(this,matches, function(pass, text, sugg){
+							pattern.callback.call(this,matches, function(overrider, text, sugg){
 								//console.log('calling internal callback()');
-								if(pass) {
-									topic.Result = text;
-									topic.Text = sugg;
-									data.RelatedTopics.push(topic);
+								if(overrider) {
+									if(text !== ''){
+										topic.Result = text;
+										topic.Text = sugg;
+										data.RelatedTopics.push(topic);
+									}
 									console.log(data);
 									callback(undefined, data)
 								}

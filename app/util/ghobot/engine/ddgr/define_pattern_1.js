@@ -89,15 +89,37 @@ let DP = (function(){
     },
 
     {
-      "regexp":"(?:Received):\\s(?:(?:hi|hello|hey|howdy)?\\s(?:bot|ghobot)?,\\s)?(?:my name is|I am|I'm|This is|This side|here is)?(?:\\s?)(.+?)(?:\\s(?:.+?))?\\s(?:Entry):\\s(?:(?:Welcome to HL bot services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name)))",
+      "regexp":"(?:Received):\\s(?:(?:hi|hello|hey|howdy)?\\s(?:bot|ghobot)?,\\s)?(?:my name is|I am|I'm|This is|This side|here is)?(?:\\s?)(.+?)(?:\\s(?:.+?))?\\s(?:Entry):\\s(?:(?:Welcome to HL bot services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name))|I am fine, Thanks. Please state your name)",
       "actionKey": "response",
       "actionValue":"",
       "callback":
       function(matches,cb) {
         'use strict';
-        //console.log(matches);
+        console.log(matches);
+        try{
+          let r = /(?:[^.\w]|^|^\W+)+(who|what|where|how|when|which|whose|why|\[your|you|yours)+(?:[^.\w]|\W(?=\W+|$)|$)/gi;
+          let r1 = /(.+?)?(how are you|how do you do|how is everything at your end|how is it going)(\s)(.+)/gi;
+          let q = matches[0]
+          let m = r.test(q);
+          if(m){
+            if(r1.test(q)){
+              cb(true,'I am fine, Thanks. Please state your name.',['my name is ']);
+              return;
+            }
+            cb(true,'Please state your name.',['my name is ']);
+            return;
+          }
+          else{
+            cb(true,"Just for confirmation, am I speaking with "+matches[1]+" ?",[pickY(), pickN()]);
+            return;
+          }
+        }
+        catch(e){
+          console.error(e);
+        }
+
         //logger.info('info', "Running logs ");
-        cb(true,"Just for confirmation, am I speaking with "+matches[1]+" ?",[pickY(), pickN()]);
+
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
       "dsl": 2,
@@ -124,6 +146,42 @@ let DP = (function(){
       "classifier": "positive_redirect"
     },
 
+    {
+      "regexp":"(?:Received):\\s(?:Thanks for your help|Thanks|Thx|Thank you|okay, thanks|awesome|wonderful)(:?.+?)?\\s(?:Entry):\\s(.+?)",
+      "actionKey": "response",
+      "actionValue":"You are welcome, you can either close the chat window now or is there anything else you want to help with?",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        //console.log(matches);
+        cb(false, '',[]);
+        //cb(true,"What is your user id?",["My user id is ","I forgot my user id "]);
+      },
+      "description":"Say 'Thanks' to end conversation",
+      "dsl": 2,
+      "suggestion":['bye',pickForgotPassword(), pickForgotUserid(),'I would like to talk to an agent '],
+      "classifier": "convey_thanks"
+    },
+
+    //You are welcome! You can close the chat window now.
+    //bye
+
+    {
+      "regexp":"(?:Received):\\s(?:bye|bye bye|byebye|talk to your later|ttyl|see you)\\s(?:Entry):\\s(?:(.+?))",
+      "actionKey": "response",
+      "actionValue":"bye. Thanks for talking to me today!",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        //console.log(matches);
+        cb(false, '',[]);
+        //cb(true,"What is your user id?",["My user id is ","I forgot my user id "]);
+      },
+      "description":"Say 'bye' to end conversation",
+      "dsl": 2,
+      "suggestion":[],
+      "classifier": "end_conversation"
+    },
 
 
     //Just for confirmation, am I speaking with Somenath?
@@ -150,7 +208,7 @@ let DP = (function(){
     //I would like to reset my password
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:reset|forgot|lost|recover)\\s(?:my\\s)?(?:password|passcode))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome, you can either close the chat window now or is there anything else you want to help with)",
+      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:reset|forgot|lost|recover)\\s(?:my\\s)?(?:password|passcode))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome, you can either close the chat window now or is there anything else you want to help with|I am sorry, I could not understand you, Is there anything, I can help you with)",
       "actionKey": "response",
       "actionValue":"Okay, as I understand that you want to reset your password, right?",
       "callback":
@@ -190,7 +248,7 @@ let DP = (function(){
     //You> I forgot my user id
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:forgot|lost|recover)\\s(?:my\\s)?(?:(?:user id|userid)|(?:user name|username)))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome, you can either close the chat window now or is there anything else you want to help with)",
+      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:forgot|lost|recover)\\s(?:my\\s)?(?:(?:user id|userid)|(?:user name|username)))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome, you can either close the chat window now or is there anything else you want to help with|I am sorry, I could not understand you, Is there anything, I can help you with)",
       "actionKey": "response",
       "actionValue":"As I understood, you want help recovering your user id, right?",
       "callback":
@@ -557,7 +615,7 @@ let DP = (function(){
       "dsl": 2,
       "suggestion":["My email address is ", "I do not remember the email address."],
       "classifier": "negetive_redirect"
-    },
+    }
 
 
 
@@ -565,42 +623,6 @@ let DP = (function(){
     // done up to this, ^
     //                  |
 
-    {
-      "regexp":"(?:Received):\\s(?:Thanks for your help|Thanks|Thx|Thank you|okay, thanks|awesome|wonderful)\\s(?:Entry):\\s(.+?)",
-      "actionKey": "response",
-      "actionValue":"You are welcome, you can either close the chat window now or is there anything else you want to help with?",
-      "callback":
-      function(matches,cb) {
-        'use strict';
-        //console.log(matches);
-        cb(false, '',[]);
-        //cb(true,"What is your user id?",["My user id is ","I forgot my user id "]);
-      },
-      "description":"Say 'Thanks' to end conversation",
-      "dsl": 2,
-      "suggestion":['bye',pickForgotPassword(), pickForgotUserid(),'I would like to talk to an agent '],
-      "classifier": "convey_thanks"
-    },
-
-    //You are welcome! You can close the chat window now.
-    //bye
-
-    {
-      "regexp":"(?:Received):\\s(?:bye|bye bye|byebye|talk to your later|ttyl|see you)\\s(?:Entry):\\s(?:(.+?))",
-      "actionKey": "response",
-      "actionValue":"bye. Thanks for talking to me today!",
-      "callback":
-      function(matches,cb) {
-        'use strict';
-        //console.log(matches);
-        cb(false, '',[]);
-        //cb(true,"What is your user id?",["My user id is ","I forgot my user id "]);
-      },
-      "description":"Say 'bye' to end conversation",
-      "dsl": 2,
-      "suggestion":[],
-      "classifier": "end_conversation"
-    }
 
 
   ];

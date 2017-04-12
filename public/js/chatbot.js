@@ -273,8 +273,8 @@ var ChatBot = (function($) {
 		addChatEntry: function addChatEntry(text, suggestion, origin) {
 			//console.log( text, suggestion, origin);
 			if (text === undefined || text === '') {
-				text = 'I am sorry, I couldn\'t understand you! Is there anything, I can help you with?';
-				suggestion = ['I forgot username', 'I forgot password', 'I need to talk to an agent'];
+				text = 'I am sorry, I could not understand you, Is there anything, I can help you with?';
+				suggestion = ['I forgot user id', 'I forgot password', 'I need to talk to an agent'];
 			}
 			if (suggestion && suggestion instanceof Array) {
 				$('#suggestionsContainer').html('');
