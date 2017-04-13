@@ -72,30 +72,31 @@ let DP = (function(){
     //You> Somenath
 
     {
-      "regexp":"(?:Received):\\s(?:.+?\\s)?(?:help)(?:\\s.+?)\\s(?:Entry):\\s(?:.+?)",
+      "regexp":"(?:Received):\\s(((?:.+?\\s)?(?:help)(?:\\s.+?)?))\\s(?:Entry):\\s(?:.+?)",
       "actionKey": "response",
-      "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",
+      "actionValue":"How can I help you?",
       "callback":
       function(matches,cb) {
         'use strict';
-        //console.log(matches);
-        cb(true,"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",["Thank you!"]);
+        console.log(matches[1]);
+
+        cb(true,"how can I help you?",['I forgot my password ', 'I forgot my use id ', 'I want to talk to an agent ' ]);
       },
-      "description":"Say 'I would like to talk to an agent' to be get customer care information",
+      "description":"Say 'help' to be get list of help menu.",
       "dsl": 2,
-      "suggestion":["Thank you!"],
-      "classifier": "agent"
+      "suggestion":['I forgot my password ', 'I forgot my use id ', 'I want to talk to an agent ' ],
+      "classifier": "ask_help"
     },
 
     {
       "regexp":"(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:would like to (?:talk|speak) to|want to (?:talk|speak) to)?(?:\\s)?(?:an\\s)?)?(?:agent|customer care|representative))|(?:(?:please\\s)?connect me to (?:an\\s)?(?:agent|customer care|representative))|((?:(?:(?:I\\s)?do not remember|I do not have access to) the email)(?:\\saddress|id)?))\\s(?:Entry):\\s(?:For verification, what is the email address registered with us|I can not find your email address. We need your registered email address to recover your use id|I can not find your email address. We need your registered email address to reset your password|(?:.+?)?)",
       "actionKey": "response",
-      "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",
+      "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further assistance.",
       "callback":
       function(matches,cb) {
         'use strict';
         //console.log(matches);
-        cb(true,"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",["Thank you!"]);
+        cb(true,"Please call 1-800-Support or send email to customersupport@hlsc.com for further assistance.",["Thank you!"]);
       },
       "description":"Say 'I would like to talk to an agent' to be get customer care information",
       "dsl": 2,
@@ -114,7 +115,7 @@ let DP = (function(){
         cb(false, '',[]);
         //cb(true,"What is your user id?",["My user id is ","I forgot my user id "]);
       },
-      "description":"Say 'Thanks' to end conversation",
+      "description":"Say 'No Abusive words' ",
       "dsl": 2,
       "suggestion":['bye','I would like to talk to an agent '],
       "classifier": "convey_thanks"
@@ -267,12 +268,12 @@ let DP = (function(){
     {
       "regexp":"(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:would like to (?:talk|speak) to|want to (?:talk|speak) to)?(?:\\s)?(?:an\\s)?)?(?:agent|customer care|representative))|(?:(?:please\\s)?connect me to (?:an\\s)?(?:agent|customer care|representative))|((?:(?:(?:I\\s)?do not remember|I do not have access to) the email)(?:\\saddress|id)?))\\s(?:Entry):\\s(?:(?:(?:Okay)(?:\\s(.+?))?(?:, How can I help you))|I am sorry, I would not able to help you here without a valid registered email address. As I understood that you have trouble in accessing the email address, you may prefer to contact an agent or customer care|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I couldn't understand you! Is there anything, I can help you with)",
       "actionKey": "response",
-      "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",
+      "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further assistance.",
       "callback":
       function(matches,cb) {
         'use strict';
         //console.log(matches);
-        cb(true,"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",["Thank you!"]);
+        cb(true,"Please call 1-800-Support or send email to customersupport@hlsc.com for further assistance.",["Thank you!"]);
       },
       "description":"Say 'I would like to talk to an agent' to be get customer care information",
       "dsl": 2,

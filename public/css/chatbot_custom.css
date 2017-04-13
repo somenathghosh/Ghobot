@@ -97,7 +97,7 @@ a.help-text {
 	height: 100%;
 	position: fixed;
 	background-color: black;
-	background-color: rgba(0, 0, 0, .7);
+	background-color: rgba(0, 0, 0, .6);
 	z-index: 900;
 }
 
@@ -153,6 +153,7 @@ input:focus {
 	color: #fff;
 	background-color: #181F58;
 	cursor: pointer;
+	border-radius: 12px;
 }
 
 .left-arrow:after {
