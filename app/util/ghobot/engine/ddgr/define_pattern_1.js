@@ -1,4 +1,3 @@
-
 'use strict';
 
 Array.prototype.pick = function () {
@@ -51,11 +50,11 @@ let DP = (function(){
   }
 
   let pickY = () => {
-    return new Array('Yes','Yep','Yeah','Correct','Right').pick();
+    return new Array('Yes','That is Correct','Correct').pick();
   }
 
   let pickN = () => {
-    return new Array('No','Nope').pick();
+    return new Array('No','Incorrect','That is incorrect').pick();
   }
 
   let pickForgotPassword = () => {
@@ -122,7 +121,7 @@ let DP = (function(){
     },
 
     {
-      "regexp":"(?:Received):\\s(?:(?:hi|hello|hey|howdy)?\\s(?:bot|ghobot)?,\\s)?(?:my name is|I am|I'm|This is|This side|here is)?(?:\\s?)(.+?)(?:\\s(?:.+?))?\\s(?:Entry):\\s(?:(?:Welcome to HL bot services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name))|I am fine, Thanks. Please state your name|Hello, please state your name)",
+      "regexp":"(?:Received):\\s(?:(?:hi|hello|hey|howdy)?\\s(?:bot|ghobot)?,\\s)?(?:my name is|I am|I'm|This is|This side|here is)?(?:\\s?)(.+?)(?:\\s(?:.+?))?\\s(?:Entry):\\s(?:(?:Welcome to HealthLogic Virtual Assistant services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name))|I am fine, Thanks. Please state your name|Hello, please state your name)",
       "actionKey": "response",
       "actionValue":"",
       "callback":
@@ -169,7 +168,7 @@ let DP = (function(){
     //You> Yep
 
     {
-      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is|you are|exactly)?(?:\\s)?(?:right|correct))|(?:.+?)?exactly(?:.+?)?)\\s(?:Entry):\\s(?:Just for confirmation, am I speaking with)\\s(.+)",
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is|this is|you are|exactly)?(?:\\s)?(?:right|correct))|(?:.+?)?exactly(?:.+?)?)\\s(?:Entry):\\s(?:Just for confirmation, am I speaking with)\\s(.+)",
       "actionKey": "response",
       "actionValue":"Okay $1, how can I help you?",
       "callback":
@@ -188,7 +187,7 @@ let DP = (function(){
     {
       "regexp":"(?:Received):\\s(?:Thanks for your help|Thanks|Thx|Thank you|okay, thanks|awesome|wonderful)(:?.+?)?\\s(?:Entry):\\s(.+?)",
       "actionKey": "response",
-      "actionValue":"You are welcome, you can either close the chat window now or is there anything else you want to help with?",
+      "actionValue":"You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now.",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -196,7 +195,7 @@ let DP = (function(){
         cb(false, '',[]);
         //cb(true,"What is your user id?",["My user id is ","I forgot my user id "]);
       },
-      "description":"Say 'Thanks' to end conversation",
+      "description":"Say 'bye' to end conversation",
       "dsl": 2,
       "suggestion":['bye',pickForgotPassword(), pickForgotUserid(),'I would like to talk to an agent '],
       "classifier": "convey_thanks"
@@ -228,7 +227,7 @@ let DP = (function(){
 
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s|you are\\s)?(?:not correct|not right))|((?:.+?\\s)?(not)(?:.+?)?))\\s(?:Entry):\\s(?:Just for confirmation, am I speaking with)\\s(.+)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s|you are\\s|this is\\s)?(?:not correct|not right|incorrect))|((?:.+?\\s)?(not)(?:.+?)?))\\s(?:Entry):\\s(?:Just for confirmation, am I speaking with)\\s(.+)",
       "actionKey": "response",
       "actionValue":"hi $1, thanks for talking to me today, what can I help you with?",
       "callback":
@@ -247,7 +246,7 @@ let DP = (function(){
     //I would like to reset my password
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:reset|forgot|lost|recover)\\s(?:my\\s)?(?:password|passcode))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome, you can either close the chat window now or is there anything else you want to help with|I am sorry, I could not understand you, Is there anything, I can help you with)",
+      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:reset|forgot|lost|recover)\\s(?:my\\s)?(?:password|passcode))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with)",
       "actionKey": "response",
       "actionValue":"Okay, as I understand that you want to reset your password, right?",
       "callback":
@@ -266,7 +265,7 @@ let DP = (function(){
     //You> I would like to talk to an agent
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:would like to (?:talk|speak) to|want to (?:talk|speak) to)?(?:\\s)?(?:an\\s)?)?(?:agent|customer care|representative))|(?:(?:please\\s)?connect me to (?:an\\s)?(?:agent|customer care|representative))|((?:(?:(?:I\\s)?do not remember|I do not have access to) the email)(?:\\saddress|id)?))\\s(?:Entry):\\s(?:(?:(?:Okay)(?:\\s(.+?))?(?:, How can I help you))|I am sorry, I would not able to help you here without a valid registered email address. As I understood that you have trouble in accessing the email address, you may prefer to contact an agent or customer care|You are welcome, you can either close the chat window now or is there anything else you want to help with|I am sorry, I couldn't understand you! Is there anything, I can help you with)",
+      "regexp":"(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:would like to (?:talk|speak) to|want to (?:talk|speak) to)?(?:\\s)?(?:an\\s)?)?(?:agent|customer care|representative))|(?:(?:please\\s)?connect me to (?:an\\s)?(?:agent|customer care|representative))|((?:(?:(?:I\\s)?do not remember|I do not have access to) the email)(?:\\saddress|id)?))\\s(?:Entry):\\s(?:(?:(?:Okay)(?:\\s(.+?))?(?:, How can I help you))|I am sorry, I would not able to help you here without a valid registered email address. As I understood that you have trouble in accessing the email address, you may prefer to contact an agent or customer care|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I couldn't understand you! Is there anything, I can help you with)",
       "actionKey": "response",
       "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",
       "callback":
@@ -287,7 +286,7 @@ let DP = (function(){
     //You> I forgot my user id
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:forgot|lost|recover)\\s(?:my\\s)?(?:(?:user id|userid)|(?:user name|username)))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome, you can either close the chat window now or is there anything else you want to help with|I am sorry, I could not understand you, Is there anything, I can help you with)",
+      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:forgot|lost|recover)\\s(?:my\\s)?(?:(?:user id|userid)|(?:user name|username)))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with)",
       "actionKey": "response",
       "actionValue":"As I understood, you want help recovering your user id, right?",
       "callback":
@@ -306,9 +305,9 @@ let DP = (function(){
     //You> Right.
 
     {
-      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yah|Yeh|right|that is correct|You are right)\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, right)",
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yah|Yeh|right|that is correct|You are right|correct)\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, right)",
       "actionKey": "response",
-      "actionValue":"You will be receiving your user id at your registered email address. Can you please provide the email address for verification?",
+      "actionValue":"I will send your user ID to the email address I have on file. For verification, what is your email address?",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -327,7 +326,7 @@ let DP = (function(){
     //Right
 
     {
-      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Okay, as I understand that you want to reset your password, right)",
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is\\s|this is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Okay, as I understand that you want to reset your password, right)",
       "actionKey": "response",
       "actionValue":"",
       "callback":
@@ -343,7 +342,7 @@ let DP = (function(){
     },
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Okay, as I understand that you want to reset your password, right)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?(?:incorrect|not correct|not right))|(?:(?:you are\\s)?(?:not right|incorrect|not correct)))\\s(?:Entry):\\s(?:Okay, as I understand that you want to reset your password, right)",
       "actionKey": "response",
       "actionValue":"Okay, how can I help you?",
       "callback":
@@ -359,7 +358,7 @@ let DP = (function(){
     },
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, right)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?(?:incorrect|not correct|not right))|(?:(?:you are\\s)?(?:not right|not correct|incorrect)))\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, right)",
       "actionKey": "response",
       "actionValue":"Okay, how can I help you?",
       "callback":
@@ -383,7 +382,7 @@ let DP = (function(){
       function(matches,cb) {
         'use strict';
         //console.log(matches);
-        cb(false,"Just for confirmation, your user id is "+matches[1]+" ,right?",["Yep", "Nope"]);
+        cb(false,"Just for confirmation, your user id is "+matches[1]+" ,right?",["Yep", "No"]);
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
       "dsl": 2,
@@ -401,7 +400,7 @@ let DP = (function(){
       function(matches,cb) {
         'use strict';
         //console.log(matches);
-        cb(true,"Just for confirmation, your user id is "+matches[1]+" ,right?",["Yep", "Nope"]);
+        cb(true,"Just for confirmation, your user id is "+matches[1]+" ,right?",["Yes", "No"]);
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
       "dsl": 2,
@@ -414,7 +413,7 @@ let DP = (function(){
     //yep
 
     {
-      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, your user id is)(.+)\\s(?:,right)",
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:(?:that|this) is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, your user id is)(.+)\\s(?:,right)",
       "actionKey": "response",
       "actionValue":"You will be receiving the temporary password in your registered email address. For verification,can you please provide your email address?",
       "callback":
@@ -440,7 +439,7 @@ let DP = (function(){
     //nope
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, your user id is)(.+)\\s(?:,right)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?(?:not correct|incorrect))|(?:(?:you are\\s)?(?:not right|not correct|incorrect)))\\s(?:Entry):\\s(?:Just for confirmation, your user id is)(.+)\\s(?:,right)",
       "actionKey": "response",
       "actionValue":"what is your user id?",
       "callback":
@@ -457,7 +456,7 @@ let DP = (function(){
 
 
     {
-      "regexp":"(?:Received):\\s(?:(?:I\\s)?(?:do not remember|do not have|do not have access to|forgot|lost|have trouble accessing)(?:\\s)?((?:the|my|that)?(?:\\s)?(?:email)(?:address|id)?(?:\\s)?(?:.+?)?))\\s(?:Entry):\\s(?:You will be receiving your user id at your registered email address. Can you please provide the email address for verification|what is the correct email address|what is your correct email address|You will be receiving the temporary password in your registered email address. For verification,can you please provide your email address|(?:(?:Just for confirmation, you )(?:mentioned|said)(?:\\s)(.+?)(?:, correct)))",
+      "regexp":"(?:Received):\\s(?:(?:I\\s)?(?:do not remember|do not have|do not have access to|forgot|lost|have trouble accessing)(?:\\s)?((?:the|my|that)?(?:\\s)?(?:email)(?:address|id)?(?:\\s)?(?:.+?)?))\\s(?:Entry):\\s(?:I will send your user ID to the email address I have on file. For verification, what is your email address|what is the correct email address|what is your correct email address|You will be receiving the temporary password in your registered email address. For verification,can you please provide your email address|(?:(?:Just for confirmation, you )(?:mentioned|said)(?:\\s)(.+?)(?:, correct)))",
       "actionKey": "response",
       "actionValue":"I am sorry, I would not able to help you here without a valid registered email address. As I understood that you have trouble in accessing the email address, you may prefer to contact an agent or customer care.",
       "callback":
@@ -477,7 +476,7 @@ let DP = (function(){
     //somenath.ghosh@tcs.com
 
     {
-      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?((?:.+?)(?:@)?(?:.+?))\\s(?:Entry):\\s(?:You will be receiving your user id at your registered email address. Can you please provide the email address for verification|what is the correct email address)",
+      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?((?:.+?)(?:@)?(?:.+?))\\s(?:Entry):\\s(?:I will send your user ID to the email address I have on file. For verification, what is your email address|what is the correct email address)",
       "actionKey": "response",
       "actionValue":"Just for confirmation, you said $1, correct? ",
       "callback":
@@ -531,7 +530,7 @@ let DP = (function(){
     {
       "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|Sure|why not)\\s(?:Entry):\\s(?:This is not a valid email address. Do you want to try again)",
       "actionKey": "response",
-      "actionValue":"what is the correct email address? ",
+      "actionValue":"what is your correct email address? ",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -555,7 +554,7 @@ let DP = (function(){
     {
       "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|Sure|why not)\\s(?:Entry):\\s(?:That is not a valid email address. Do you want to try again)",
       "actionKey": "response",
-      "actionValue":"what is your correct email address? ",
+      "actionValue":"what is the correct email address? ",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -582,9 +581,9 @@ let DP = (function(){
     //Correct
 
     {
-      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you said )(.+?)(?:, correct)",
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:(?:that|this) is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you said )(.+?)(?:, correct)",
       "actionKey": "response",
-      "actionValue":"I have reset your password. You will recieve your temporary password at the provided email address. Thanks for availing bot services!",
+      "actionValue":"I have reset your password and sent the temporary password to your email. You will have 24 hours to set a new password before the temporary password expires. Thanks for choosing the HealthLogic Virtual Assistant.",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -608,9 +607,9 @@ let DP = (function(){
     //Correct
 
     {
-      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you mentioned )(.+?)(?:, correct)",
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:(?:that|this) is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you mentioned )(.+?)(?:, correct)",
       "actionKey": "response",
-      "actionValue":"I have successfully recovered your user id. You will recieve it at the provided email address. Thanks for availing bot services!",
+      "actionValue":"I have successfully recovered your user id. You will recieve it at the provided email address. Thanks for choosing HealthLogic virtual assistant!",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -637,7 +636,7 @@ let DP = (function(){
     //Nope
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:(?:that|this) is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you said )(.+)(?:, correct)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:(?:that|this) is\\s)?(?:not correct|incorrect))|(?:(?:you are\\s)?(?:not right|not correct|incorrect)))\\s(?:Entry):\\s(?:Just for confirmation, you mentioned )(.+)(?:, correct)",
       "actionKey": "response",
       "actionValue":"what is the correct email address?",
       "callback":
@@ -657,7 +656,7 @@ let DP = (function(){
     //Nope
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?not correct)|(?:(?:you are not\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, you mentioned )(.+?)(?:, correct)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:(?:that|this) is\\s)?(?:not correct|incorrect))|(?:(?:you are\\s)?(?:not right|not correct|incorrect)))\\s(?:Entry):\\s(?:Just for confirmation, you said )(.+?)(?:, correct)",
       "actionKey": "response",
       "actionValue":"what is your correct email address?",
       "callback":
