@@ -1,0 +1,37 @@
+Bot name
+o   Maybe not call it a “bot”, but “virtual assistant”?
+o   Ghobot is still a good name, but when referring to “the bot”, use “virtual assistant” or another term
+·         Affirmative (yes/yep/etc)
+o   Limit to formal language
+o   Yes
+o   Correct / That is correct
+o   Maybe restate, such as “Yes, my name is Brandon”
+·         Negative (No/nope)
+o   Same as affirm, limit to formal
+o   No
+o   Incorrect / That is incorrect
+o   Maybe restate, such as “No, my name is not Brandon” or “No, I do not need a password reset”
+·         Greeting
+o   Limit to Hi / Hello, howdy / hey are too informal
+o   Limit to How are you / How do you do
+·         Farewell
+o   Limit to Bye / Goodbye
+o   Maybe “Have a nice day”, but might not sound right
+·         You are welcome, you can either close the chat window now or is there anything else you want to help with?
+o   You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now.
+o   ^ Only say “You are welcome” if they say “thanks”. Not required to proceed by saying “thanks”.
+·         Say 'Thanks' to end conversation
+o   Say ‘bye’ to end the conversation
+o   Possibly ‘also’ end or ‘quit’
+·         Okay, as I understand that you want to reset your password, right?
+o   Couple of places use “right?”. Might be clearer to use “is this correct?”
+·         You will be receiving your user id at your registered email address. Can you please provide the email address for verification?
+o   I will send your user ID to the email address I have on file. For verification, what is your email address?
+o   Similar change in a few other places
+·         what is your correct email address?
+o   Sorry, but that email is not registered to your account. Would you like to try another email address?
+·         I have reset your password. You will receive your temporary password at the provided email address.
+o   I have reset your password and set the temporary password to your email. You will have 24 hours to set a new password before the temporary password expires.
+·         Thanks for availing bot services!
+o   Not sure, but sounds strange
+o   Maybe “Thanks for using the HealthLogic Virtual Assistant”

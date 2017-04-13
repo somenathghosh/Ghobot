@@ -9,7 +9,7 @@ var config = {
       name: 'chatbot'
     },
     port: process.env.PORT || 3000,
-    db: process.env.MONGODB_URI || 'mongodb://heroku_rt5p6nd5:tgti2uoqhldtn0s89omkgmufvu@ds159180.mlab.com:59180/heroku_rt5p6nd5',
+    db: process.env.MONGODB_URI,
     url: {
       ddg: 'http://api.duckduckgo.com',
       ddgs: 'https://duckduckgo.com',

@@ -73,6 +73,22 @@ let DP = (function(){
     //You> Somenath
 
     {
+      "regexp":"(?:Received):\\s(?:.+?\\s)?(?:help)(?:\\s.+?)\\s(?:Entry):\\s(?:.+?)",
+      "actionKey": "response",
+      "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        //console.log(matches);
+        cb(true,"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",["Thank you!"]);
+      },
+      "description":"Say 'I would like to talk to an agent' to be get customer care information",
+      "dsl": 2,
+      "suggestion":["Thank you!"],
+      "classifier": "agent"
+    },
+
+    {
       "regexp":"(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:would like to (?:talk|speak) to|want to (?:talk|speak) to)?(?:\\s)?(?:an\\s)?)?(?:agent|customer care|representative))|(?:(?:please\\s)?connect me to (?:an\\s)?(?:agent|customer care|representative))|((?:(?:(?:I\\s)?do not remember|I do not have access to) the email)(?:\\saddress|id)?))\\s(?:Entry):\\s(?:For verification, what is the email address registered with us|I can not find your email address. We need your registered email address to recover your use id|I can not find your email address. We need your registered email address to reset your password|(?:.+?)?)",
       "actionKey": "response",
       "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further help.",
