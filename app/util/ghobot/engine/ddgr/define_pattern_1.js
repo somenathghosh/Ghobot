@@ -58,11 +58,11 @@ let DP = (function(){
   }
 
   let pickForgotPassword = () => {
-    return new Array('I forgot my passsword','I lost my password','Forgot Password','I would like to reset my password','I would like to recover my password','Recover password').pick();
+    return new Array('I forgot my password','I lost my password','I would like to reset my password').pick();
   }
 
   let pickForgotUserid = () => {
-    return new Array('I forgot my user id','I forgot my user name','Forgot user id','I would like to recover my user id','Recover user name').pick();
+    return new Array('I forgot my user id','I forgot my user name','I would like to recover my user id').pick();
   }
 
 
@@ -80,11 +80,11 @@ let DP = (function(){
         'use strict';
         console.log(matches[1]);
 
-        cb(true,"how can I help you?",['I forgot my password ', 'I forgot my use id ', 'I want to talk to an agent ' ]);
+        cb(true,"how can I help you?",['I forgot my password. ', 'I forgot my use id. ', 'I want to talk to an agent. ' ]);
       },
       "description":"Say 'help' to be get list of help menu.",
       "dsl": 2,
-      "suggestion":['I forgot my password ', 'I forgot my use id ', 'I want to talk to an agent ' ],
+      "suggestion":['I forgot my password. ', 'I forgot my use id. ', 'I want to talk to an agent. ' ],
       "classifier": "ask_help"
     },
 
@@ -249,12 +249,12 @@ let DP = (function(){
     {
       "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:reset|forgot|lost|recover)\\s(?:my\\s)?(?:password|passcode))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with|how can I help you)",
       "actionKey": "response",
-      "actionValue":"Okay, as I understand that you want to reset your password, right?",
+      "actionValue":"Okay, as I understand that you want to reset your password, is this correct?",
       "callback":
       function(matches,cb) {
         'use strict';
         //console.log(matches);
-        cb(true,"Okay, as I understand that you want to reset your password, right?",["You are right", "Nope"]);
+        cb(true,"Okay, as I understand that you want to reset your password, is this correct?",["That is correct ", "No "]);
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
       "dsl": 2,
@@ -282,19 +282,18 @@ let DP = (function(){
     },
 
 
-
     //Gb> Okay Somenath, how can I help you?
     //You> I forgot my user id
 
     {
       "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:forgot|lost|recover)\\s(?:my\\s)?(?:(?:user id|userid)|(?:user name|username)))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with|how can I help you)",
       "actionKey": "response",
-      "actionValue":"As I understood, you want help recovering your user id, right?",
+      "actionValue":"As I understood, you want help recovering your user id, is this correct?",
       "callback":
       function(matches,cb) {
         'use strict';
         //console.log(matches);
-        cb(true,"As I understood, you want help recovering your user id, right?",["Right", "Nope"]);
+        cb(true,"As I understood, you want help recovering your user id, is this correct?",["That is correct ", "No "]);
       },
       "description":"Say 'I forgot my user id' to recover your user id.",
       "dsl": 2,
@@ -302,11 +301,11 @@ let DP = (function(){
       "classifier": "forgot_user_id"
     },
 
-    //Gb> As I understood, you want help recovering your user id, right?
+    //Gb> As I understood, you want help recovering your user id, is this correct?
     //You> Right.
 
     {
-      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yah|Yeh|right|that is correct|You are right|correct)\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, right)",
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yah|Yeh|right|that is correct|You are right|correct)\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, is this correct)",
       "actionKey": "response",
       "actionValue":"I will send your user ID to the email address I have on file. For verification, what is your email address?",
       "callback":
@@ -323,11 +322,11 @@ let DP = (function(){
 
 
 
-    //Okay, as I understand that you want to reset your password , right?
+    //Okay, as I understand that you want to reset your password , is this correct?
     //Right
 
     {
-      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is\\s|this is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Okay, as I understand that you want to reset your password, right)",
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:that is\\s|this is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Okay, as I understand that you want to reset your password, is this correct)",
       "actionKey": "response",
       "actionValue":"",
       "callback":
@@ -343,7 +342,7 @@ let DP = (function(){
     },
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?(?:incorrect|not correct|not right))|(?:(?:you are\\s)?(?:not right|incorrect|not correct)))\\s(?:Entry):\\s(?:Okay, as I understand that you want to reset your password, right)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?(?:incorrect|not correct|not right))|(?:(?:you are\\s)?(?:not right|incorrect|not correct)))\\s(?:Entry):\\s(?:Okay, as I understand that you want to reset your password, is this correct)",
       "actionKey": "response",
       "actionValue":"Okay, how can I help you?",
       "callback":
@@ -359,7 +358,7 @@ let DP = (function(){
     },
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?(?:incorrect|not correct|not right))|(?:(?:you are\\s)?(?:not right|not correct|incorrect)))\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, right)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?(?:incorrect|not correct|not right))|(?:(?:you are\\s)?(?:not right|not correct|incorrect)))\\s(?:Entry):\\s(?:As I understood, you want help recovering your user id, is this correct)",
       "actionKey": "response",
       "actionValue":"Okay, how can I help you?",
       "callback":
@@ -378,12 +377,12 @@ let DP = (function(){
     {
       "regexp":"(?:Received):\\s(?:I forgot my user id|I forgot my username|I lost my user id|I lost my username)\\s(?:Entry):\\s(?:Okay, I can help with that. Before that, for verification purpose, can you please provide your user id|what is your user id)",
       "actionKey": "response",
-      "actionValue":"As I understood, you want help recovering your user id, right?",
+      "actionValue":"As I understood, you want help recovering your user id, is this correct?",
       "callback":
       function(matches,cb) {
         'use strict';
         //console.log(matches);
-        cb(false,"Just for confirmation, your user id is "+matches[1]+" ,right?",["Yep", "No"]);
+        cb(false,"Just for confirmation, your user id is "+matches[1]+" ,is this correct?",["Yep", "No"]);
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
       "dsl": 2,
@@ -401,7 +400,7 @@ let DP = (function(){
       function(matches,cb) {
         'use strict';
         //console.log(matches);
-        cb(true,"Just for confirmation, your user id is "+matches[1]+" ,right?",["Yes", "No"]);
+        cb(true,"Just for confirmation, your user id is "+matches[1]+" ,is this correct?",["Yes", "No"]);
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
       "dsl": 2,
@@ -414,7 +413,7 @@ let DP = (function(){
     //yep
 
     {
-      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:(?:that|this) is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, your user id is)(.+)\\s(?:,right)",
+      "regexp":"(?:Received):\\s(?:Yes|Yeah|Yep|Yea|Yeh|Yah|(?:(?:(?:that|this) is\\s)?correct)|(?:(?:you are\\s)?(?:right|correct)))\\s(?:Entry):\\s(?:Just for confirmation, your user id is)(.+)\\s(?:,is this correct)",
       "actionKey": "response",
       "actionValue":"You will be receiving the temporary password in your registered email address. For verification,can you please provide your email address?",
       "callback":
@@ -427,7 +426,7 @@ let DP = (function(){
           cb(false, '',[]) //overrider for already passed actionValue and suggestion
         }
         else{
-          cb(true,'I can not find your user id. Do you want to recover your user id?',["Yes","No"])
+          cb(true,'I could not find your user id in our file. Would you like me to help you recover your user id?',["Yes","No"])
         }
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
@@ -440,7 +439,7 @@ let DP = (function(){
     //nope
 
     {
-      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?(?:not correct|incorrect))|(?:(?:you are\\s)?(?:not right|not correct|incorrect)))\\s(?:Entry):\\s(?:Just for confirmation, your user id is)(.+)\\s(?:,right)",
+      "regexp":"(?:Received):\\s(?:No|Nope|Ney|(?:(?:that is\\s)?(?:not correct|incorrect))|(?:(?:you are\\s)?(?:not right|not correct|incorrect)))\\s(?:Entry):\\s(?:((?:Just for confirmation, your user id is)(.+)\\s(?:,is this correct))|I could not find your user id in our file. Would you like me to help you recover your user id)",
       "actionKey": "response",
       "actionValue":"what is your user id?",
       "callback":
@@ -451,7 +450,7 @@ let DP = (function(){
       },
       "description":"Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
       "dsl": 2,
-      "suggestion":["My user id is ", "I forgot my user id."],
+      "suggestion":["My user id is ", "I forgot my user id "],
       "classifier": "positive_redirect"
     },
 
