@@ -247,7 +247,7 @@ let DP = (function(){
     //I would like to reset my password
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:reset|forgot|lost|recover)\\s(?:my\\s)?(?:password|passcode))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with)",
+      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:reset|forgot|lost|recover)\\s(?:my\\s)?(?:password|passcode))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with|how can I help you)",
       "actionKey": "response",
       "actionValue":"Okay, as I understand that you want to reset your password, right?",
       "callback":
@@ -266,7 +266,7 @@ let DP = (function(){
     //You> I would like to talk to an agent
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:would like to (?:talk|speak) to|want to (?:talk|speak) to)?(?:\\s)?(?:an\\s)?)?(?:agent|customer care|representative))|(?:(?:please\\s)?connect me to (?:an\\s)?(?:agent|customer care|representative))|((?:(?:(?:I\\s)?do not remember|I do not have access to) the email)(?:\\saddress|id)?))\\s(?:Entry):\\s(?:(?:(?:Okay)(?:\\s(.+?))?(?:, How can I help you))|I am sorry, I would not able to help you here without a valid registered email address. As I understood that you have trouble in accessing the email address, you may prefer to contact an agent or customer care|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I couldn't understand you! Is there anything, I can help you with)",
+      "regexp":"(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:would like to (?:talk|speak) to|want to (?:talk|speak) to)?(?:\\s)?(?:an\\s)?)?(?:agent|customer care|representative))|(?:(?:please\\s)?connect me to (?:an\\s)?(?:agent|customer care|representative))|((?:(?:(?:I\\s)?do not remember|I do not have access to) the email)(?:\\saddress|id)?))\\s(?:Entry):\\s(?:(?:(?:Okay)(?:\\s(.+?))?(?:, How can I help you))|I am sorry, I would not able to help you here without a valid registered email address. As I understood that you have trouble in accessing the email address, you may prefer to contact an agent or customer care|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I couldn't understand you! Is there anything, I can help you with|how can I help you)",
       "actionKey": "response",
       "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further assistance.",
       "callback":
@@ -287,7 +287,7 @@ let DP = (function(){
     //You> I forgot my user id
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:forgot|lost|recover)\\s(?:my\\s)?(?:(?:user id|userid)|(?:user name|username)))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with)",
+      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:would like to\\s)?)?(?:forgot|lost|recover)\\s(?:my\\s)?(?:(?:user id|userid)|(?:user name|username)))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with|how can I help you)",
       "actionKey": "response",
       "actionValue":"As I understood, you want help recovering your user id, right?",
       "callback":
