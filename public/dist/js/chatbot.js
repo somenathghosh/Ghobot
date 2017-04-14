@@ -73,6 +73,13 @@ var ChatBot = (function($) {
 	function playConversation(state, pauseLength) {
 		var play = setTimeout(function() {
 			//$( ".submit" ).attr( "disabled", true);
+			var $humanInput = $('#humanInput');
+			var $submitButton = $('.button.submit');
+			$submitButton.attr('disabled', 'true');
+			$humanInput.bind('keydown.notype', function(e) {
+				e.preventDefault();
+			});
+
 			var newValue = '';
 			if ($(inputs).val() !== '|') {
 				newValue += $(inputs).val();
@@ -98,6 +105,10 @@ var ChatBot = (function($) {
 					if (state.conversationArrayIndex === 0) {
 						$('#chatBotConversationLoadingBar').remove();
 						sampleConversationRunning = false;
+
+						$submitButton.attr('disabled', 'false');
+						$humanInput.unbind('keydown.notype');
+
 						return;
 					}
 					state.start = 0;
