@@ -72,23 +72,6 @@ let DP = (function(){
     //You> Somenath
 
     {
-      "regexp":"(?:Received):\\s(((?:who are you|what do you do)(?:\\s.+?)?))\\s(?:Entry):\\s(?:.+?)",
-      "actionKey": "response",
-      "actionValue":"How can I help you?",
-      "callback":
-      function(matches,cb) {
-        'use strict';
-        console.log(matches[1]);
-        cb(true,"I am HealthLogic Virtual Assistant made with awesomeness of NLP on node.js. I do help on resetting password, recovering user id. how can I help you?",['I forgot my password. ', 'I forgot my use id. ', 'I want to talk to an agent. ' ]);
-        return;
-      },
-      "description":"Say 'help' to be get list of help menu.",
-      "dsl": 2,
-      "suggestion":['I forgot my password. ', 'I forgot my use id. ', 'I want to talk to an agent. ' ],
-      "classifier": "ask_help"
-    },
-
-    {
       "regexp":"(?:Received):\\s(((?:.+?\\s)?(?:help)(?:\\s.+?)?))\\s(?:Entry):\\s(?:.+?)",
       "actionKey": "response",
       "actionValue":"How can I help you?",
@@ -107,17 +90,17 @@ let DP = (function(){
           cb(true,"As I understood, you want help recovering your user id, is this correct?",["That is correct ", "No "]);
           return;
         }
-        cb(true,"how can I help you?",['I forgot my password. ', 'I forgot my use id. ', 'I want to talk to an agent. ' ]);
+        cb(true,"how can I help you?",['I forgot my password. ', 'I forgot my user id. ', 'I want to talk to an agent. ' ]);
         return;
       },
       "description":"Say 'help' to be get list of help menu.",
       "dsl": 2,
-      "suggestion":['I forgot my password. ', 'I forgot my use id. ', 'I want to talk to an agent. ' ],
+      "suggestion":['I forgot my password. ', 'I forgot my user id. ', 'I want to talk to an agent. ' ],
       "classifier": "ask_help"
     },
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:would like to (?:talk|speak) to|(?:want|need) to (?:talk|speak) to)?(?:\\s)?(?:an\\s)?)?(?:agent|customer care|representative))|(?:(?:please\\s)?connect me to (?:an\\s)?(?:agent|customer care|representative))|((?:(?:(?:I\\s)?do not remember|I do not have access to) the email)(?:\\saddress|id)?))\\s(?:Entry):\\s(?:For verification, what is the email address registered with us|I can not find your email address. We need your registered email address to recover your use id|I can not find your email address. We need your registered email address to reset your password|I am sorry, I could not understand you, Is there anything, I can help you with|(?:.+?)?)",
+      "regexp":"(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:would like to (?:talk|speak) to|(?:want|need) to (?:talk|speak) to)?(?:\\s)?(?:an\\s)?)?(?:agent|customer care|representative))|(?:(?:please\\s)?connect me to (?:an\\s)?(?:agent|customer care|representative))|((?:(?:(?:I\\s)?do not remember|I do not have access to) the email)(?:\\saddress|id)?))\\s(?:Entry):\\s(?:For verification, what is the email address registered with us|I can not find your email address. We need your registered email address to recover your user id|I can not find your email address. We need your registered email address to reset your password|I am sorry, I could not understand you, Is there anything, I can help you with|(?:.+?)?)",
       "actionKey": "response",
       "actionValue":"Please call 1-800-Support or send email to customersupport@hlsc.com for further assistance.",
       "callback":
@@ -158,7 +141,7 @@ let DP = (function(){
         'use strict';
         console.log(matches);
         try{
-          let r = /(?:[^.\w]|^|^\W+)+(who|what|where|how|when|which|whose|why|\[your|you|yours)+(?:[^.\w]|\W(?=\W+|$)|$)/gi;
+          let r = /(?:[^.\w]|^|^\W+)+(who|what|where|how|when|which|whose|why|you|yours)+(?:[^.\w]|\W(?=\W+|$)|$)/gi;
           let r1 = /(.+?)?(how are you|how do you do|how is everything at your end|how is it going)(,)?(\s)?(.+)?/gi;
           let r2 = /(?:[^.\w]|^|^\W+)+(hi|hello|howdy|hey)+(?:[^.\w]|\W(?=\W+|$)|$)/gi;
           let q = matches[1]
@@ -178,10 +161,10 @@ let DP = (function(){
             return;
           }
           else{
-            let r = /(?:[^.\w]|^|^\W+)+(I|he|his|she|her|his|we|us|it|all|any|anyone|none|some|someone|myself|himself|herself|themselves|its|bye|thanks)+(?:[^.\w]|\W(?=\W+|$)|$)/gi
+            let r = /(?:[^.\w]|^|^\W+)+(I|my|\[your|he|his|she|her|his|we|us|it|all|any|anyone|none|some|someone|myself|himself|herself|themselves|its|bye|thanks)+(?:[^.\w]|\W(?=\W+|$)|$)/gi
             //let r = /(.+?)?(I|he|his|she|her|his|we|us|it|all|any|anyone|none|some |someone|myself|himself|herself|themselves|its)(.+)?/gi;
             if(r.test(matches[2].trim())){
-              cb(true,matches[2] + ' is not valid name. Please state your name.',['My name is ']);
+              cb(true,'That is not valid name. Please state your name.',['My name is ']);
               return;
             }
             cb(true,"Just for confirmation, am I speaking with "+matches[2]+" ?",[pickY(), pickN()]);
@@ -199,6 +182,23 @@ let DP = (function(){
       "dsl": 2,
       "suggestion":[],
       "classifier": "ask_name"
+    },
+
+    {
+      "regexp":"(?:Received):\\s(((?:who are you|what do you do)(?:\\s.+?)?))\\s(?:Entry):\\s(?:.+?)",
+      "actionKey": "response",
+      "actionValue":"How can I help you?",
+      "callback":
+      function(matches,cb) {
+        'use strict';
+        console.log(matches[1]);
+        cb(true,"I am HealthLogic Virtual Assistant made with awesomeness of NLP on node.js. I do help on resetting password, recovering user id. how can I help you?",['I forgot my password. ', 'I forgot my user id. ', 'I want to talk to an agent. ' ]);
+        return;
+      },
+      "description":"Say 'help' to be get list of help menu.",
+      "dsl": 2,
+      "suggestion":['I forgot my password. ', 'I forgot my user id. ', 'I want to talk to an agent. ' ],
+      "classifier": "ask_help"
     },
 
     //Gb> Just for confirmation, am I speaking with Somenath?

@@ -71,6 +71,7 @@ var ChatBot = (function($) {
 		}
 		// type writer
 	function playConversation(state, pauseLength) {
+		//
 		var play = setTimeout(function() {
 			//$( ".submit" ).attr( "disabled", true);
 			var $humanInput = $('#humanInput');
@@ -297,12 +298,23 @@ var ChatBot = (function($) {
 							suggestion[e] + '\')">' + suggestion[e] + '</div>'));
 					}
 				}
-				// $('#humanInput').suggest(suggestion, {
-				//   suggestionColor   : '#cccccc',
-				//   moreIndicatorClass: 'suggest-more',
-				//   moreIndicatorText : '&hellip;'
-				// });
 			}
+
+			// var suggestion = new Bloodhound({
+			//   datumTokenizer: Bloodhound.tokenizers.whitespace,
+			//   queryTokenizer: Bloodhound.tokenizers.whitespace,
+			//   // `states` is an array of state names defined in "The Basics"
+			//   local: suggestion
+			// });
+			// $('#inputArea .typeahead').typeahead({
+		  //   hint: true,
+		  //   highlight: true,
+		  //   minLength: 1
+		  // },
+		  // {
+		  //   name: 'suggestion',
+		  //   source: suggestion
+		  // });
 
 			//var date = new Date();
 			//var currentTime = '<span>' + date.getHours() + ':' + date.getMinutes() + '</span>';
@@ -353,6 +365,7 @@ var ChatBot = (function($) {
 			engines.getCapabilities(callback);
 		},
 		playConversation: function(conversation, pauseLength) {
+			lastBotspeak = 'Welcome to HealthLogic Virtual Assistant services. My name is Ghobot. Whom am I speaking with today?'
 			if (pauseLength === undefined) {
 				pauseLength = 3000;
 			}

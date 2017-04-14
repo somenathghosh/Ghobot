@@ -1,3 +1,8 @@
+/* HTML5 magic
+- GeoLocation
+- WebSpeech
+*/
+
 'use strict';
 //This var is referred inside chatbot.js for play. Utilize this for testing.
 var sampleConversation;
@@ -114,8 +119,6 @@ var sampleConversation_recover_user_id_positive_test = [
 
 
 
-
-
 //Test container
 sampleConversation = sampleConversation_passoword_reset_negetive_test_invalid_email;
 
@@ -131,3 +134,45 @@ var config = {
 };
 ChatBot.init(config);
 ChatBot.setBotName("Ghobot");
+
+//********************************************************************************************************************
+//Trying to use HTML5's Speech to Text feature. The below code is not working. Need to debug.
+//For fix, Ref: https://github.com/GoogleChrome/webplatform-samples/blob/master/webspeechdemo/webspeechdemo.html
+//********************************************************************************************************************
+
+(function(){
+
+  var final_transcript = '';
+  var recognizing = false;
+  var last10messages = []; //to be populated later
+
+  if (!('webkitSpeechRecognition' in window)) {
+    console.log("webkitSpeechRecognition is not available");
+  } else {
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
+    recognition.onstart = function() {
+      recognizing = true;
+    };
+
+    recognition.onresult = function(event) {
+      var interim_transcript = '';
+      for (var i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          final_transcript += event.results[i][0].transcript;
+          $('#humanInput').addClass("final");
+          $('#humanInput').removeClass("interim");
+        } else {
+          interim_transcript += event.results[i][0].transcript;
+          $("#humanInput").val(interim_transcript);
+          $('#humanInput').addClass("interim");
+          $('#humanInput').removeClass("final");
+        }
+      }
+      $("#humanInput").val(final_transcript);
+      };
+    }
+
+  })();

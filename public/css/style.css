@@ -50,3 +50,5 @@ body,
         background-color: #1C2331;
     }
 }
+
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 85%; }
