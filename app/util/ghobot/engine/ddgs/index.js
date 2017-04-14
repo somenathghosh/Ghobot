@@ -20,15 +20,22 @@ let Engine = (function(){
 						if (err) self.emit('error', err);
 						if (!err) {
 								//console.log(urls);
-
+								// if(urls.length>0){
+								// 	let url = urls[0];
+								// 	let topic = {};
+								// 	topic.Result = url;
+								// 	topic.FirstURL = url;
+								// 	topic.Text = '';
+								// 	data.RelatedTopics.push(topic);
+								// }
 								for (let i = 0; i < urls.length; ++i) {
 
-										let url = urls[i];
-										let topic = {};
-										topic.Result = url;
-										topic.FirstURL = url;
-										topic.Text = url;
-										data.RelatedTopics.push(topic);
+									let url = urls[i];
+									let topic = {};
+									topic.Result = url;
+									topic.FirstURL = url;
+									topic.Text = '';
+									data.RelatedTopics.push(topic);
 
 								}
 								console.log(data);

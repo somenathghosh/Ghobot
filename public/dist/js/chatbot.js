@@ -72,6 +72,7 @@ var ChatBot = (function($) {
 		// type writer
 	function playConversation(state, pauseLength) {
 		var play = setTimeout(function() {
+			//$( ".submit" ).attr( "disabled", true);
 			var newValue = '';
 			if ($(inputs).val() !== '|') {
 				newValue += $(inputs).val();
@@ -121,6 +122,7 @@ var ChatBot = (function($) {
 					chclb.css('width', '0');
 				});
 			}
+			//$(".submit").removeAttr("disabled");
 		}, Math.random() * 120 + 10);
 
 		$(document).keyup(function(e) {
