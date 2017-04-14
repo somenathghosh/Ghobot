@@ -94,7 +94,7 @@ var ChatBot = (function($) {
 			} else {
 				// press enter and wait for some time and then write the next entry
 				var _message = state.currentInput
-				_message = _message.replace(/\s+/g, ' ').trim();
+				_message = _message.replace(/[,.?!]?\s*$/, "").replace(/\s+/g, ' ').trim();
 				_message = 'Received: ' + _message + '  Entry: ' + lastBotspeak
 				ChatBot.addChatEntry(state.currentInput, [], "human");
 				ChatBot.react(_message);

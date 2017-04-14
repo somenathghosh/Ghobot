@@ -507,7 +507,9 @@ let DP = (function(){
       "classifier": "convey_thanks"
     },
 
-    //You will recieve the temporary password in your registered email address. Can you please verify your email address?
+
+
+    //You will recieve your user id in your registered email address. Can you please verify your email address?
     //somenath.ghosh@tcs.com
 
     {
@@ -534,9 +536,7 @@ let DP = (function(){
     },
 
 
-
-
-    //You will recieve your user id in your registered email address. Can you please verify your email address?
+    //You will recieve the temporary password in your registered email address. Can you please verify your email address?
     //somenath.ghosh@tcs.com
 
     {

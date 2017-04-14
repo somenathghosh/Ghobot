@@ -100,6 +100,44 @@ var sampleConversation_passoword_reset_negetive_test_invalid_email = [
 ];
 
 
+
+
+var sampleConversation_user_id_recover_negetive_test_invalid_email = [
+    //Welcome to HealthLogic Virtual Assistant services. My name is Ghobot. Whom am I speaking with today?
+    "who are you?" ,
+    //I can help you with that in a min. Before that, please say your name.
+    "can you tell me who you are?",
+    //I can help you with that in a min. Before that, please say your name.
+    "nope, before that tell me who you are",
+    //I can help you with that in a min. Before that, please say your name.
+    "where is USA",
+    //I can help you with that in a min. Before that, please say your name.
+    "I won't tell",
+    //Okay, as I understand that you want to reset your password, right?
+    "I am Brandon",
+    //Just for confirmation, am I speaking with Brandon ?
+    "That is correct.",
+    //Okay Brandon, how can I help you?
+    "I need to find my id",
+    //As I understood, you want help recovering your user id, is this correct?
+    "Correct",
+    //I will send your user ID to the email address I have on file. For verification, what is your email address?
+    "email is brandon.g.rodenmayer@.com",
+    //This is not a valid email address. Do you want to try again?
+    "Sure",
+    //what is the correct email address?
+    "somenath.ghosh@tcs.com",
+    //Just for confirmation, you said somenath.ghosh@tcs.com, correct?
+    "Yep",
+    //I have successfully recovered your user id. You will recieve it at the provided email address. Thanks for choosing HealthLogic virtual assistant!
+    "Thanks!",
+    //You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now.
+    "would like to talk to an agent",
+    //Please call 1-800-Support or send email to customersupport@hlsc.com for further assistance.
+    "Thanks!"
+];
+
+
 var sampleConversation_recover_user_id_positive_test = [
     //Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
     "my name is Somenath Ghosh",
@@ -120,7 +158,7 @@ var sampleConversation_recover_user_id_positive_test = [
 
 
 //Test container
-sampleConversation = sampleConversation_passoword_reset_negetive_test_invalid_email;
+sampleConversation = sampleConversation_user_id_recover_negetive_test_invalid_email;
 
 
 var config = {
