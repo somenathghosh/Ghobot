@@ -8,12 +8,12 @@ var config = {
     app: {
       name: 'chatbot'
     },
-    port: process.env.PORT || 3000,
-    db: process.env.MONGODB_URI || 'mongodb://heroku_rt5p6nd5:tgti2uoqhldtn0s89omkgmufvu@ds159180.mlab.com:59180/heroku_rt5p6nd5',
+    port: process.env.PORT || process.env.CUSTOM_PORT,
+    db: process.env.MONGODB_URI,
     url: {
-      ddg: 'http://api.duckduckgo.com',
-      ddgs: 'https://duckduckgo.com',
-      ddgr: 'http://api.duckduckgo.com'
+      ddg: process.env.DDG_API,
+      ddgs: process.env.DDGS_API,
+      ddgr: process.env.DDGR_API
     }
 
   },
@@ -23,12 +23,12 @@ var config = {
     app: {
       name: 'chatbot'
     },
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || process.env.CUSTOM_PORT,
     db: process.env.MONGODB_URI,
     url: {
-      ddg: 'http://api.duckduckgo.com',
-      ddgs: 'https://duckduckgo.com',
-      ddgr: 'http://api.duckduckgo.com'
+      ddg: process.env.DDG_API,
+      ddgs: process.env.DDGS_API,
+      ddgr: process.env.DDGR_API
     }
   },
 
@@ -37,12 +37,12 @@ var config = {
     app: {
       name: 'chatbot'
     },
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || process.env.CUSTOM_PORT,
     db: process.env.MONGODB_URI,
     url: {
-      ddg: 'http://api.duckduckgo.com',
-      ddgs: 'https://duckduckgo.com',
-      ddgr: 'http://api.duckduckgo.com'
+      ddg: process.env.DDG_API,
+      ddgs: process.env.DDGS_API,
+      ddgr: process.env.DDGR_API
     }
   }
 };

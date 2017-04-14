@@ -5,6 +5,7 @@ const request = require('request');
 const url = require('url');
 const config = require('../../../../../config/config');
 const lda = require('lda');
+const jsonpointer = require('jsonpointer');
 
 
 let DDG = (() => {
@@ -19,6 +20,14 @@ let DDG = (() => {
 		// topic.FirstURL = null;
 		// topic.Text = null;
 		return data;
+	}
+
+	let _findRelatedTerms = (q) =>{
+		for(let _q of q){
+
+			//TODO to extract keywords
+		}
+
 	}
 
 	class DDG extends EventEmitter {

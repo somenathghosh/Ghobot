@@ -72,6 +72,7 @@ var ChatBot = (function($) {
 		// type writer
 	function playConversation(state, pauseLength) {
 		var play = setTimeout(function() {
+			//$( ".submit" ).attr( "disabled", true);
 			var newValue = '';
 			if ($(inputs).val() !== '|') {
 				newValue += $(inputs).val();
@@ -121,6 +122,7 @@ var ChatBot = (function($) {
 					chclb.css('width', '0');
 				});
 			}
+			//$(".submit").removeAttr("disabled");
 		}, Math.random() * 120 + 10);
 
 		$(document).keyup(function(e) {
@@ -247,13 +249,13 @@ var ChatBot = (function($) {
 			}
 			//Welcome message
 			//ChatBot.addChatEntry('Welcome to HL bot services. My name is Ghobot. How can I help you today?',['I forgot username','I forgot password', 'I need to talk to a person' ],'bot');
-			lastBotspeak = 'Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?'
-			ChatBot.addChatEntry(lastBotspeak, ['This is ', 'I would like to speak to an agent'], 'bot');
+			lastBotspeak = 'Welcome to HealthLogic Virtual Assistant services. My name is Ghobot. Whom am I speaking with today?'
+			ChatBot.addChatEntry(lastBotspeak, ['My name is ', 'I would like to speak to an agent. '], 'bot');
 			// listen to inputs on the defined fields
 			$(inputs).keyup(function(e) {
 				if (e.keyCode === 13) {
 					var message = $(this).val()
-					message = message.replace(/\s+/g, ' ').trim();
+					message = message.replace(/[,.?!]?\s*$/, "").replace(/\s+/g, ' ').trim();
 					if (message !== '') {
 						var _message = 'Received: ' + message + '  Entry: ' + lastBotspeak
 						ChatBot.addChatEntry(message, [], "human");
