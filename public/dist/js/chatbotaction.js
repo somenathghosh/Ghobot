@@ -1,7 +1,8 @@
-/* HTML5 magic
-- GeoLocation
-- WebSpeech
-*/
+// extra_tags = This is a cool function, @author Somenath Ghosh, @version ${1:[version]}
+/**
+ * [sampleConversation_passoword_reset_positive_test description]
+ * @type {Array}
+ */
 
 'use strict';
 //This var is referred inside chatbot.js for play. Utilize this for testing.

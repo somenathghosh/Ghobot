@@ -1,3 +1,13 @@
+/**
+ * [This is the Chatbot Class]
+ * @class
+ * @param   {[type]}  $ [Jquery]
+ * @return  {[type]}    [Engine]
+ * This is the self calling functions to build Chatbot Class
+ * @author Somenath Ghosh
+ * @version [0.1]
+ */
+
 var ChatBot = (function($) {
 	"use strict";
 	//// common vars
@@ -5,6 +15,11 @@ var ChatBot = (function($) {
 	if ($ === undefined || $ === null) {
 		console.log('Chatbot: ===> Jquery is NOT loaded!');
 	}
+
+	/**
+	 * [patterns contains ]
+	 * @type {Array}
+	 */
 	var patterns;
 	// the bot's name
 	var botName;
@@ -404,22 +419,21 @@ var ChatBot = (function($) {
 		}
 	}
 
-	// fill the input with the selected tag
-	function useSuggestedTag(text) {
-		$('#humanInput').val(text).fadeIn();
-		// $("#humanInput").typed({
-		//   strings:[text],
-		//   typeSpeed: 0
-		// });
-		$('#humanInput').focus();
-		// TODO: Automatically play tag?
-	}
-
-
-
 
 })($);
 
+
+/**
+ * [useSuggestedTag description]
+ * @param  {[type]} text [description]
+ * @return {[type]}      [description]
+ */
+
+function useSuggestedTag(text) {
+	$('#humanInput').val(text).fadeIn();
+	$('#humanInput').focus();
+	// TODO: Automatically play tag?
+}
 
 $(window).resize(function() {
 	//$('#demo').css('heigt', 'calc(100%-40px)');
@@ -433,6 +447,10 @@ $('#chatBot').animate({
 
 $("#humanInput").autocorrect();
 
+/**
+ * [triggerSubmit description]
+ * @return {[type]} [description]
+ */
 
 function triggerSubmit() {
 	var e = $.Event('keyup');

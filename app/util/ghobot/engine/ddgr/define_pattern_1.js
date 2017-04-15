@@ -4,10 +4,16 @@ Array.prototype.pick = function () {
   return this[Math.floor(Math.random()*this.length)];
 };
 
+/**
+ * [description]
+ * @method
+ * @return  {[type]}   [description]
+ * This is a function
+ * @author Somenath Ghosh
+ * @version [version]
+ * @date    2017-04-15
+ */
 let DP = (function(){
-
-
-
   let findUser = (user) => {
     //console.log(user);
     if(user.toLowerCase().trim() === 'somenath.ghosh'){
@@ -704,15 +710,24 @@ let DP = (function(){
       "dsl": 2,
       "suggestion":["My email address is ", "I do not remember the email address."],
       "classifier": "negetive_redirect"
+    },
+
+
+    {
+      "regexp":"(?:Received):\\s(?:(?:.+?)?(No|Nope|Ney|Nah|that is all|that's all|that is it|that's it|I am done|I'm done|done)(?:(?:\\s|,|.).+?)?)\\s(?:Entry):\\s(?:You are welcome\. Is there anything else I can help you with\\? If you are finished, you may close that chat window now)",
+      "actionKey": "response",
+      "actionValue":"Thanks. You may close the chat window now.",
+      "callback":
+      function(matches, cb) {
+        'use strict';
+        // console.log(matches);
+        cb(false, '',[]) //overrider for already passed actionValue and suggestion
+      },
+      "description": "Say 'My name is [your name]' or 'I am [name] or This is [name]' to be called that by the bot",
+      "dsl": 2,
+      "suggestion": ["Bye "],
+      "classifier": "negetive_redirect"
     }
-
-
-
-
-    // done up to this, ^
-    //                  |
-
-
 
   ];
 
