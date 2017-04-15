@@ -26,7 +26,9 @@ var ChatBot = (function($) {
 	var addChatEntryCallback;
   //var to hold last conversation bot replied with
 	var lastBotspeak;
-	// list all the predefined commands and the commands of each engine
+	//suggestion to hold current suggestion-tag, initialize with empty array
+
+
 	function updateCommandDescription() {
 			// first explain manually defined commands and then all by all used engines
 			var descriptions = [];
@@ -300,21 +302,38 @@ var ChatBot = (function($) {
 				}
 			}
 
-			// var suggestion = new Bloodhound({
-			//   datumTokenizer: Bloodhound.tokenizers.whitespace,
-			//   queryTokenizer: Bloodhound.tokenizers.whitespace,
-			//   // `states` is an array of state names defined in "The Basics"
-			//   local: suggestion
-			// });
-			// $('#inputArea .typeahead').typeahead({
-		  //   hint: true,
-		  //   highlight: true,
-		  //   minLength: 1
-		  // },
-		  // {
-		  //   name: 'suggestion',
-		  //   source: suggestion
-		  // });
+			/**
+			 * [bloodhound : To hold Bloodhound function to be fed in typeahead]
+			 * @type {Bloodhound}
+			 */
+
+			var bloodhound = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.whitespace,
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				local: suggestion
+			});
+
+			/**
+			 * [destroy typeahead to be used for next set of suggestion]
+			 * @type {Boolean}
+			 */
+
+			$('#inputArea .typeahead').typeahead("destroy");
+
+			/**
+			 * [Insert source , this case it is bloodhound]
+			 * @type {Boolean}
+			 */
+
+			$('#inputArea .typeahead').typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			},
+			{
+				name: 'suggestion',
+				source: bloodhound
+			});
 
 			//var date = new Date();
 			//var currentTime = '<span>' + date.getHours() + ':' + date.getMinutes() + '</span>';
@@ -384,17 +403,23 @@ var ChatBot = (function($) {
 			return true;
 		}
 	}
+
+	// fill the input with the selected tag
+	function useSuggestedTag(text) {
+		$('#humanInput').val(text).fadeIn();
+		// $("#humanInput").typed({
+		//   strings:[text],
+		//   typeSpeed: 0
+		// });
+		$('#humanInput').focus();
+		// TODO: Automatically play tag?
+	}
+
+
+
+
 })($);
-// fill the input with the selected tag
-function useSuggestedTag(text) {
-	$('#humanInput').val(text).fadeIn();
-	// $("#humanInput").typed({
-	//   strings:[text],
-	//   typeSpeed: 0
-	// });
-	$('#humanInput').focus();
-	// TODO: Automatically play tag?
-}
+
 
 $(window).resize(function() {
 	//$('#demo').css('heigt', 'calc(100%-40px)');

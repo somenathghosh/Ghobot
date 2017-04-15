@@ -57,7 +57,9 @@ jQuery.fn.autocorrect = function(options)
                 r8:"right",
                 thx:"Thanks",
                 yap:"Yep",
-                'don\'t':"do not"
+                'don\'t':"do not",
+                'it\'s':"it is",
+                'It\'s':"It is"
 
 
         }

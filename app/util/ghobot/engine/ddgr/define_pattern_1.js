@@ -133,7 +133,7 @@ let DP = (function(){
     },
 
     {
-      "regexp":"(?:Received):\\s((?:(?:hi|hello|hey|howdy)?\\s(?:bot|ghobot)?,\\s)?(?:my name is|I am|I'm|This is|This side|here is|myself)?(?:\\s?)(.+?)(?:\\s(?:.+?))?)\\s(?:Entry):\\s(?:(?:Welcome to HealthLogic Virtual Assistant services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name))|I am fine, Thanks. Please state your name|I can help you with that in a min. Before that, please say your name|Hello, please state your name|(?:(?:.+?) is not valid name. Please state your name))",
+      "regexp":"(?:Received):\\s((?:(?:hi|hello|hey|howdy)?\\s(?:bot|ghobot)?,\\s)?(?:my name is|I am|I'm|This is|This side|here is|myself)?(?:\\s?)(.+?)(?:\\s(?:.+?))?)\\s(?:Entry):\\s(?:(?:Welcome to HealthLogic Virtual Assistant services. My name is Ghobot.\\s)?Whom am I speaking with today|(?:(?:Okay,\\s)?(?:please state your name))|I am fine, Thanks. Please state your name|I can help you with that in a min. Before that, please say your name|Hello, please state your name|(?:(?:.+?) is not a valid name. Please state your name))",
       "actionKey": "response",
       "actionValue":"",
       "callback":
@@ -141,7 +141,7 @@ let DP = (function(){
         'use strict';
         console.log(matches);
         try{
-          let r = /(?:[^.\w]|^|^\W+)+(who|what|where|how|when|which|whose|why|you|yours)+(?:[^.\w]|\W(?=\W+|$)|$)/gi;
+          let r = /(?:[^.\w]|^|^\W+)+(who|what|where|how|when|which|whose|why|you|yours|hi|hello|hey|howdy|how)+(?:[^.\w]|\W(?=\W+|$)|$)/gi;
           let r1 = /(.+?)?(how are you|how do you do|how is everything at your end|how is it going)(,)?(\s)?(.+)?/gi;
           let r2 = /(?:[^.\w]|^|^\W+)+(hi|hello|howdy|hey)+(?:[^.\w]|\W(?=\W+|$)|$)/gi;
           let q = matches[1]
@@ -153,7 +153,7 @@ let DP = (function(){
               return;
             }
             if(r2.test(q)){
-              //console.log(q);
+              console.log(q);
               cb(true,'Hello, please state your name.',['My name is ']);
               return;
             }
@@ -161,10 +161,10 @@ let DP = (function(){
             return;
           }
           else{
-            let r = /(?:[^.\w]|^|^\W+)+(I|my|\[your|he|his|she|her|his|we|us|it|all|any|anyone|none|some|someone|myself|himself|herself|themselves|its|bye|thanks)+(?:[^.\w]|\W(?=\W+|$)|$)/gi
+            let r = /(?:[^.\w]|^|^\W+)+(I|my|\[your|he|his|she|her|his|we|us|it|all|any|anyone|none|some|someone|myself|himself|herself|themselves|its|bye|thanks|No|yes|nope|yep|correct|Yeah|Yah)+(?:[^.\w]|\W(?=\W+|$)|$)/gi
             //let r = /(.+?)?(I|he|his|she|her|his|we|us|it|all|any|anyone|none|some |someone|myself|himself|herself|themselves|its)(.+)?/gi;
             if(r.test(matches[2].trim())){
-              cb(true,'That is not valid name. Please state your name.',['My name is ']);
+              cb(true,'That is not a valid name. Please state your name.',['My name is ']);
               return;
             }
             cb(true,"Just for confirmation, am I speaking with "+matches[2]+" ?",[pickY(), pickN()]);
@@ -513,7 +513,7 @@ let DP = (function(){
     //somenath.ghosh@tcs.com
 
     {
-      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?((?:.+?)(?:@)?(?:.+?))\\s(?:Entry):\\s(?:I will send your user ID to the email address I have on file. For verification, what is your email address|what is the correct email address)",
+      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:(?:email|It)(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?((?:.+?)(?:@)?(?:.+?))\\s(?:Entry):\\s(?:I will send your user ID to the email address I have on file. For verification, what is your email address|what is the correct email address)",
       "actionKey": "response",
       "actionValue":"Just for confirmation, you said $1, correct? ",
       "callback":
@@ -540,7 +540,7 @@ let DP = (function(){
     //somenath.ghosh@tcs.com
 
     {
-      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:email(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?((?:.+?)(?:@)?(?:.+?))\\s(?:Entry):\\s(?:You will be receiving the temporary password in your registered email address. For verification,can you please provide your email address|what is your correct email address)",
+      "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:(?:email|It)(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?((?:.+?)(?:@)?(?:.+?))\\s(?:Entry):\\s(?:You will be receiving the temporary password in your registered email address. For verification,can you please provide your email address|what is your correct email address)",
       "actionKey": "response",
       "actionValue":"Just for confirmation, you mentioned $1, correct? ",
       "callback":

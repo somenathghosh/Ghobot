@@ -52,3 +52,7 @@ body,
 }
 
 .twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 85%; }
+
+.tt-dropdown-menu, .tt-menu .tt-open .tt-empty{
+     display: none !important;
+}

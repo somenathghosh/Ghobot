@@ -122,11 +122,11 @@ var sampleConversation_user_id_recover_negetive_test_invalid_email = [
     //As I understood, you want help recovering your user id, is this correct?
     "Correct",
     //I will send your user ID to the email address I have on file. For verification, what is your email address?
-    "email is brandon.g.rodenmayer@.com",
+    "It is brandon.g.rodenmayer@.com",
     //This is not a valid email address. Do you want to try again?
     "Sure",
     //what is the correct email address?
-    "somenath.ghosh@tcs.com",
+    "It is brandon.g.rodenmayer@tcs.com",
     //Just for confirmation, you said somenath.ghosh@tcs.com, correct?
     "Yep",
     //I have successfully recovered your user id. You will recieve it at the provided email address. Thanks for choosing HealthLogic virtual assistant!
