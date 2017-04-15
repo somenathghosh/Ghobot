@@ -1,166 +1,231 @@
-// extra_tags = This is a cool function, @author Somenath Ghosh, @version ${1:[version]}
+/* eslint-disable quotes */
+//  extra_tags = This is a cool function, @author Somenath Ghosh, @version ${1:[version]}
 /**
  * [sampleConversation_passoword_reset_positive_test description]
  * @type {Array}
  */
 
 'use strict';
-//This var is referred inside chatbot.js for play. Utilize this for testing.
+//  This var is referred inside chatbot.js for play. Utilize this for testing.
 var sampleConversation;
 
 var sampleConversation_passoword_reset_positive_test = [
-    //Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
+    // Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
     "my name is Somenath Ghosh",
-    //Just for confirmation, am I speaking with Somenath ?
+    // Just for confirmation, am I speaking with Somenath ?
     "Yes",
-    //Okay Somenath, how can I help you?
+    // Okay Somenath, how can I help you?
     "forgot my password",
-    //Okay, as I understand that you want to reset your password, right?
+    // Okay, as I understand that you want to reset your password, right?
     "right",
-    //Okay, I can help with that. Before that, for verification purpose, can you please provide your user id
+    // Okay, I can help with that. Before that, for verification purpose, can you please provide your user id
     "My user id is somenath.ghosh",
-    //Just for confirmation, your user id is somenath.ghosh@tcs.com ,right?
+    // Just for confirmation, your user id is somenath.ghosh@tcs.com ,right?
     "correct",
-    //To recieve the temporary password in your registered email address, can you please provide your email address?
+    // To recieve the temporary password in your registered email address, can you please provide your email address?
     "somenath.ghosh@tcs.com",
-    //Just for confirmation, you said somenath.ghosh@tcs.com, correct?
+    // Just for confirmation, you said somenath.ghosh@tcs.com, correct?
     "Yep",
-    //You will recieve your temporary password at the provided email address. Thanks for availing bot services!
+    // You will recieve your temporary password at the provided email address. Thanks for availing bot services!
     "Thanks!",
     "bye"
 ];
 
-
 var sampleConversation_passoword_reset_negetive_test = [
-    //Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
+    // Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
     "my name is Somenaht",
-    //Just for confirmation, am I speaking with Somenaht ?
+    // Just for confirmation, am I speaking with Somenaht ?
     "Nope",
-    //Okay, please state your name?
+    // Okay, please state your name?
     "Somenath",
-    //Just for confirmation, am I speaking with Somenaht ?
+    // Just for confirmation, am I speaking with Somenaht ?
     "Yep",
-    //Okay Somenath, how can I help you?
+    // Okay Somenath, how can I help you?
     "I lost my password",
-    //Okay, as I understand that you want to reset your password, right?
+    // Okay, as I understand that you want to reset your password, right?
     "correct",
-    //Okay, I can help with that. Before that, for verification purpose, can you please provide your user id
+    // Okay, I can help with that. Before that, for verification purpose, can you please provide your user id
     "somenath.banerjee",
-    //Just for confirmation, your user id is somenath.banerjee ,right?
+    // Just for confirmation, your user id is somenath.banerjee ,right?
     "nope",
-    //what is your user id?
+    // what is your user id?
     "my user name is somenath.ghosh",
-    //Just for confirmation, your user id is somenath.ghosh ,right?
+    // Just for confirmation, your user id is somenath.ghosh ,right?
     "right",
-    //To recieve the temporary password in your registered email address, can you please provide your email address?
+    // To recieve the temporary password in your registered email address, can you please provide your email address?
     "somenath.ghosh@tcs.com.xxx",
-    //Just for confirmation, you said somenath.ghosh@tcs.com.xxx, correct?
+    // Just for confirmation, you said somenath.ghosh@tcs.com.xxx, correct?
     "No",
-    //what is the correct email address?
+    // what is the correct email address?
     "somenath.ghosh@tcs.com",
-    //Just for confirmation, you said somenath.ghosh@tcs.com, correct?
+    // Just for confirmation, you said somenath.ghosh@tcs.com, correct?
     "Yep",
-    //You will recieve your temporary password at the provided email address. Thanks for availing bot services!
+    // You will recieve your temporary password at the provided email address. Thanks for availing bot services!
     "Thanks!",
     "bye"
 ];
 
 
 var sampleConversation_passoword_reset_negetive_test_invalid_email = [
-    //Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
+    // Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
     "my name is Somenaht",
-    //Just for confirmation, am I speaking with Somenaht ?
+    // Just for confirmation, am I speaking with Somenaht ?
     "Nope",
-    //Okay, please state your name?
+    // Okay, please state your name?
     "Somenath",
-    //Just for confirmation, am I speaking with Somenaht ?
+    // Just for confirmation, am I speaking with Somenaht ?
     "Yep",
-    //Okay Somenath, how can I help you?
+    // Okay Somenath, how can I help you?
     "I lost my password",
-    //Okay, as I understand that you want to reset your password, right?
+    // Okay, as I understand that you want to reset your password, right?
     "correct",
-    //Okay, I can help with that. Before that, for verification purpose, can you please provide your user id
+    // Okay, I can help with that. Before that, for verification purpose, can you please provide your user id
     "somenath.banerjee",
-    //Just for confirmation, your user id is somenath.banerjee ,right?
+    // Just for confirmation, your user id is somenath.banerjee ,right?
     "nope",
-    //what is your user id?
+    // what is your user id?
     "my user name is somenath.ghosh",
-    //Just for confirmation, your user id is somenath.ghosh ,right?
+    // Just for confirmation, your user id is somenath.ghosh ,right?
     "right",
-    //To recieve the temporary password in your registered email address, can you please provide your email address?
+    // To recieve the temporary password in your registered email address, can you please provide your email address?
     "somenath.ghosh@.com.xxx",
-    //Just for confirmation, you said somenath.ghosh@tcs.com.xxx, correct?
+    // Just for confirmation, you said somenath.ghosh@tcs.com.xxx, correct?
     "Sure",
-    //what is the correct email address?
+    // what is the correct email address?
     "somenath.ghosh@tcs.com",
-    //Just for confirmation, you said somenath.ghosh@tcs.com, correct?
+    // Just for confirmation, you said somenath.ghosh@tcs.com, correct?
     "Yep",
-    //You will recieve your temporary password at the provided email address. Thanks for availing bot services!
+    // You will recieve your temporary password at the provided email address. Thanks for availing bot services!
     "Thanks!",
     "bye"
 ];
-
-
-
-
-var sampleConversation_user_id_recover_negetive_test_invalid_email = [
-    //Welcome to HealthLogic Virtual Assistant services. My name is Ghobot. Whom am I speaking with today?
-    "who are you?" ,
-    //I can help you with that in a min. Before that, please say your name.
-    "can you tell me who you are?",
-    //I can help you with that in a min. Before that, please say your name.
-    "nope, before that tell me who you are",
-    //I can help you with that in a min. Before that, please say your name.
-    "where is USA",
-    //I can help you with that in a min. Before that, please say your name.
-    "I won't tell",
-    //Okay, as I understand that you want to reset your password, right?
-    "I am Brandon",
-    //Just for confirmation, am I speaking with Brandon ?
-    "That is correct.",
-    //Okay Brandon, how can I help you?
-    "I need to find my id",
-    //As I understood, you want help recovering your user id, is this correct?
-    "Correct",
-    //I will send your user ID to the email address I have on file. For verification, what is your email address?
-    "It is brandon.g.rodenmayer@.com",
-    //This is not a valid email address. Do you want to try again?
-    "Sure",
-    //what is the correct email address?
-    "It is brandon.g.rodenmayer@tcs.com",
-    //Just for confirmation, you said somenath.ghosh@tcs.com, correct?
-    "Yep",
-    //I have successfully recovered your user id. You will recieve it at the provided email address. Thanks for choosing HealthLogic virtual assistant!
-    "Thanks!",
-    //You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now.
-    "would like to talk to an agent",
-    //Please call 1-800-Support or send email to customersupport@hlsc.com for further assistance.
-    "Thanks!"
-];
-
 
 var sampleConversation_recover_user_id_positive_test = [
-    //Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
+    // Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
     "my name is Somenath Ghosh",
-    //Just for confirmation, am I speaking with Somenath ?
+    // Just for confirmation, am I speaking with Somenath ?
     "Yes",
-    //Okay Somenath, how can I help you?
+    // Okay Somenath, how can I help you?
     "forgot my user id",
-    //Okay, as I understand that you want to recover your user id, right?
+    // Okay, as I understand that you want to recover your user id, right?
     "right",
     "somenath.ghosh@tcs.com",
-    //Just for confirmation, you said somenath.ghosh@tcs.com, correct?
+    // Just for confirmation, you said somenath.ghosh@tcs.com, correct?
     "Yep",
-    //You will recieve your temporary password at the provided email address. Thanks for availing bot services!
+    // You will recieve your temporary password at the provided email address. Thanks for availing bot services!
     "Thanks!",
     "bye"
 ];
 
+var sampleConversation_user_id_recover_negetive_test_invalid_email = [
+    // Welcome to HealthLogic Virtual Assistant services. My name is Ghobot. Whom am I speaking with today?
+    "who are you?" ,
+    // I can help you with that in a min. Before that, please say your name.
+    "can you tell me who you are?",
+    // I can help you with that in a min. Before that, please say your name.
+    "nope, before that tell me who you are",
+    // I can help you with that in a min. Before that, please say your name.
+    "where is USA",
+    // I can help you with that in a min. Before that, please say your name.
+    "I won't tell",
+    // Okay, as I understand that you want to reset your password, right?
+    "I am Brandon",
+    // Just for confirmation, am I speaking with Brandon ?
+    "That is correct.",
+    // Okay Brandon, how can I help you?
+    "I need to find my id",
+    // As I understood, you want help recovering your user id, is this correct?
+    "Correct",
+    // I will send your user ID to the email address I have on file. For verification, what is your email address?
+    "It is brandon.g.rodenmayer@.com",
+    // This is not a valid email address. Do you want to try again?
+    "Sure",
+    // what is the correct email address?
+    "It is brandon.g.rodenmayer@tcs.com",
+    // Just for confirmation, you said somenath.ghosh@tcs.com, correct?
+    "Yep",
+    // I have successfully recovered your user id. You will recieve it at the provided email address. Thanks for choosing HealthLogic virtual assistant!
+    "Thanks!",
+    // You are welcome. Is there anything else I can help you with? If you are finished, you may close that chat window now.
+    "would like to talk to an agent",
+    // Please call 1-800-Support or send email to customersupport@hlsc.com for further assistance.
+    "Thanks!",
+    "Bye"
+];
 
 
-//Test container
+// Test container
 sampleConversation = sampleConversation_user_id_recover_negetive_test_invalid_email;
 
+/**
+ * [executeTasks Async ]
+ * @method  executeTasks
+ * @return  {[type]}     [description]
+ * This is a function
+ * @author Somenath Ghosh
+ * @version [version]
+ * @date    2017-04-15
+ */
+function async() {
+    return {
+        series: function() {
+            var tasks = Array.prototype.concat.apply([], arguments);
+            var task = tasks.shift();
+            task(function() {
+                if(tasks.length > 0)
+                    async().series.apply(this, tasks);
+            });
+        },
+        parallel: function() {
+            var tasks = Array.prototype.concat.apply([], arguments);
+            tasks.forEach(function(ele, index) {
+                ele(function() {
+
+                });
+            });
+        }
+    }
+}
+
+/**
+ * [asyncTest description]
+ * @method  asyncTest
+ * @return  {[type]}   [description]
+ * This is a function
+ * @author Somenath Ghosh
+ * @version [version]
+ * @date    2017-04-15
+ */
+function asyncTest() {
+
+    async().series(
+        function t1(callback) {
+            console.log('Running Test ' + 1);
+            ChatBot.playConversation(sampleConversation_passoword_reset_positive_test, 3000, callback);
+        },
+        function t2(callback) {
+            console.log('Running Test ' + 2);
+            ChatBot.playConversation(sampleConversation_passoword_reset_negetive_test, 3000, callback);
+        },
+        function t3(callback) {
+            console.log('Running Test ' + 3);
+            ChatBot.playConversation(sampleConversation_recover_user_id_positive_test, 3000, callback);
+        },
+        function t4(callback) {
+            console.log('Running Test ' + 4);
+            ChatBot.playConversation(sampleConversation_passoword_reset_negetive_test_invalid_email, 3000, callback);
+        },
+        function t5(callback) {
+            console.log('Running Test ' + 5);
+            ChatBot.playConversation(sampleConversation_user_id_recover_negetive_test_invalid_email, 3000, callback);
+        }
+    );
+}
+
+/**
+ * [config for Bot Client Services]
+ * @type {Object}
+ */
 
 var config = {
     botName: 'Ghobot',
@@ -174,16 +239,16 @@ var config = {
 ChatBot.init(config);
 ChatBot.setBotName("Ghobot");
 
-//********************************************************************************************************************
-//Trying to use HTML5's Speech to Text feature. The below code is not working. Need to debug.
-//For fix, Ref: https://github.com/GoogleChrome/webplatform-samples/blob/master/webspeechdemo/webspeechdemo.html
-//********************************************************************************************************************
+// ********************************************************************************************************************
+// Trying to use HTML5's Speech to Text feature. The below code is not working. Need to debug.
+// For fix, Ref: https:// github.com/GoogleChrome/webplatform-samples/blob/master/webspeechdemo/webspeechdemo.html
+// ********************************************************************************************************************
 
 (function(){
 
   var final_transcript = '';
   var recognizing = false;
-  var last10messages = []; //to be populated later
+  var last10messages = []; // to be populated later
 
   if (!('webkitSpeechRecognition' in window)) {
     console.log("webkitSpeechRecognition is not available");

@@ -20,6 +20,9 @@
 		</div>
 		<div style="clear: both;">&nbsp;</div>
 		<a href="#" class="help-text" onclick="if (!ChatBot.playConversation(sampleConversation,3000)) {alert('conversation already running');};">Sample Conversation</a>
+		<% if (ENV_DEVELOPMENT) { %>
+			<a href="#" class="help-text" onclick="asyncTest();" style="margin-right:10px"> Test </a>
+		<% } %>
 		<a href="#" class="help-text" onclick="$('.commandModal').fadeIn();" style="margin-right:10px">How to talk</a>
 		<div style="clear: both;">&nbsp;</div>
 	</div>

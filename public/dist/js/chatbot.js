@@ -87,7 +87,7 @@ var ChatBot = (function($) {
 			});
 		}
 		// type writer
-	function playConversation(state, pauseLength) {
+	function playConversation(state, pauseLength, callback) {
 		//
 		var play = setTimeout(function() {
 			//$( ".submit" ).attr( "disabled", true);
@@ -107,7 +107,7 @@ var ChatBot = (function($) {
 			state.start++;
 			if (state.start < state.currentInput.length) {
 				// keep typing
-				playConversation(state, pauseLength);
+				playConversation(state, pauseLength, callback);
 			} else {
 				// press enter and wait for some time and then write the next entry
 				var _message = state.currentInput
@@ -123,16 +123,21 @@ var ChatBot = (function($) {
 					if (state.conversationArrayIndex === 0) {
 						$('#chatBotConversationLoadingBar').remove();
 						sampleConversationRunning = false;
-
 						$submitButton.attr('disabled', 'false');
 						$humanInput.unbind('keydown.notype');
-
+						if(typeof callback === 'function') {
+							callback();
+							return;
+						} else {
+							console.log('callback is not function');
+							console.log(callback);
+						}
 						return;
 					}
 					state.start = 0;
 					$(inputs).val('|');
 					state.currentInput = state.conversationArray[state.conversationArrayIndex];
-					playConversation(state, pauseLength);
+					playConversation(state, pauseLength, callback);
 				}, pauseLength);
 				var chclb = $('#chatBotConversationLoadingBar');
 				if (chclb.size() === 0) {
@@ -398,12 +403,13 @@ var ChatBot = (function($) {
 		getCapabilities: function capabilities(callback) {
 			engines.getCapabilities(callback);
 		},
-		playConversation: function(conversation, pauseLength) {
+		playConversation: function(conversation, pauseLength, callback) {
 			lastBotspeak = 'Welcome to HealthLogic Virtual Assistant services. My name is Ghobot. Whom am I speaking with today?'
 			if (pauseLength === undefined) {
 				pauseLength = 3000;
 			}
 			if (sampleConversationRunning) {
+				console.log('Play is already running');
 				return false;
 			}
 			$(inputs).val('');
@@ -414,7 +420,7 @@ var ChatBot = (function($) {
 				conversationArray: conversation,
 				currentInput: conversation[0]
 			};
-			playConversation(state, pauseLength);
+			playConversation(state, pauseLength, callback);
 			return true;
 		}
 	}
