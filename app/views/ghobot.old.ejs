@@ -9,16 +9,25 @@
 		<div id="chatBotThinkingIndicator"></div>
 	</div>
 	<div style="clear: both;">&nbsp;</div>
-	<div>Suggestions</div>
-	<div id="suggestionsContainer"></div>
-	<div style="clear: both;">&nbsp;</div>
 	<!-- <div id="chatBotCommandDescription"></div> -->
-	<input id="humanInput" type="text" name="search" placeholder="Say something" spellcheck="true"/>
-	<div class="button" onclick="if (!ChatBot.playConversation(sampleConversation,2000)) {alert('conversation already running');};">Play sample conversation!</div>
-	<div class="button" onclick="$('.commandModal').fadeIn();" style="margin-right:10px">How to talk to me</div>
-	<div style="clear: both;">&nbsp;</div>
+	<div class="input-container">
+		<div>Suggestions</div>
+		<div id="suggestionsContainer"></div>
+		<div style="clear: both;">&nbsp;</div>
+		<div id="inputArea" >
+			<input id="humanInput" class="typeahead" type="text" name="search" placeholder="Say something" spellcheck="true"/>
+			<button class="button submit" style="border: none" onclick="triggerSubmit();">Send</button>
+		</div>
+		<div style="clear: both;">&nbsp;</div>
+		<a href="#" class="help-text" onclick="if (!ChatBot.playConversation(sampleConversation,3000)) {alert('conversation already running');};">Sample Conversation</a>
+		<% if (ENV_DEVELOPMENT) { %>
+			<a href="#" class="help-text" onclick="asyncTest();" style="margin-right:10px"> Test </a>
+		<% } %>
+		<a href="#" class="help-text" onclick="$('.commandModal').fadeIn();" style="margin-right:10px">How to talk</a>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
 	<div class="commandModal" onclick="$('.commandModal').fadeOut();">
 		<div id="chatBotCommandDescription"></div>
-	</div
+	</div>
 </div>
 <% include footer_ghobot %>

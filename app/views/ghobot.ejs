@@ -1,7 +1,9 @@
 <% include header %>
+<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="dist/css/chatbot_custom.min.css" />
 <link rel="stylesheet" type="text/css" href="dist/css/chatbot.min.css" />
-<div id="demo">
+
+<div id="demo" class="container">
 
 	<div id="chatBot" style="overflow-y:scroll;">
 
@@ -10,24 +12,30 @@
 	</div>
 	<div style="clear: both;">&nbsp;</div>
 	<!-- <div id="chatBotCommandDescription"></div> -->
-	<div class="input-container">
-		<div>Suggestions</div>
-		<div id="suggestionsContainer"></div>
-		<div style="clear: both;">&nbsp;</div>
-		<div id="inputArea" >
-			<input id="humanInput" class="typeahead" type="text" name="search" placeholder="Say something" spellcheck="true"/>
-			<button class="button submit" style="border: none" onclick="triggerSubmit();">Send</button>
-		</div>
-		<div style="clear: both;">&nbsp;</div>
-		<a href="#" class="help-text" onclick="if (!ChatBot.playConversation(sampleConversation,3000)) {alert('conversation already running');};">Sample Conversation</a>
-		<% if (ENV_DEVELOPMENT) { %>
-			<a href="#" class="help-text" onclick="asyncTest();" style="margin-right:10px"> Test </a>
-		<% } %>
-		<a href="#" class="help-text" onclick="$('.commandModal').fadeIn();" style="margin-right:10px">How to talk</a>
-		<div style="clear: both;">&nbsp;</div>
+	<div class="row">
+		<div class="col-xs-12">Suggestions</div>
+		<div id="suggestionsContainer" class="col-xs-12"></div>
 	</div>
+	<div class="row">
+		<div class="col-xs-8 col-md-10 form-group">
+			<input id="humanInput" class="typeahead form-control" type="text" name="search" placeholder="Say something" spellcheck="true" />
+		</div>
+		<div class="col-xs-4 col-md-2 form-group">
+			<button class="form-control btn button submit" style="border: none" onclick="triggerSubmit();">Send</button>
+		</div>
+	</div>
+
+	<a href="#" class="help-text" onclick="if (!ChatBot.playConversation(sampleConversation,3000)) {alert('conversation already running');};">Sample Conversation</a>
+	<% if (ENV_DEVELOPMENT) { %>
+		<a href="#" class="help-text" onclick="asyncTest();" style="margin-right:10px"> Test </a>
+	<% } %>
+	<a href="#" class="help-text" onclick="$('.commandModal').fadeIn();" style="margin-right:10px">How to talk</a>
+
 	<div class="commandModal" onclick="$('.commandModal').fadeOut();">
 		<div id="chatBotCommandDescription"></div>
 	</div>
 </div>
+
 <% include footer_ghobot %>
+
+<script type="text/javascript" src="/dist/js/bootstrap.min.js"></script>
