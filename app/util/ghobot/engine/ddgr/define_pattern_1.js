@@ -1,4 +1,4 @@
-/* eslint-disable quotes */
+/* eslint-disable quotes, comma-dangle */
 //
 'use strict';
 const Promise =  require('bluebird');
@@ -108,7 +108,7 @@ let DP = (function() {
           cb(true, "Okay, as I understand that you want to reset your password, is this correct?", ["That is correct ", "No "]);
           return;
         }
-        if((matches[1] !== undefined || matches[1] !== null || '' !== matches[1].trim()) && r1.test(matches[1].trim())){
+        if((matches[1] !== undefined || matches[1] !== null || '' !== matches[1].trim()) && r1.test(matches[1].trim())) {
           cb(true, "As I understood, you want help recovering your user id, is this correct?", ["That is correct ", "No "]);
           return;
         }
@@ -308,7 +308,7 @@ let DP = (function() {
     //I would like to reset my password
 
     {
-      "regexp":"(?:Received):\\s(?:(?:(?:I\\s)?(?:(?:would like to|want to)\\s)?)?(?:reset|forgot|lost|recover)\\s(?:my\\s)?(?:password|passcode))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome\. Is there anything else I can help you with\\? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with|(?:(.+\s?)?how can I help you))",
+      "regexp": "(?:Received):\\s(?:(?:(?:(?:I\\s)?(?:(?:would like to|want to|need my password)\\s)?)?(?:reset|forgot|lost|recover)\\s(?:my\\s)?(?:password|passcode))|(?:I need(?: my)? password(?:\\s(?:to be))? (?:reset|recovery|recovered)?)|(?:I need to (?:find|get|recover)(?: my)? password))\\s(?:Entry):\\s(?:(?:(?:Okay)((\\s.+)?)(?:, how can I help you))|You are welcome\. Is there anything else I can help you with\\? If you are finished, you may close that chat window now|I am sorry, I could not understand you, Is there anything, I can help you with|(?:(.+\\s?)?how can I help you))",
       "actionKey": "response",
       "actionValue":"Okay, as I understand that you want to reset your password, is this correct?",
       "callback":

@@ -1,41 +1,45 @@
-// module dependencies
-var dclassify = require('dclassify');
+'use strict';
 
-// Utilities provided by dclassify
-var Classifier = dclassify.Classifier;
-var DataSet    = dclassify.DataSet;
-var Document   = dclassify.Document;
+const natural = require('natural');
+const classifier = new natural.BayesClassifier();
 
-// create some 'bad' test items (name, array of characteristics)
-var item1 = new Document('item1', ['forgot password','lost password','does not remember passsword']);
-var item2 = new Document('item2', ['want help recover password','recover password','reset password']);
-//var item3 = new Document('item3', ['a','d','e']);
+classifier.addDocument(['hi', 'hello', 'howdy', 'hey'], '_greet');
+classifier.addDocument('Thank you', '_thank');
+classifier.addDocument('Thanks a lot', '_thank');
+classifier.addDocument('I need help', '_help');
+classifier.addDocument('I am looking for help', '_help');
 
-// create some 'good' items (name, characteristics)
-var itemA = new Document('itemA', ['forgot username', 'forgot userid']);
-var itemB = new Document('itemB', ['lost username','lost userid']);
-var itemC = new Document('itemC', ['recover username','recover userid','want help retrieve userid']);
+classifier.addDocument('I forgot my password', '_forgot_password');
+classifier.addDocument('I lost my password', '_forgot_password');
+classifier.addDocument('I need to find my password', '_forgot_password');
 
-// create a DataSet and add test items to appropriate categories
-// this is 'curated' data for training
-var data = new DataSet();
-data.add('reset_password',  [item1, item2]);
-data.add('recover_userid', [itemA, itemB, itemC]);
 
-// an optimisation for working with small vocabularies
-var options = {
-    applyInverse: true
-};
+classifier.addDocument('I forgot my user id', '_forgot_userid');
+classifier.addDocument('I lost my user id', '_forgot_userid');
+classifier.addDocument('I need to find my user id', '_forgot_userid');
 
-// create a classifier
-var classifier = new Classifier(options);
+classifier.addDocument(['trouble', 'log in', 'forgot', 'credential'], '_forgot_userid_password');
 
-// train the classifier
-classifier.train(data);
-console.log('Classifier trained.');
-//console.log(JSON.stringify(classifier.probabilities, null, 4));
+classifier.addDocument(['no', 'nope', 'neah', 'never', 'incorrect', 'that is not right', 'not correct'], '_negetive');
+classifier.addDocument(['yes', 'yep', 'yeah', 'yeh', 'correct', 'right'], '_positive');
 
-// test the classifier on a new test item
-var testDoc = new Document('testDoc', ['forgot', 'password']);
-var result1 = classifier.classify(testDoc);
-console.log(result1);
+classifier.addDocument('My user id is', 'provide_userid');
+classifier.addDocument('My user name is', 'provide_userid');
+classifier.addDocument('here is my user id', 'provide_userid');
+classifier.addDocument('here is my user name', 'provide_userid');
+
+classifier.addDocument('My email id is', 'provide_email');
+classifier.addDocument('My email address is', 'provide_email');
+classifier.addDocument('here is my email', 'provide_email');
+classifier.addDocument('here is email', 'provide_email');
+
+classifier.addDocument(['bye', 'talk to you later', 'ttyl'], '_end');
+classifier.addDocument('It was very nice talking to you', '_end');
+
+
+classifier.train();
+
+let text = 'Since yerterday, I could not log in';
+console.log(classifier.classify(text));
+console.log(classifier.getClassifications(text));
+// console.log(text.tokenizeAndStem());

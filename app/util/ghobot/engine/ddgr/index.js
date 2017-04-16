@@ -1,27 +1,23 @@
 'use strict';
 
-const events = require('events');
 const EventEmitter = require('events').EventEmitter;
 const Pfile = require('./pfile');
 const ddgr = Pfile.exec();
+const classifier = require('./classifier').new();
 
 // const winston = require('winston');
 // const console = {};
 // console.log = winston.info;
 
-let Engine = (function () {
+let Engine = (function() {
 
 	let patterns = ddgr.getAll();
-
-
-
-	const _act = (text, callback) => {
-
-		//console.log(patterns);
-		let response = null; //if no match, response will be null
+	const _act = (text, callback, timer) => {
+		// console.log(patterns);
+		let response = null; // if no match, response will be null
 		let suggestion = null;
 		let matches = null;
-		let err = null; //needs to implement error handling
+		let err = null; // needs to implement error handling
 		let data = {};
 		data.DefinitionSource = null;
 		data.AbstractText = '';
@@ -31,21 +27,19 @@ let Engine = (function () {
 		topic.FirstURL = null;
 		topic.Text = null;
 
-		//console.log(text);
-		//console.log(patterns);
+		// console.log(text);
+		// console.log(patterns);
 		for (let i = 0; i < patterns.length; i++) {
 				let pattern = patterns[i];
 				try{
 					let r = new RegExp(pattern.regexp, "i");
 					matches = text.match(r);
+				} catch(e) {
+					console.log('DDGR/index ===> Error at tex: ', text, e);
 				}
-				catch(e){
-					console.log(e);
-				}
-
-				//console.log('matches ===>', matches);
+				// console.log('matches ===>', matches);
 				if (matches) {
-					//console.log('inside matches ===>', matches, pattern, i);
+					// console.log('inside matches ===>', matches, pattern, i);
 					data.DefinitionSource = 'Dic';
 					data.AbstractText = '';
 					response = pattern.actionValue;
@@ -54,17 +48,17 @@ let Engine = (function () {
 							for (let j = 1; j < matches.length; j++) {
 									response = response.replace("$" + j, matches[j]);
 							}
-							//console.log(response);
+							// console.log(response);
 							// topic.Result = response;
 							// topic.Text = suggestion;
 							// data.RelatedTopics.push(topic);
-							//callback(err,data);
+							// callback(err,data);
 					}
 					if (pattern.callback instanceof Function) {
 
-							//console.log('Calling callback function');
-							pattern.callback.call(this,matches, function(overrider, text, sugg){
-								//console.log('calling internal callback()');
+							// console.log('Calling callback function');
+							pattern.callback.call(this, matches, function(overrider, text, sugg){
+								// console.log('calling internal callback()');
 								if(overrider) {
 									if(text !== ''){
 										topic.Result = text;
@@ -75,17 +69,17 @@ let Engine = (function () {
 									callback(undefined, data)
 								}
 								else{
-									//console.log('I should be here', text, sugg);
+									// console.log('I should be here', text, sugg);
 									topic.Result = response;
 									topic.Text = suggestion;
 									data.RelatedTopics.push(topic);
 									console.log(data);
-									callback(undefined,data);
+									callback(undefined, data);
 								}
 							});
 					}
 					else{
-						callback(err,data);
+						callback(err, data);
 					}
 					break;
 
@@ -97,8 +91,16 @@ let Engine = (function () {
 		}
 
 		if(!matches) {
-			console.error('No Match found');
-			callback(err, data);
+			if(!timer) {
+				console.log('Classifier classified ===>', classifier.identify(text.toLowerCase()));
+				console.log('Classifier modifieReceived ===>', classifier.reply(text.toLowerCase()));
+				let modifiedText = classifier.reply(text.toLowerCase());
+				_act(modifiedText, callback, true);
+			} else{
+				console.error('No Match found');
+				callback(err, data);
+			}
+
 		}
 
 	}

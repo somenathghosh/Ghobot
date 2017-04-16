@@ -32,6 +32,7 @@
     "method-override": "2.3.0",
     "mongoose": "4.1.2",
     "morgan": "1.6.1",
+    "natural": "0.5.1",
     "node-cache": "4.1.1",
     "randomstring": "1.1.5",
     "request": "2.81.0",
