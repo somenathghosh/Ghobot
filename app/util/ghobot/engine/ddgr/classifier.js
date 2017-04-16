@@ -5,7 +5,6 @@ const natural = require('natural');
 const classifier = new natural.BayesClassifier();
 // const stemmer = natural.LancasterStemmer;
 // stemmer.attach();
-
 /**
  * [description]
  * @method
