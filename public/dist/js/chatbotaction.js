@@ -1,37 +1,43 @@
-/* eslint-disable quotes */
-//  extra_tags = This is a cool function, @author Somenath Ghosh, @version ${1:[version]}
+/* eslint-disable quotes, camelcase */
+'use strict';
+
+/**
+ * [sampleConversation Sample Conversation attachment container]
+ * @type {Array}
+ */
+let sampleConversation;
 /**
  * [sampleConversation_passoword_reset_positive_test description]
  * @type {Array}
  */
-
-'use strict';
-//  This var is referred inside chatbot.js for play. Utilize this for testing.
-var sampleConversation;
-
-var sampleConversation_passoword_reset_positive_test = [
+let sampleConversation_passoword_reset_positive_test = [
     // Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
-    "my name is Somenath Ghosh",
+    "My name is Somenath Ghosh",
     // Just for confirmation, am I speaking with Somenath ?
     "Yes",
     // Okay Somenath, how can I help you?
-    "forgot my password",
+    "I forgot my password",
     // Okay, as I understand that you want to reset your password, right?
-    "right",
+    "That is correct.",
     // Okay, I can help with that. Before that, for verification purpose, can you please provide your user id
     "My user id is somenath.ghosh",
     // Just for confirmation, your user id is somenath.ghosh@tcs.com ,right?
-    "correct",
+    "That is correct!",
     // To recieve the temporary password in your registered email address, can you please provide your email address?
-    "somenath.ghosh@tcs.com",
+    "My email address is somenath.ghosh@tcs.com",
     // Just for confirmation, you said somenath.ghosh@tcs.com, correct?
-    "Yep",
+    "Yes",
     // You will recieve your temporary password at the provided email address. Thanks for availing bot services!
     "Thanks!",
     "bye"
 ];
 
-var sampleConversation_passoword_reset_negetive_test = [
+/**
+ * [sampleConversation_passoword_reset_negetive_test description]
+ * @type {Array}
+ */
+
+let sampleConversation_passoword_reset_negetive_test = [
     // Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
     "my name is Somenaht",
     // Just for confirmation, am I speaking with Somenaht ?
@@ -65,8 +71,12 @@ var sampleConversation_passoword_reset_negetive_test = [
     "bye"
 ];
 
+/**
+ * [sampleConversation_passoword_reset_negetive_test_invalid_email description]
+ * @type {Array}
+ */
 
-var sampleConversation_passoword_reset_negetive_test_invalid_email = [
+let sampleConversation_passoword_reset_negetive_test_invalid_email = [
     // Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
     "my name is Somenaht",
     // Just for confirmation, am I speaking with Somenaht ?
@@ -100,7 +110,12 @@ var sampleConversation_passoword_reset_negetive_test_invalid_email = [
     "bye"
 ];
 
-var sampleConversation_recover_user_id_positive_test = [
+/**
+ * [sampleConversation_recover_user_id_positive_test description]
+ * @type {Array}
+ */
+
+let sampleConversation_recover_user_id_positive_test = [
     // Welcome to HL bot services. My name is Ghobot. Whom am I speaking with today?
     "my name is Somenath Ghosh",
     // Just for confirmation, am I speaking with Somenath ?
@@ -117,7 +132,11 @@ var sampleConversation_recover_user_id_positive_test = [
     "bye"
 ];
 
-var sampleConversation_user_id_recover_negetive_test_invalid_email = [
+/**
+ * [sampleConversation_user_id_recover_negetive_test_invalid_email description]
+ * @type {Array}
+ */
+let sampleConversation_user_id_recover_negetive_test_invalid_email = [
     // Welcome to HealthLogic Virtual Assistant services. My name is Ghobot. Whom am I speaking with today?
     "who are you?" ,
     // I can help you with that in a min. Before that, please say your name.
@@ -154,8 +173,12 @@ var sampleConversation_user_id_recover_negetive_test_invalid_email = [
 ];
 
 
-// Test container
-sampleConversation = sampleConversation_user_id_recover_negetive_test_invalid_email;
+/**
+ * [sampleConversation Test container to be attached to Html for Sample Conversation]
+ * @type {Array}
+ */
+sampleConversation = sampleConversation_passoword_reset_positive_test;
+
 
 /**
  * [executeTasks Async ]
@@ -169,15 +192,15 @@ sampleConversation = sampleConversation_user_id_recover_negetive_test_invalid_em
 function async() {
     return {
         series: function() {
-            var tasks = Array.prototype.concat.apply([], arguments);
-            var task = tasks.shift();
+            let tasks = Array.prototype.concat.apply([], arguments);
+            let task = tasks.shift();
             task(function() {
                 if(tasks.length > 0)
                     async().series.apply(this, tasks);
             });
         },
         parallel: function() {
-            var tasks = Array.prototype.concat.apply([], arguments);
+            let tasks = Array.prototype.concat.apply([], arguments);
             tasks.forEach(function(ele, index) {
                 ele(function() {
 
@@ -218,6 +241,9 @@ function asyncTest() {
         function t5(callback) {
             console.log('Running Test ' + 5);
             ChatBot.playConversation(sampleConversation_user_id_recover_negetive_test_invalid_email, 3000, callback);
+        },
+        function end(callback) {
+            console.log('Tests End');
         }
     );
 }
@@ -227,17 +253,17 @@ function asyncTest() {
  * @type {Object}
  */
 
-var config = {
-    botName: 'Ghobot',
-    inputs: '#humanInput',
-    inputCapabilityListing: true,
-    engines: ChatBot.Engines.ghobot(),
-    addChatEntryCallback: function(entryDiv, text, suggestion, origin) {
+let config = {
+    botName: 'Ghobot', // default name, you can set it by using setBotName method later any point of time.
+    inputs: '#humanInput', // input field attachment
+    inputCapabilityListing: false, // Make it true if you want to attach the capabilities to the input field
+    engines: ChatBot.Engines.ghobot(), // Single Client Engines. Can be extended.
+    addChatEntryCallback: function(entryDiv, text, suggestion, origin) { // How do you want your chat entry animation done
         entryDiv.delay(200).slideDown();
     }
 };
-ChatBot.init(config);
-ChatBot.setBotName("Ghobot");
+ChatBot.init(config); // initialize bot client.
+ChatBot.setBotName("Ghobot"); // Set name to the bot which will be displayed on screen.
 
 // ********************************************************************************************************************
 // Trying to use HTML5's Speech to Text feature. The below code is not working. Need to debug.
@@ -245,15 +271,14 @@ ChatBot.setBotName("Ghobot");
 // ********************************************************************************************************************
 
 (function(){
-
-  var final_transcript = '';
-  var recognizing = false;
-  var last10messages = []; // to be populated later
+  let final_transcript = '';
+  let recognizing = false;
+  let last10messages = []; // to be populated later
 
   if (!('webkitSpeechRecognition' in window)) {
     console.log("webkitSpeechRecognition is not available");
   } else {
-    var recognition = new webkitSpeechRecognition();
+    let recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
 
@@ -262,8 +287,8 @@ ChatBot.setBotName("Ghobot");
     };
 
     recognition.onresult = function(event) {
-      var interim_transcript = '';
-      for (var i = event.resultIndex; i < event.results.length; ++i) {
+      let interim_transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
           final_transcript += event.results[i][0].transcript;
           $('#humanInput').addClass("final");

@@ -1,12 +1,7 @@
 <% include header %>
-<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="dist/css/chatbot_custom.min.css" />
-<link rel="stylesheet" type="text/css" href="dist/css/chatbot.min.css" />
 
 <div id="demo" class="container">
-
 	<div id="chatBot" style="overflow-y:scroll;">
-
 		<div id="chatBotHistory"></div>
 		<div id="chatBotThinkingIndicator"></div>
 	</div>
@@ -16,7 +11,7 @@
 		<div class="col-xs-12">Suggestions</div>
 		<div id="suggestionsContainer" class="col-xs-12"></div>
 	</div>
-	<div class="row">
+	<div class="row inputArea" >
 		<div class="col-xs-8 col-md-10 form-group">
 			<input id="humanInput" class="typeahead form-control" type="text" name="search" placeholder="Say something" spellcheck="true" />
 		</div>
@@ -24,18 +19,14 @@
 			<button class="form-control btn button submit" style="border: none" onclick="triggerSubmit();">Send</button>
 		</div>
 	</div>
-
 	<a href="#" class="help-text" onclick="if (!ChatBot.playConversation(sampleConversation,3000)) {alert('conversation already running');};">Sample Conversation</a>
 	<% if (ENV_DEVELOPMENT) { %>
-		<a href="#" class="help-text" onclick="asyncTest();" style="margin-right:10px"> Test </a>
+	<a href="#" class="help-text" onclick="asyncTest();" style="margin-right:10px"> Test </a>
 	<% } %>
 	<a href="#" class="help-text" onclick="$('.commandModal').fadeIn();" style="margin-right:10px">How to talk</a>
-
 	<div class="commandModal" onclick="$('.commandModal').fadeOut();">
 		<div id="chatBotCommandDescription"></div>
 	</div>
 </div>
 
 <% include footer_ghobot %>
-
-<script type="text/javascript" src="/dist/js/bootstrap.min.js"></script>

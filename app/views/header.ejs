@@ -22,14 +22,45 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<title><% title %></title>
+		<!-- ****************************************************************************************** -->
 		<!-- Font Awesome -->
-		<link rel="stylesheet" href="components/components-font-awesome/css/font-awesome.min.css">
-		<!-- Bootstrap core CSS -->
-		<link href="components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="/components/components-font-awesome/css/font-awesome.min.css">
+
+		<!-- ****************************************************************************************** -->
 		<!-- Material Design Bootstrap -->
-		<link href="components/MDBootstrap/css/mdb.min.css" rel="stylesheet">
+		<link href="/components/MDBootstrap/css/mdb.min.css" rel="stylesheet">
+
+		<!-- ****************************************************************************************** -->
+		<!-- Chatbot CSS -->
+		<% if (ENV_DEVELOPMENT) { %>
+		<link rel="stylesheet" type="text/css" href="/dist/css/chatbot.css" />
+		<% } %>
+		<% if (ENV_PRODUCTION) { %>
+		<link rel="stylesheet" type="text/css" href="/dist/css/chatbot.min.css" />
+		<% } %>
+
+		<!-- ****************************************************************************************** -->
+		<!-- Bootstrap core CSS -->
+		<link href="/components/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+		<!-- ****************************************************************************************** -->
+		<!-- Chatbot Custom CSS/Overrider -->
+		<% if (ENV_DEVELOPMENT) { %>
+		<link rel="stylesheet" type="text/css" href="/dist/css/chatbot_custom.css" />
+		<% } %>
+		<% if (ENV_PRODUCTION) { %>
+		<link rel="stylesheet" type="text/css" href="/dist/css/chatbot_custom.min.css" />
+		<% } %>
+
+		<!-- ****************************************************************************************** -->
 		<!-- Custom Template styles -->
-		<link href="dist/css/style.min.css" rel="stylesheet">
+		<% if (ENV_DEVELOPMENT) { %>
+		<link href="/dist/css/style.css" type="text/css" rel="stylesheet">
+		<% } %>
+		<% if (ENV_PRODUCTION) { %>
+		<link href="/dist/css/style.min.css" type="text/css" rel="stylesheet">
+		<% } %>
+
 		<% if (ENV_DEVELOPMENT) { %>
 		<script src="http://localhost:35729/livereload.js"></script>
 		<% } %>
