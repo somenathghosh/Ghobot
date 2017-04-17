@@ -28,6 +28,7 @@ let Classifier = (function() {
     '_positive': "Yes",
     '_negetive': "No",
     '_end': "Bye",
+    '_forgot_userid_password': "I need help",
   };
 
   let _train = () =>{
@@ -40,16 +41,24 @@ let Classifier = (function() {
     classifier.addDocument('i forgot my password', '_forgot_password');
     classifier.addDocument('i lost my password', '_forgot_password');
     classifier.addDocument('i need to find my password', '_forgot_password');
+    classifier.addDocument('I have troble in logging in using my password', '_forgot_password');
 
 
     classifier.addDocument('i forgot my user id', '_forgot_userid');
     classifier.addDocument('i lost my user id', '_forgot_userid');
     classifier.addDocument('i need to find my user id', '_forgot_userid');
+    classifier.addDocument('I have troble in logging in using my user id', '_forgot_password');
 
-    classifier.addDocument(['trouble', 'log in', 'forgot', 'credential'], '_forgot_userid_password');
+    classifier.addDocument('I am not able to log in', '_forgot_userid_password');
+    classifier.addDocument('I am having trouble logging in', '_forgot_userid_password');
+    classifier.addDocument('I forgot my credential', '_forgot_userid_password');
 
-    classifier.addDocument(['no', 'nope', 'neah', 'never', 'incorrect', 'that is not right', 'not correct', 'lie'], '_negetive');
-    classifier.addDocument(['yes', 'yep', 'yeah', 'yeh', 'correct', 'right', 'true', 'truth'], '_positive');
+    classifier.addDocument('That is incorrect', '_negetive');
+    classifier.addDocument('That is not correct', '_negetive');
+
+    classifier.addDocument('That is correct', '_positive');
+    classifier.addDocument('That is right', '_positive');
+    classifier.addDocument('You are correct', '_positive')
 
     classifier.addDocument('my name is somenath Ghosh', '_name');
     classifier.addDocument('i am brandon rodenmayer', '_name');
