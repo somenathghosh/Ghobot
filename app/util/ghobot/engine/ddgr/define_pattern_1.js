@@ -558,7 +558,7 @@ let DP = (function() {
     {
       "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:(?:email|It)(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?((?:.+?)(?:@)?(?:.+?))\\s(?:Entry):\\s(?:I will send your user ID to the email address I have on file. For verification, what is your email address|what is the correct email address)",
       "actionKey": "response",
-      "actionValue":"Just for confirmation, you said $1, correct? ",
+      "actionValue":"Just for confirmation, you mentioned $1, correct? ",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -585,7 +585,7 @@ let DP = (function() {
     {
       "regexp":"(?:Received):\\s(?:(?:.+?)?(?:(?:(?:email|It)(?:\\s)(?:id|address)?)(?:(?:\\s)?(?:is\\s|=|:)?(?:\\s)?)?))?(?:\\s)?((?:.+?)(?:@)?(?:.+?))\\s(?:Entry):\\s(?:You will be receiving the temporary password in your registered email address. For verification,can you please provide your email address|what is your correct email address)",
       "actionKey": "response",
-      "actionValue":"Just for confirmation, you mentioned $1, correct? ",
+      "actionValue":"Just for confirmation, you said $1, correct? ",
       "callback":
       function(matches,cb) {
         'use strict';
