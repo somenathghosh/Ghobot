@@ -268,38 +268,45 @@ ChatBot.setBotName("Ghobot"); // Set name to the bot which will be displayed on 
 // Trying to use HTML5's Speech to Text feature. The below code is not working. Need to debug.
 // For fix, Ref: https:// github.com/GoogleChrome/webplatform-samples/blob/master/webspeechdemo/webspeechdemo.html
 // ********************************************************************************************************************
-
 (function() {
-  var final_transcript = '';
-  var recognizing = false;
-  var last10messages = []; // to be populated later
+  var listener = new webspeech.Listener();
+  listener.listen("en", function(text) {
+    document.getElementById("humanInput").value = text;
+  });
+})();
 
-  if (!('webkitSpeechRecognition' in window)) {
-    console.log("webkitSpeechRecognition is not available");
-  } else {
-    var recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
 
-    recognition.onstart = function() {
-      recognizing = true;
-    };
-
-    recognition.onresult = function(event) {
-      var interim_transcript = '';
-      for (var i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-          final_transcript += event.results[i][0].transcript;
-          $('#humanInput').addClass("final");
-          $('#humanInput').removeClass("interim");
-        } else {
-          interim_transcript += event.results[i][0].transcript;
-          $("#humanInput").val(interim_transcript);
-          $('#humanInput').addClass("interim");
-          $('#humanInput').removeClass("final");
-        }
-      }
-      $("#humanInput").val(final_transcript);
-      };
-    }
-  })();
+// (function() {
+//   var final_transcript = '';
+//   var recognizing = false;
+//   var last10messages = []; // to be populated later
+//
+//   if (!('webkitSpeechRecognition' in window)) {
+//     console.log("webkitSpeechRecognition is not available");
+//   } else {
+//     var recognition = new webkitSpeechRecognition();
+//     recognition.continuous = true;
+//     recognition.interimResults = true;
+//
+//     recognition.onstart = function() {
+//       recognizing = true;
+//     };
+//
+//     recognition.onresult = function(event) {
+//       var interim_transcript = '';
+//       for (var i = event.resultIndex; i < event.results.length; ++i) {
+//         if (event.results[i].isFinal) {
+//           final_transcript += event.results[i][0].transcript;
+//           $('#humanInput').addClass("final");
+//           $('#humanInput').removeClass("interim");
+//         } else {
+//           interim_transcript += event.results[i][0].transcript;
+//           $("#humanInput").val(interim_transcript);
+//           $('#humanInput').addClass("interim");
+//           $('#humanInput').removeClass("final");
+//         }
+//       }
+//       $("#humanInput").val(final_transcript);
+//       };
+//     }
+//   })();

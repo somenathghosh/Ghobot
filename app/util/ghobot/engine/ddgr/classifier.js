@@ -11,7 +11,7 @@ const classifier = new natural.BayesClassifier();
  * @return  {[type]}   [description]
  * This is a function
  * @author Somenath Ghosh
- * @version [version]
+ * @version [0.1.1]
  * @date    2017-04-16
  */
 let Classifier = (function() {
@@ -57,6 +57,7 @@ let Classifier = (function() {
     classifier.addDocument('That is not correct', '_negetive');
 
     classifier.addDocument('That is correct', '_positive');
+    classifier.addDocument('Sure', '_positive');
     classifier.addDocument('That is right', '_positive');
     classifier.addDocument('You are correct', '_positive')
 
