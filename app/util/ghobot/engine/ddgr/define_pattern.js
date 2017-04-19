@@ -53,7 +53,7 @@ let DP = (function(){
     if(email.toLowerCase().trim() === 'somenath.ghosh@tcs.com'){
       return true;
     }
-    else if (email.toLowerCase().trim() === 'brandon.g.rodenmayer@tcs.com') {
+    else if (email.toLowerCase().trim() === 'brandon.rodenmayer@tcs.com') {
       return true;
     }
     else {
@@ -182,7 +182,7 @@ let DP = (function(){
     {
       "regexp":"^(?:I do not remember the email address|recollect the email address|I would like to register my email address|I want help on retrieving my email)(.*)$",
       "actionKey": "response",
-      "actionValue":"I am sorry. I would not be able to help you further.You need to call Support for further assistance.",
+      "actionValue":"I am sorry. I would not be able to help you further. You need to call Support for further assistance.",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -200,7 +200,7 @@ let DP = (function(){
     {
       "regexp":"(?:agent|talk to a human|talk to customer care|I need to talk to an agent|I need to talk to a person)(.*)$",
       "actionKey": "response",
-      "actionValue":"Sure, I would get you connected to an agent. Please bear with me for few secs before I find one.",
+      "actionValue":"Sure, I would get you connected to an agent. Please bear with me for few seconds before I find one.",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -218,7 +218,7 @@ let DP = (function(){
     {
       "regexp":"(?:I would like to get customer care number| customer care number)$",
       "actionKey": "response",
-      "actionValue":"Sure, Please call 1-800-Support, We are available from 8 AM - 5 PM evey weekdays excluding Bank holidays.",
+      "actionValue":"Sure, please call 1-800-Support, We are available from 8 AM - 5 PM evey weekdays excluding Bank holidays.",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -249,7 +249,7 @@ let DP = (function(){
     {
       "regexp":"^(?:hi|hello|howdy|howdy my friend|howdy friend|hey|hey friend|hey buddy)(.*)",
       "actionKey": "response",
-      "actionValue":"hello, how are you doing?",
+      "actionValue":"Hello, how are you doing?",
       "callback":
       function(matches,cb) {
         'use strict';
@@ -265,7 +265,7 @@ let DP = (function(){
     {
       "regexp":"(?:(?:I am fine)|(?:(?:fine))|(?:(?:am fine))|(?:(?:I am just doing fine))|(?:(?:doing ok)))",
       "actionKey": "response",
-      "actionValue":"Okay, what can I help you with? I can reset your password, retrive your userid if you forgot or register your email address",
+      "actionValue":"Okay, what can I help you with? I can reset your password, retrive your userid if you forgot or register your email address.",
       "callback":
       function(matches,cb) {
         'use strict';
