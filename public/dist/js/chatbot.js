@@ -456,10 +456,13 @@ var ChatBot = (function($) {
  */
 function useSuggestedTag(text) {
 	$('#humanInput').val(text).fadeIn();
+	$(".typeahead").val(text).trigger("input");
+
 	$('#humanInput').focus();
 	//  TODO: Automatically play tag?
 }
 
+// Resize height when the window changes
 $(window).resize(function() {
 	// $('#demo').css('heigt', 'calc(100%-40px)');
 	$('#demo').height($(window).height() - 120);
