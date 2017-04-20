@@ -1,26 +1,11 @@
 'use strict';
 
 const express 	= require('express');
-const  config 	= require('./config/config');
-const  glob 	= require('glob');
-//const  mongoose = require('mongoose');
-const process = require('process');
+const config 	= require('./config/config');
+// const  glob 	= require('glob');
+// const  mongoose = require('mongoose');
 const cleanup = require('./gracefullShutdown');
 const app = express();
-
-
-//Test
-// let BOT = require('./app/util/ghobot');
-//
-// let ghobot = new BOT('Ghobot');
-//
-// ghobot.talk('I would like to reset Password', function (err, data) {
-//   console.log(err, data);
-// })
-
-//console.log(engine.capabilities());
-
-//Test n
 
 // try {
 //   mongoose.connect(config.db);
@@ -38,8 +23,9 @@ const app = express();
 //   console.log(err);
 // }
 
-app.listen(config.port, function () {
+app.listen(config.port, function() {
   console.log('Express server listening on port ' + config.port);
+  cleanup.watch();
 });
 
 module.exports = require('./config/express')(app, config);

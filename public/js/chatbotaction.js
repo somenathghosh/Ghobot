@@ -241,7 +241,7 @@ function asyncTest() {
             console.log('Running Test ' + 5);
             ChatBot.playConversation(sampleConversation_user_id_recover_negetive_test_invalid_email, 3000, callback);
         },
-        function end(callback) {
+        function done(callback) {
             console.log('Tests End');
         }
     );
@@ -271,7 +271,8 @@ ChatBot.setBotName("Ghobot"); // Set name to the bot which will be displayed on 
 (function() {
   var listener = new webspeech.Listener();
   listener.listen("en", function(text) {
-    document.getElementById("humanInput").value = text;
+    $("#humanInput").val(text);
+    $('#humanInput').focus();
   });
 })();
 

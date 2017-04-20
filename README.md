@@ -4,7 +4,7 @@
 
 <a href="https://dev.ghost.org/lts"><img src="https://cloud.githubusercontent.com/assets/120485/18661856/0930282e-7f18-11e6-948a-00546393fd93.png" alt="Warning: Major release in progress. Expect things to be broken in master." /></a>
 
-The project is maintained by **Somenath Ghosh**, along with an amazing colleague Brandon Rodenmayer
+The project is maintained by **Somenath Ghosh**, along with an amazing colleague Brandon Rodenmayer.
 
 
 &nbsp;
@@ -18,7 +18,7 @@ Install and run Ghobot.
 <b>npm install</b>
     To install all dependecies
 <b>gulp</b>
-    Running all tasks and watch tasks
+    Running all tasks, watch tasks and run nodemon server.
 <b>clear && PORT=3000 npm start</b>
     Starts the express server
 </pre>
@@ -32,15 +32,13 @@ gulp test
 
 # Deploying Ghobot
 Anywhere. I am using Heroku.
-
-
+For Demo - http://hl-bot.herokuapp.com
 
 &nbsp;
 
 
 # How does Ghobot work
-//TODO
-
+Ghobot is fueled with RegEx engine along with NLP.  
 
 &nbsp;
 
@@ -49,7 +47,7 @@ Anywhere. I am using Heroku.
 
 MIT License
 
-Copyright (c) 2017 somenathghosh
+Copyright (c) 2017 Somenath Ghosh
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
